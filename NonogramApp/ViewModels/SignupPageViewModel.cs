@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace NonogramApp.Services
+namespace NonogramApp.ViewModels
 {
-    public class NonogramService
+    public class SignupPageViewModel
     {
     }
 }
