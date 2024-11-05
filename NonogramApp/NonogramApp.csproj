@@ -57,6 +57,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\loginbg.png" />
 	  <None Remove="Resources\Images\pixilartdrawing.png" />
 	  <None Remove="Resources\Images\pond.png" />
 	</ItemGroup>
