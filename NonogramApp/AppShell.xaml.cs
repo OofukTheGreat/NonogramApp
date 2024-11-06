@@ -7,6 +7,7 @@ namespace NonogramApp
         public AppShell()
         {
             Routing.RegisterRoute("Login", typeof(LoginPage));
+            Routing.RegisterRoute("Signup", typeof(SignupPage));
             InitializeComponent();
         }
     }

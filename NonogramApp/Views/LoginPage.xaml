@@ -45,7 +45,7 @@
             <Label.FormattedText>
                 <FormattedString>
                     <Span Text=" Don't have an account yet? " TextColor="Gray" FontAttributes="Bold" FontSize="15"/>
-                    <Span Text="Sign up here" TextColor="Red" FontSize="15" FontAttributes="Bold"/>
+                    <Span Text="Sign up here" TextColor="Gold" FontSize="15" FontAttributes="Bold"/>
                 </FormattedString>
             </Label.FormattedText>
         </Label>

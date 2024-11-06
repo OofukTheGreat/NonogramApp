@@ -18,6 +18,8 @@ namespace NonogramApp
                 });
             builder.Services.AddSingleton<LoginPage> ();
             builder.Services.AddSingleton<LoginPageViewModel>();
+            builder.Services.AddSingleton<SignupPage> ();
+            builder.Services.AddSingleton<SignupPageViewModel>();
 
 #if DEBUG
             builder.Logging.AddDebug();
