@@ -1,4 +1,4 @@
-﻿namespace NonogramApp.Models
+﻿namespace AppServer.Models
 {
     public class CreatedLevelsDTO
     {

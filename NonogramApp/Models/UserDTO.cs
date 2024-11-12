@@ -1,4 +1,4 @@
-﻿namespace AppServer.DTO
+﻿namespace NonogramApp.Models
 {
     public class UserDTO
     {
