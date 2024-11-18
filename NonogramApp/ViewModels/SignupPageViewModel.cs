@@ -27,12 +27,12 @@ namespace NonogramApp.ViewModels
         private readonly IServiceProvider serviceProvider;
 
         // הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
-        private NonogramService api_service;
+        private NonogramService service;
 
 
-        public SignupPageViewModel(NonogramService api_service, IServiceProvider serviceProvider)
+        public SignupPageViewModel(NonogramService service, IServiceProvider serviceProvider)
         {
-            this.api_service = api_service;
+            this.service = service;
             RegistrationCommand = new Command(Register);
             this.serviceProvider = serviceProvider;
 
@@ -142,7 +142,6 @@ namespace NonogramApp.ViewModels
             return hasUpperCase && hasDigit;
 
         }
-
         public string Password_Error
         {
             get { return password_error; }
@@ -151,19 +150,6 @@ namespace NonogramApp.ViewModels
                 password_error = value;
                 OnPropertyChanged(nameof(Password_Error));
                 //OnPropertyChanged(nameof(CanRegister));
-            }
-        }
-
-        public string User_Type
-        {
-            get
-            {
-                return user_type;
-            }
-            set
-            {
-                user_type = value;
-                OnPropertyChanged(nameof(User_Type));
             }
         }
         public ICommand RegistrationCommand
