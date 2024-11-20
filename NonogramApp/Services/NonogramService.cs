@@ -25,7 +25,7 @@ namespace NonogramApp.Services
 
         #region with tunnel
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
-        private static string serverIP = "3zr245ps-5110.euw.devtunnels.ms";
+        private static string serverIP = "392l39p9-5068.euw.devtunnels.ms";
         private HttpClient client;
         private string baseUrl;
         public static string BaseAddress = "https://392l39p9-5068.euw.devtunnels.ms/api/";
