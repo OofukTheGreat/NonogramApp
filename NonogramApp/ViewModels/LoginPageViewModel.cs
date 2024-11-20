@@ -45,7 +45,7 @@ public class LoginPageViewModel : ViewModelBase
         InServerCall = true;
         ErrorMsg = "";
         //Call the server to login
-        LoginInfo loginInfo = new LoginInfo { Email = Email, Password = Password };
+        LoginInfo loginInfo = new LoginInfo { Email = this.Email, Password = this.Password };
         PlayerDTO? u = await this.service.LoginAsync(loginInfo);
 
         InServerCall = false;
@@ -54,11 +54,11 @@ public class LoginPageViewModel : ViewModelBase
         ((App)Application.Current).LoggedInUser = u;
         if (u == null)
         {
-            ErrorMsg = "Invalid email or password";
+             ErrorMsg = "Email and password do not match";
         }
         else
         {
-            ErrorMsg = "";
+            ErrorMsg = "amogus";
             //Navigate to the main page
             AppShell shell = serviceProvider.GetService<AppShell>();
             //((App)Application.Current).MainPage = shell;

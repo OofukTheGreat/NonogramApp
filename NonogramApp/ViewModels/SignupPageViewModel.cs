@@ -16,6 +16,14 @@ namespace NonogramApp.ViewModels
 {
     public class SignupPageViewModel:ViewModelBase
     {
+        private NonogramService service;
+        private readonly IServiceProvider serviceProvider;
+        public SignupPageViewModel(NonogramService service, IServiceProvider serviceProvider)
+        {
+            this.service = service;
+            RegistrationCommand = new Command(Register);
+            this.serviceProvider = serviceProvider;
+        }
         private string displayName;
         private int? userId { get; set; }
         private string? nameError;
@@ -24,20 +32,8 @@ namespace NonogramApp.ViewModels
         private string? password_error;
         private string user_type;
         private byte[] profilePicture;
-        private readonly IServiceProvider serviceProvider;
-
         // הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
-        private NonogramService service;
 
-
-        public SignupPageViewModel(NonogramService service, IServiceProvider serviceProvider)
-        {
-            this.service = service;
-            RegistrationCommand = new Command(Register);
-            this.serviceProvider = serviceProvider;
-
-
-        }
 
         public string DisplayName
         {
