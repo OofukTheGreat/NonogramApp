@@ -11,6 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using NonogramApp.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
+using static Java.Util.Jar.Attributes;
 
 namespace NonogramApp.ViewModels
 {
@@ -21,7 +22,8 @@ namespace NonogramApp.ViewModels
         public SignupPageViewModel(NonogramService service, IServiceProvider serviceProvider)
         {
             this.service = service;
-            RegistrationCommand = new Command(Register);
+            RegistrationCommand = new Command(Signup);
+            CancelCommand = new Command(OnCancel);
             this.serviceProvider = serviceProvider;
         }
         private string displayName;
@@ -33,8 +35,8 @@ namespace NonogramApp.ViewModels
         private string user_type;
         private byte[] profilePicture;
         // הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
-
-
+        public ICommand CancelCommand { get; set; }
+        public ICommand SignupCommand { get; set; }
         public string DisplayName
         {
             get
@@ -47,20 +49,16 @@ namespace NonogramApp.ViewModels
                 NameError = ""; // איפוס שגיאת שם המשתמש
                 OnPropertyChanged(nameof(DisplayName));
                 // בדיקת תקינות שם המשתמש
-
                 if (!string.IsNullOrEmpty(DisplayName))
-
                 {
                     if (char.IsDigit(DisplayName[0]))
                     {
                         NameError = "Display name can't start with a number";
                         OnPropertyChanged(nameof(DisplayName));
                     }
-
                 }
             }
         }
-
         public string NameError
         {
             get
@@ -73,7 +71,6 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(NameError));
             }
         }
-
         public string Email
         {
             get
@@ -86,7 +83,6 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(Email));
             }
         }
-
         public string? Password
         {
             get { return password; }
@@ -113,7 +109,6 @@ namespace NonogramApp.ViewModels
                 }
             }
         }
-
         private bool IsValidPassword(string password)
         {
             bool hasUpperCase = false;
@@ -136,7 +131,6 @@ namespace NonogramApp.ViewModels
                 }
             }
             return hasUpperCase && hasDigit;
-
         }
         public string Password_Error
         {
@@ -152,57 +146,107 @@ namespace NonogramApp.ViewModels
         {
             get; private set;
         }
-
-        public async void Register()
+        private void OnCancel()
         {
-            //    Models.UserDTO user = new Models.UserDTO
-            //    {
-
-            //        Email = email,
-            //        Password = password,
-            //        DisplayName = displayName,
-            //    };
-
-
-            //    // check
-            //    int? res = await this.api_service.Register(user);
-            //    // אם ההרשמה הצליחה
-            //    if (res != null)
-            //    {
-            //        // בדיקת סוג המשתמש
-            //        if (User_Type == "2") // אם המשתמש הוא מוכר
-            //        {
-
-            //            // קבלת ה-SellerRegistrationPage וה-ViewModel דרך DI
-            //            var sellerRegistrationPage = serviceProvider.GetRequiredService<SellerRegistrationPage>();
-            //            var sellerRegistrationViewModel = serviceProvider.GetRequiredService<SellerRegistrationPageViewModel>();
-
-            //            // אתחול ה-ViewModel עם ה-SellerId שנוצר
-            //            sellerRegistrationViewModel.Initialize((int)res);
-
-            //            // הגדרת ה-ViewModel כ-BindingContext של הדף
-            //            sellerRegistrationPage.BindingContext = sellerRegistrationViewModel;
-            //            await App.Current.MainPage.Navigation.PushAsync(sellerRegistrationPage);
-
-            //        }
-            //        else if (User_Type == "3") // אם המשתמש הוא קונה
-            //        {
-            //            // מעבר לדף BusinessesPage
-            //            var BusinessesPage = serviceProvider.GetRequiredService<BusinessesPage>();
-            //            await App.Current.MainPage.Navigation.PushAsync(BusinessesPage);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        // טיפול במקרה שההרשמה נכשלה (הודעת שגיאה למשתמש, למשל)
-            //        await Application.Current.MainPage.DisplayAlert("שגיאה", "ההרשמה נכשלה, נסה שוב.", "אישור");
-            //    }
-
-
-
-
+            DisplayName = "";
+            Email = "";
+            Password = "";
+            // Navigate to the Register View page
+            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<LoginPage>());
         }
+        private void ValidateName()
+        {
+            this.ShowNameError = string.IsNullOrEmpty(Name);
+        }
+        private void ValidateLastName()
+        {
+            this.ShowLastNameError = string.IsNullOrEmpty(LastName);
+        }
+        private void ValidateEmail()
+        {
+            this.ShowEmailError = string.IsNullOrEmpty(Email);
+            if (!ShowEmailError)
+            {
+                //check if email is in the correct format using regular expression
+                if (!System.Text.RegularExpressions.Regex.IsMatch(Email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+                {
+                    EmailError = "Email is not valid";
+                    ShowEmailError = true;
+                }
+                else
+                {
+                    EmailError = "";
+                    ShowEmailError = false;
+                }
+            }
+            else
+            {
+                EmailError = "Email is required";
+            }
+        }
+        private void ValidatePassword()
+        {
+            //Password must include characters and numbers and be longer than 4 characters
+            if (string.IsNullOrEmpty(password) ||
+                password.Length < 4 ||
+                !password.Any(char.IsDigit) ||
+                !password.Any(char.IsLetter))
+            {
+                this.ShowPasswordError = true;
+            }
+            else
+                this.ShowPasswordError = false;
+        }
+        public async void Signup()
+        {
+            ValidateName();
+            ValidateLastName();
+            ValidateEmail();
+            ValidatePassword();
 
+            if (!ShowNameError && !ShowLastNameError && !ShowEmailError && !ShowPasswordError)
+            {
+                //Create a new AppUser object with the data from the registration form
+                var newUser = new AppUser
+                {
+                    UserName = Name,
+                    UserLastName = LastName,
+                    UserEmail = Email,
+                    UserPassword = Password,
+                    IsManager = false
+                };
 
+                //Call the Register method on the proxy to register the new user
+                InServerCall = true;
+                newUser = await proxy.Register(newUser);
+                InServerCall = false;
+
+                //If the registration was successful, navigate to the login page
+                if (newUser != null)
+                {
+                    //UPload profile imae if needed
+                    if (!string.IsNullOrEmpty(LocalPhotoPath))
+                    {
+                        await proxy.LoginAsync(new LoginInfo { Email = newUser.UserEmail, Password = newUser.UserPassword });
+                        AppUser? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
+                        if (updatedUser == null)
+                        {
+                            InServerCall = false;
+                            await Application.Current.MainPage.DisplayAlert("Registration", "User Data Was Saved BUT Profile image upload failed", "ok");
+                        }
+                    }
+                    InServerCall = false;
+
+                    ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+                }
+                else
+                {
+
+                    //If the registration failed, display an error message
+                    string errorMsg = "Registration failed. Please try again.";
+                    await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");
+                }
+            }
+        }
     }
 }

@@ -7,6 +7,6 @@
     xmlns:local="clr-namespace:NonogramApp"
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False">
-    <ShellContent ContentTemplate="{DataTemplate Views:SignupPage}" Route="Signup" />
+    <ShellContent ContentTemplate="{DataTemplate Views:SignupPage}" Route="Login" />
 
 </Shell>

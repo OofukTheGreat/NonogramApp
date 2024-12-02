@@ -62,7 +62,6 @@ public class LoginPageViewModel : ViewModelBase
             //Navigate to the main page
             AppShell shell = serviceProvider.GetService<AppShell>();
             //((App)Application.Current).MainPage = shell;
-            Shell.Current.FlyoutIsPresented = false; //close the flyout
             await Application.Current.MainPage.DisplayAlert("register", "register successful", "ok");
         }
     }

@@ -68,18 +68,33 @@
             HorizontalTextAlignment="Center"
             Text="{Binding ErrorMsg}"
             TextColor="Red" />
-        <Button
-            Grid.Row="6"
-            Grid.Column="3"
-            Margin="5"
-            BackgroundColor="Black"
-            BorderColor="Gray"
-            BorderWidth="5"
-            Command="{Binding LoginCommand}"
-            FontAttributes="Bold"
-            FontSize="40"
-            HeightRequest="90"
-            Text="Sign Up"
-            TextColor="Gray" />
+        <Grid ColumnDefinitions="*,*" RowDefinitions="*" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="5">
+            <Button
+                Grid.Column="1"
+                Grid.Row="2"
+                Margin="30"
+                BackgroundColor="Black"
+                BorderColor="Gray"
+                BorderWidth="5"
+                Command="{Binding SignupCommand}"
+                FontAttributes="Bold"
+                FontSize="40"
+                HeightRequest="90"
+                Text="Sign Up"
+                TextColor="Gray" />
+            <Button
+                Grid.Column="0"
+                Grid.Row="2"
+                Margin="30"
+                BackgroundColor="Black"
+                BorderColor="Gray"
+                BorderWidth="5"
+                Command="{Binding CancelCommand}"
+                FontAttributes="Bold"
+                FontSize="40"
+                HeightRequest="90"
+                Text="Cancel"
+                TextColor="Gray" />
+        </Grid>
     </Grid>
 </ContentPage>
