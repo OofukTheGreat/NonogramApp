@@ -11,7 +11,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using NonogramApp.Views;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Maui.Controls;
-using static Java.Util.Jar.Attributes;
+//using static Java.Util.Jar.Attributes;
 
 namespace NonogramApp.ViewModels
 {
@@ -22,21 +22,38 @@ namespace NonogramApp.ViewModels
         public SignupPageViewModel(NonogramService service, IServiceProvider serviceProvider)
         {
             this.service = service;
-            RegistrationCommand = new Command(Signup);
+            SignupCommand = new Command(OnSignup);
             CancelCommand = new Command(OnCancel);
-            this.serviceProvider = serviceProvider;
+            UploadPhotoCommand = new Command(OnUploadPhoto);
+            PhotoURL = service.GetDefaultProfilePhotoUrl();
+            LocalPhotoPath = "";
+            DisplayNameError = "Name is required";
+            EmailError = "Email is required";
+            PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
         }
         private string displayName;
         private int? userId { get; set; }
-        private string? nameError;
+        private string? displayNameError;
         private string email;
         private string password;
-        private string? password_error;
-        private string user_type;
-        private byte[] profilePicture;
+        private string? passwordError;
+        private string emailError;
+        public string EmailError { get => emailError; set { emailError = value; OnPropertyChanged("EmailError"); } }
+        private bool showNameError;
+        public bool ShowNameError { get => showNameError; set { showNameError = value; OnPropertyChanged("ShowNameError"); } }
+        private bool showEmailError;
+        public bool ShowEmailError { get => showEmailError; set { showEmailError = value; OnPropertyChanged("ShowEmailError"); } }
+        private bool showPasswordError;
+        public bool ShowPasswordError { get => showPasswordError; set { showPasswordError = value; OnPropertyChanged("ShowPasswordError"); } }
+        private string photoURL;
+        public string PhotoURL { get => photoURL; set { photoURL = value; OnPropertyChanged("PhotoURL"); } }
+        private string localPhotoPath;
+        public string LocalPhotoPath { get => localPhotoPath; set { localPhotoPath = value; OnPropertyChanged("LocalPhotoPath"); } }
+        //This method open the file picker to select a photo
         // הוספת אובייקט ממחלקת השירותים שיוכל להפעיל את הפונקציות במחלקה
         public ICommand CancelCommand { get; set; }
         public ICommand SignupCommand { get; set; }
+        public Command UploadPhotoCommand { get; }
         public string DisplayName
         {
             get
@@ -46,29 +63,29 @@ namespace NonogramApp.ViewModels
             set
             {
                 displayName = value;
-                NameError = ""; // איפוס שגיאת שם המשתמש
+                DisplayNameError = ""; // איפוס שגיאת שם המשתמש
                 OnPropertyChanged(nameof(DisplayName));
                 // בדיקת תקינות שם המשתמש
                 if (!string.IsNullOrEmpty(DisplayName))
                 {
                     if (char.IsDigit(DisplayName[0]))
                     {
-                        NameError = "Display name can't start with a number";
+                        DisplayNameError = "Display name can't start with a number";
                         OnPropertyChanged(nameof(DisplayName));
                     }
                 }
             }
         }
-        public string NameError
+        public string DisplayNameError
         {
             get
             {
-                return nameError;
+                return displayNameError;
             }
             set
             {
-                nameError = value;
-                OnPropertyChanged(nameof(NameError));
+                displayNameError = value;
+                OnPropertyChanged(nameof(DisplayNameError));
             }
         }
         public string Email
@@ -89,12 +106,12 @@ namespace NonogramApp.ViewModels
             set
             {
                 password = value;
-                Password_Error = "";
+                PasswordError = "";
                 OnPropertyChanged(nameof(Password));
-                OnPropertyChanged(nameof(NameError));
+                OnPropertyChanged(nameof(DisplayNameError));
                 if (string.IsNullOrEmpty(password))
                 {
-                    Password_Error = ""; // איפוס השגיאה אם השדה ריק
+                    PasswordError = ""; // איפוס השגיאה אם השדה ריק
                 }
                 else
                 {
@@ -103,11 +120,36 @@ namespace NonogramApp.ViewModels
                         bool IsPasswordOk = IsValidPassword(password);
                         if (!IsPasswordOk)
                         {
-                            Password_Error = "!!סיסמה חייבת להכיל לפחות אות גדולה אחת ומספר!!";
+                            PasswordError = "!!סיסמה חייבת להכיל לפחות אות גדולה אחת ומספר!!";
                         }
                     }
                 }
             }
+        }
+        private async void OnUploadPhoto()
+        {
+            try
+            {
+                var result = await MediaPicker.Default.CapturePhotoAsync(new MediaPickerOptions
+                {
+                    Title = "Please select a photo",
+                });
+                if (result != null)
+                {
+                    // The user picked a file
+                    this.LocalPhotoPath = result.FullPath;
+                    this.PhotoURL = result.FullPath;
+                }
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+        private void UpdatePhotoURL(string virtualPath)
+        {
+            Random r = new Random();
+            PhotoURL = service.GetImagesBaseAddress() + virtualPath + "?v=" + r.Next();
+            LocalPhotoPath = "";
         }
         private bool IsValidPassword(string password)
         {
@@ -132,19 +174,15 @@ namespace NonogramApp.ViewModels
             }
             return hasUpperCase && hasDigit;
         }
-        public string Password_Error
+        public string PasswordError
         {
-            get { return password_error; }
+            get { return passwordError; }
             set
             {
-                password_error = value;
-                OnPropertyChanged(nameof(Password_Error));
+                passwordError = value;
+                OnPropertyChanged(nameof(PasswordError));
                 //OnPropertyChanged(nameof(CanRegister));
             }
-        }
-        public ICommand RegistrationCommand
-        {
-            get; private set;
         }
         private void OnCancel()
         {
@@ -156,11 +194,7 @@ namespace NonogramApp.ViewModels
         }
         private void ValidateName()
         {
-            this.ShowNameError = string.IsNullOrEmpty(Name);
-        }
-        private void ValidateLastName()
-        {
-            this.ShowLastNameError = string.IsNullOrEmpty(LastName);
+            this.ShowNameError = string.IsNullOrEmpty(DisplayName);
         }
         private void ValidateEmail()
         {
@@ -197,28 +231,26 @@ namespace NonogramApp.ViewModels
             else
                 this.ShowPasswordError = false;
         }
-        public async void Signup()
+        public async void OnSignup()
         {
             ValidateName();
-            ValidateLastName();
             ValidateEmail();
             ValidatePassword();
 
-            if (!ShowNameError && !ShowLastNameError && !ShowEmailError && !ShowPasswordError)
+            if (!ShowNameError && !ShowEmailError && !ShowPasswordError)
             {
                 //Create a new AppUser object with the data from the registration form
-                var newUser = new AppUser
+                var newUser = new PlayerDTO
                 {
-                    UserName = Name,
-                    UserLastName = LastName,
-                    UserEmail = Email,
-                    UserPassword = Password,
-                    IsManager = false
+                    DisplayName = DisplayName,
+                    Email = Email,
+                    Password = Password,
+                    IsAdmin = false
                 };
 
                 //Call the Register method on the proxy to register the new user
                 InServerCall = true;
-                newUser = await proxy.Register(newUser);
+                newUser = await service.Signup(newUser);
                 InServerCall = false;
 
                 //If the registration was successful, navigate to the login page
@@ -227,8 +259,8 @@ namespace NonogramApp.ViewModels
                     //UPload profile imae if needed
                     if (!string.IsNullOrEmpty(LocalPhotoPath))
                     {
-                        await proxy.LoginAsync(new LoginInfo { Email = newUser.UserEmail, Password = newUser.UserPassword });
-                        AppUser? updatedUser = await proxy.UploadProfileImage(LocalPhotoPath);
+                        await service.LoginAsync(new LoginInfo { Email = newUser.Email, Password = newUser.Password });
+                        PlayerDTO? updatedUser = await service.UploadProfileImage(LocalPhotoPath);
                         if (updatedUser == null)
                         {
                             InServerCall = false;

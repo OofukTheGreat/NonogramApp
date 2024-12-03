@@ -17,6 +17,7 @@
             Grid.Column="3"
             BackgroundColor="Black"
             BorderColor="Gray"
+            Command="{Binding UploadPhotoCommand}"
             CornerRadius="5"
             HeightRequest="50"
             HorizontalOptions="End"
@@ -58,7 +59,7 @@
             IsPassword="True"
             Placeholder="Display Name"
             PlaceholderColor="Black"
-            Text="{Binding Password}"
+            Text="{Binding DisplayName}"
             TextColor="Black" />
         <Label
             Grid.Row="5"
@@ -68,10 +69,15 @@
             HorizontalTextAlignment="Center"
             Text="{Binding ErrorMsg}"
             TextColor="Red" />
-        <Grid ColumnDefinitions="*,*" RowDefinitions="*" Grid.Column="1" Grid.Row="6" Grid.ColumnSpan="5">
+        <Grid
+            Grid.Row="6"
+            Grid.Column="1"
+            Grid.ColumnSpan="5"
+            ColumnDefinitions="*,*"
+            RowDefinitions="*">
             <Button
-                Grid.Column="1"
                 Grid.Row="2"
+                Grid.Column="1"
                 Margin="30"
                 BackgroundColor="Black"
                 BorderColor="Gray"
@@ -83,8 +89,8 @@
                 Text="Sign Up"
                 TextColor="Gray" />
             <Button
-                Grid.Column="0"
                 Grid.Row="2"
+                Grid.Column="0"
                 Margin="30"
                 BackgroundColor="Black"
                 BorderColor="Gray"
