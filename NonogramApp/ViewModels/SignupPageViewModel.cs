@@ -191,7 +191,7 @@ namespace NonogramApp.ViewModels
             Email = "";
             Password = "";
             // Navigate to the Register View page
-            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<LoginPage>());
+            ((App)Application.Current).MainPage.Navigation.PopAsync();
         }
         private void ValidateName()
         {

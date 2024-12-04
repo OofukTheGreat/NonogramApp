@@ -33,6 +33,12 @@ namespace NonogramApp
             builder.Services.AddTransient<LoginPage>();
             builder.Services.AddTransient<SignupPage>();
             builder.Services.AddTransient<AppShell>();
+            builder.Services.AddTransient<ApprovePuzzlesPage>();
+            builder.Services.AddTransient<LevelSelectPage>();
+            builder.Services.AddTransient<GamePage>();
+            builder.Services.AddTransient<WelcomePage>();
+            builder.Services.AddTransient<CreateLevelsPage>();
+            builder.Services.AddTransient<ProfilePage>();
             return builder;
         }
 
@@ -44,6 +50,14 @@ namespace NonogramApp
         public static MauiAppBuilder RegisterViewModels(this MauiAppBuilder builder)
         {
             builder.Services.AddTransient<LoginPageViewModel>();
+            builder.Services.AddTransient<SignupPageViewModel>();
+            builder.Services.AddTransient<WelcomeViewModel>();
+            builder.Services.AddTransient<ProfileViewModel>();
+            builder.Services.AddTransient<LoginPageViewModel>();
+            builder.Services.AddTransient<SignupPageViewModel>();
+            builder.Services.AddTransient<SignupPageViewModel>();
+            builder.Services.AddTransient<SignupPageViewModel>();
+            builder.Services.AddTransient<SignupPageViewModel>();
             builder.Services.AddTransient<SignupPageViewModel>();
             return builder;
         }

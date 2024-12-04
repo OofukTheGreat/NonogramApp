@@ -22,7 +22,7 @@
             FontAttributes="Bold"
             FontSize="20"
             HeightRequest="50"
-            Placeholder="Username"
+            Placeholder="Email"
             PlaceholderColor="Black"
             Text="{Binding Email}"
             TextColor="Black" />
