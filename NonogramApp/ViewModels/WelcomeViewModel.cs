@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace NonogramApp.ViewModels
 {
-    internal class WelcomeViewModel
+    public class WelcomeViewModel : ViewModelBase
     {
     }
 }

@@ -54,11 +54,11 @@ namespace NonogramApp
             builder.Services.AddTransient<WelcomeViewModel>();
             builder.Services.AddTransient<ProfileViewModel>();
             builder.Services.AddTransient<LoginPageViewModel>();
-            builder.Services.AddTransient<SignupPageViewModel>();
-            builder.Services.AddTransient<SignupPageViewModel>();
-            builder.Services.AddTransient<SignupPageViewModel>();
-            builder.Services.AddTransient<SignupPageViewModel>();
-            builder.Services.AddTransient<SignupPageViewModel>();
+            builder.Services.AddTransient<ApprovePuzzlesViewModel>();
+            builder.Services.AddTransient<LevelSelectViewModel>();
+            builder.Services.AddTransient<GameViewModel>();
+            builder.Services.AddTransient<CreateLevelsViewModel>();
+            builder.Services.AddTransient<AppShellViewModel>();
             return builder;
         }
     }

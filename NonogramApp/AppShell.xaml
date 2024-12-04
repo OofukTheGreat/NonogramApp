@@ -7,6 +7,32 @@
     xmlns:local="clr-namespace:NonogramApp"
     Shell.FlyoutBehavior="Disabled"
     Shell.NavBarIsVisible="False">
-    <ShellContent ContentTemplate="{DataTemplate Views:SignupPage}" Route="Login" />
+    <TabBar>
+        <Tab 
+            Title="Levels"
+            Icon="?">
+            <ShellContent ContentTemplate="{DataTemplate Views:LevelSelectPage}"/>
+        </Tab>
+        <Tab 
+            Title="Create"
+            Icon="?">
+            <ShellContent ContentTemplate="{DataTemplate Views:CreateLevelsPage}"/>
+        </Tab>
+        <Tab 
+            Title="Levels"
+            Icon="?">
+            <ShellContent ContentTemplate="{DataTemplate Views:LevelSelectPage}"/>
+        </Tab>
+        <Tab 
+            Title="Levels"
+            Icon="?">
+            <ShellContent ContentTemplate="{DataTemplate Views:LevelSelectPage}"/>
+        </Tab>
+        <Tab 
+            Title="Levels"
+            Icon="?">
+            <ShellContent ContentTemplate="{DataTemplate Views:LevelSelectPage}"/>
+        </Tab>
+    </TabBar>
 
 </Shell>

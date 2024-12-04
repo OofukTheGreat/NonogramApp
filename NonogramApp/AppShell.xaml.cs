@@ -1,13 +1,22 @@
-﻿using NonogramApp.Views;
+﻿using NonogramApp.ViewModels;
+using NonogramApp.Views;
 
 namespace NonogramApp
 {
     public partial class AppShell : Shell
     {
-        public AppShell()
+        public AppShell(AppShellViewModel vm)
         {
-            Routing.RegisterRoute("Login", typeof(LoginPage));
-            Routing.RegisterRoute("Signup", typeof(SignupPage));
+            this.BindingContext = vm;
+            InitializeComponent();
+            RegisterRoutes();
+        }
+        private void RegisterRoutes()
+        {
+            Routing.RegisterRoute("Approve", typeof(ApprovePuzzlesPage));
+            Routing.RegisterRoute("Create", typeof(CreateLevelsPage));
+            Routing.RegisterRoute("Select", typeof(LevelSelectPage));
+            Routing.RegisterRoute("Profile", typeof(ProfilePage));
             InitializeComponent();
         }
     }
