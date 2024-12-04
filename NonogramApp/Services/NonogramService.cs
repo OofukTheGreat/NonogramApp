@@ -25,11 +25,11 @@ namespace NonogramApp.Services
 
         #region with tunnel
         //Define the serevr IP address! (should be realIP address if you are using a device that is not running on the same machine as the server)
-        private static string serverIP = "v0f1x080-5068.euw.devtunnels.ms";
+        private static string serverIP = "rbswm66k-5068.euw.devtunnels.ms";
         private HttpClient client;
         private string baseUrl;
-        public static string BaseAddress = "https://v0f1x080-5068.euw.devtunnels.ms/api/";
-        private static string ImageBaseAddress = "https://v0f1x080-5068.euw.devtunnels.ms";
+        public static string BaseAddress = "https://rbswm66k-5068.euw.devtunnels.ms/api/";
+        private static string ImageBaseAddress = "https://rbswm66k-5068.euw.devtunnels.ms";
         #endregion
 
         public NonogramService()

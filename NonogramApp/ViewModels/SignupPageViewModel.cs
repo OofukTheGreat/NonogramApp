@@ -30,6 +30,7 @@ namespace NonogramApp.ViewModels
             DisplayNameError = "Name is required";
             EmailError = "Email is required";
             PasswordError = "Password must be at least 4 characters long and contain letters and numbers";
+            errorMsg = "";
         }
         private string displayName;
         private int? userId { get; set; }
@@ -37,10 +38,12 @@ namespace NonogramApp.ViewModels
         private string email;
         private string password;
         private string? passwordError;
+        private string errorMsg;
+        public string ErrorMsg { get => errorMsg; set { errorMsg = value; OnPropertyChanged("ErrorMsg"); } }
         private string emailError;
         public string EmailError { get => emailError; set { emailError = value; OnPropertyChanged("EmailError"); } }
-        private bool showNameError;
-        public bool ShowNameError { get => showNameError; set { showNameError = value; OnPropertyChanged("ShowNameError"); } }
+        private bool showDisplayNameError;
+        public bool ShowDisplayNameError { get => showDisplayNameError; set { showDisplayNameError = value; OnPropertyChanged("ShowNameError"); } }
         private bool showEmailError;
         public bool ShowEmailError { get => showEmailError; set { showEmailError = value; OnPropertyChanged("ShowEmailError"); } }
         private bool showPasswordError;
@@ -63,7 +66,6 @@ namespace NonogramApp.ViewModels
             set
             {
                 displayName = value;
-                DisplayNameError = ""; // איפוס שגיאת שם המשתמש
                 OnPropertyChanged(nameof(DisplayName));
                 // בדיקת תקינות שם המשתמש
                 if (!string.IsNullOrEmpty(DisplayName))
@@ -106,7 +108,6 @@ namespace NonogramApp.ViewModels
             set
             {
                 password = value;
-                PasswordError = "";
                 OnPropertyChanged(nameof(Password));
                 OnPropertyChanged(nameof(DisplayNameError));
                 if (string.IsNullOrEmpty(password))
@@ -120,7 +121,7 @@ namespace NonogramApp.ViewModels
                         bool IsPasswordOk = IsValidPassword(password);
                         if (!IsPasswordOk)
                         {
-                            PasswordError = "!!סיסמה חייבת להכיל לפחות אות גדולה אחת ומספר!!";
+                            PasswordError = "Password must contain an Uppercast letter and a number";
                         }
                     }
                 }
@@ -194,7 +195,7 @@ namespace NonogramApp.ViewModels
         }
         private void ValidateName()
         {
-            this.ShowNameError = string.IsNullOrEmpty(DisplayName);
+            this.ShowDisplayNameError = string.IsNullOrEmpty(DisplayName);
         }
         private void ValidateEmail()
         {
@@ -236,8 +237,7 @@ namespace NonogramApp.ViewModels
             ValidateName();
             ValidateEmail();
             ValidatePassword();
-
-            if (!ShowNameError && !ShowEmailError && !ShowPasswordError)
+            if (!ShowDisplayNameError && !ShowEmailError && !ShowPasswordError)
             {
                 //Create a new AppUser object with the data from the registration form
                 var newUser = new PlayerDTO
@@ -278,6 +278,18 @@ namespace NonogramApp.ViewModels
                     string errorMsg = "Registration failed. Please try again.";
                     await Application.Current.MainPage.DisplayAlert("Registration", errorMsg, "ok");
                 }
+            }
+            else if (ShowEmailError)
+            {
+                ErrorMsg = EmailError;
+            }
+            else if (ShowPasswordError)
+            {
+                ErrorMsg = PasswordError;
+            }
+            else if (ShowDisplayNameError)
+            {
+                ErrorMsg = DisplayNameError;
             }
         }
     }

@@ -4,7 +4,7 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     BackgroundImageSource="loginbg.png">
-    <Grid ColumnDefinitions="2*,1*,0.3*,2*,0.3*,1*,2*" RowDefinitions="6*,1*,1*,1*,1*,3*">
+    <Grid ColumnDefinitions="2*,1*,0.3*,2*,0.3*,1*,2*" RowDefinitions="6*,1*,1*,1*,1*,1*,3*">
         <Image
             Grid.Row="0"
             Grid.RowSpan="2"
@@ -24,29 +24,16 @@
             Source="edit.png"
             VerticalOptions="End" />
         <Entry
-            Grid.Row="2"
-            Grid.Column="1"
-            Grid.ColumnSpan="5"
-            BackgroundColor="Gray"
-            FontAttributes="Bold"
-            FontSize="20"
-            HeightRequest="50"
-            Placeholder="Email"
-            PlaceholderColor="Black"
-            Text="{Binding Email}"
-            TextColor="Black" />
-        <Entry
             Grid.Row="3"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             BackgroundColor="Gray"
             FontAttributes="Bold"
             FontSize="20"
-            HeightRequest="50"
-            IsPassword="True"
-            Placeholder="Password"
+            HeightRequest="45"
+            Placeholder="Email"
             PlaceholderColor="Black"
-            Text="{Binding Password}"
+            Text="{Binding Email}"
             TextColor="Black" />
         <Entry
             Grid.Row="4"
@@ -55,14 +42,26 @@
             BackgroundColor="Gray"
             FontAttributes="Bold"
             FontSize="20"
-            HeightRequest="50"
+            HeightRequest="45"
             IsPassword="True"
+            Placeholder="Password"
+            PlaceholderColor="Black"
+            Text="{Binding Password}"
+            TextColor="Black" />
+        <Entry
+            Grid.Row="5"
+            Grid.Column="1"
+            Grid.ColumnSpan="5"
+            BackgroundColor="Gray"
+            FontAttributes="Bold"
+            FontSize="20"
+            HeightRequest="45"
             Placeholder="Display Name"
             PlaceholderColor="Black"
             Text="{Binding DisplayName}"
             TextColor="Black" />
         <Label
-            Grid.Row="5"
+            Grid.Row="2"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             FontSize="25"
