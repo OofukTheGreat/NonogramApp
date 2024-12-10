@@ -61,8 +61,8 @@ public class LoginPageViewModel : ViewModelBase
             ErrorMsg = "amogus";
             //Navigate to the main page
             AppShell shell = serviceProvider.GetService<AppShell>();
-            //((App)Application.Current).MainPage = shell;
-            await Application.Current.MainPage.DisplayAlert("Login", "Login successful", "ok");
+            ((App)Application.Current).MainPage = shell;
+            
         }
     }
     private void OnRegister()
