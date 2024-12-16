@@ -71,12 +71,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Compile Update="Views\ApprovePuzzlesPage.xaml.cs">
-	    <DependentUpon>ApprovePuzzlesPage.xaml</DependentUpon>
-	  </Compile>
-	</ItemGroup>
-
-	<ItemGroup>
 	  <MauiXaml Update="Views\ApprovePuzzlesPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
