@@ -26,6 +26,7 @@ public class LoginPageViewModel : ViewModelBase
         RegisterCommand = new Command(OnRegister);
         email = "";
         password = "";
+        displayName="";
         InServerCall = false;
         errorMsg = "";
     }

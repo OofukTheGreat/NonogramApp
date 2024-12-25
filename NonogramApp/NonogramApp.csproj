@@ -57,10 +57,14 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\approve.png" />
+	  <None Remove="Resources\Images\create.png" />
 	  <None Remove="Resources\Images\edit.png" />
+	  <None Remove="Resources\Images\homepagepixelbg.png" />
 	  <None Remove="Resources\Images\loginbg.png" />
 	  <None Remove="Resources\Images\pfp.png" />
 	  <None Remove="Resources\Images\pixelbg.png" />
+	  <None Remove="Resources\Images\play.png" />
 	  <None Remove="Resources\Images\pond.png" />
 	</ItemGroup>
 

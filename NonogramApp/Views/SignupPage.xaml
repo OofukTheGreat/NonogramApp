@@ -3,26 +3,30 @@
     x:Class="NonogramApp.Views.SignupPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    BackgroundImageSource="loginbg.png">
-    <Grid ColumnDefinitions="2*,1*,0.3*,2*,0.3*,1*,2*" RowDefinitions="6*,1*,1*,1*,1*,1*,3*">
+    BackgroundImageSource="pixelbg.png"
+    NavigationPage.HasNavigationBar="False">
+    <Grid ColumnDefinitions="2*,1*,1*,5*,1*,1*,2*" RowDefinitions="5*,1*,1*,1*,1*,1*,4*">
         <Image
             Grid.Row="0"
             Grid.RowSpan="2"
             Grid.Column="2"
             Grid.ColumnSpan="3"
-            HeightRequest="300"
-            Source="pfp.png" />
+            Source="pfp.png"
+            WidthRequest="250" />
         <ImageButton
             Grid.Row="0"
-            Grid.Column="3"
+            Grid.Column="4"
+            Grid.ColumnSpan="2"
+            Margin="10"
             BackgroundColor="Black"
             BorderColor="Gray"
             Command="{Binding UploadPhotoCommand}"
             CornerRadius="5"
-            HeightRequest="50"
+            HeightRequest="40"
             HorizontalOptions="End"
             Source="edit.png"
-            VerticalOptions="End" />
+            VerticalOptions="End"
+            WidthRequest="40" />
         <Entry
             Grid.Row="3"
             Grid.Column="1"
@@ -64,42 +68,44 @@
             Grid.Row="2"
             Grid.Column="1"
             Grid.ColumnSpan="5"
+            FontAttributes="Bold"
             FontSize="25"
             HorizontalTextAlignment="Center"
             Text="{Binding ErrorMsg}"
             TextColor="Red" />
         <Grid
-            Grid.Row="6"
-            Grid.Column="1"
-            Grid.ColumnSpan="5"
+            Grid.Row="7"
+            Grid.Column="0"
+            Grid.ColumnSpan="7"
+            Padding="20"
             ColumnDefinitions="*,*"
             RowDefinitions="*">
             <Button
                 Grid.Row="2"
                 Grid.Column="1"
-                Margin="30"
+                Margin="10"
                 BackgroundColor="Black"
                 BorderColor="Gray"
                 BorderWidth="5"
                 Command="{Binding SignupCommand}"
                 FontAttributes="Bold"
-                FontSize="40"
-                HeightRequest="90"
+                FontSize="30"
                 Text="Sign Up"
-                TextColor="Gray" />
+                TextColor="Gray"
+                VerticalOptions="StartAndExpand" />
             <Button
                 Grid.Row="2"
                 Grid.Column="0"
-                Margin="30"
+                Margin="10"
                 BackgroundColor="Black"
                 BorderColor="Gray"
                 BorderWidth="5"
                 Command="{Binding CancelCommand}"
                 FontAttributes="Bold"
-                FontSize="40"
-                HeightRequest="90"
+                FontSize="30"
                 Text="Cancel"
-                TextColor="Gray" />
+                TextColor="Gray"
+                VerticalOptions="StartAndExpand" />
         </Grid>
     </Grid>
 </ContentPage>

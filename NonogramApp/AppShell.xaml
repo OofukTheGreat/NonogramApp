@@ -6,19 +6,24 @@
     xmlns:Views="clr-namespace:NonogramApp.Views"
     xmlns:local="clr-namespace:NonogramApp"
     Shell.FlyoutBehavior="Disabled"
-    >
+    Shell.TabBarBackgroundColor="Black"
+    Shell.TabBarTitleColor="White"
+    Shell.TabBarUnselectedColor="Gray">
     <TabBar>
         <ShellContent
             Title="Create"
             ContentTemplate="{DataTemplate Views:CreateLevelsPage}"
+            Icon="create.png"
             Route="Create" />
         <ShellContent
             Title="Approve"
             ContentTemplate="{DataTemplate Views:ApprovePuzzlesPage}"
+            Icon="approve.png"
             Route="Approve" />
         <ShellContent
-            Title="Select"
+            Title="Play"
             ContentTemplate="{DataTemplate Views:LevelSelectPage}"
+            Icon="play.png"
             Route="Select" />
         <ShellContent
             Title="Profile"
