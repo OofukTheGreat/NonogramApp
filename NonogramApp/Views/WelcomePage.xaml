@@ -4,9 +4,8 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     Title="WelcomePage"
-    BackgroundImageSource="homepagepixelbg.png"
+    BackgroundImageSource="https://m.media-amazon.com/images/I/51gmg6X5SAL._AC_UF894,1000_QL80_.jpg"
     NavigationPage.HasNavigationBar="False">
-    <Image Source="https://m.media-amazon.com/images/I/51gmg6X5SAL._AC_UF894,1000_QL80_.jpg" />
     <Grid RowDefinitions="12*,3*,3.5*,4*">
         <Button
             Grid.Row="1"
