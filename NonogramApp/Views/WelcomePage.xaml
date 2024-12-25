@@ -6,6 +6,7 @@
     Title="WelcomePage"
     BackgroundImageSource="homepagepixelbg.png"
     NavigationPage.HasNavigationBar="False">
+    <Image Source="https://m.media-amazon.com/images/I/51gmg6X5SAL._AC_UF894,1000_QL80_.jpg" />
     <Grid RowDefinitions="12*,3*,3.5*,4*">
         <Button
             Grid.Row="1"
