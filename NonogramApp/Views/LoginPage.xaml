@@ -17,6 +17,19 @@
             Text="{Binding ErrorMsg}"
             TextColor="Red"
             VerticalOptions="EndAndExpand" />
+        <ImageButton
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10"
+            Padding="5"
+            BorderColor="Gray"
+            BorderWidth="3"
+            Command="{Binding CancelCommand}"
+            CornerRadius="5"
+            HeightRequest="50"
+            Source="backarrow"
+            VerticalOptions="Start"
+            WidthRequest="50" />
         <Entry
             Grid.Row="1"
             Grid.Column="1"

@@ -27,6 +27,19 @@
             Source="edit.png"
             VerticalOptions="End"
             WidthRequest="40" />
+        <ImageButton
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="10"
+            Padding="5"
+            BorderColor="Gray"
+            BorderWidth="3"
+            Command="{Binding CancelCommand}"
+            CornerRadius="5"
+            HeightRequest="50"
+            Source="backarrow"
+            VerticalOptions="Start"
+            WidthRequest="50" />
         <Entry
             Grid.Row="3"
             Grid.Column="1"
@@ -73,39 +86,20 @@
             HorizontalTextAlignment="Center"
             Text="{Binding ErrorMsg}"
             TextColor="Red" />
-        <Grid
+        <Button
             Grid.Row="7"
             Grid.Column="0"
             Grid.ColumnSpan="7"
-            Padding="20"
-            ColumnDefinitions="*,*"
-            RowDefinitions="*">
-            <Button
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="10"
-                BackgroundColor="Black"
-                BorderColor="Gray"
-                BorderWidth="5"
-                Command="{Binding SignupCommand}"
-                FontAttributes="Bold"
-                FontSize="30"
-                Text="Sign Up"
-                TextColor="Gray"
-                VerticalOptions="StartAndExpand" />
-            <Button
-                Grid.Row="2"
-                Grid.Column="0"
-                Margin="10"
-                BackgroundColor="Black"
-                BorderColor="Gray"
-                BorderWidth="5"
-                Command="{Binding CancelCommand}"
-                FontAttributes="Bold"
-                FontSize="30"
-                Text="Cancel"
-                TextColor="Gray"
-                VerticalOptions="StartAndExpand" />
-        </Grid>
+            Margin="60"
+            BackgroundColor="Black"
+            BorderColor="Gray"
+            BorderWidth="5"
+            Command="{Binding SignupCommand}"
+            FontAttributes="Bold"
+            FontSize="30"
+            HeightRequest="80"
+            Text="Sign Up"
+            TextColor="Gray"
+            VerticalOptions="StartAndExpand" />
     </Grid>
 </ContentPage>

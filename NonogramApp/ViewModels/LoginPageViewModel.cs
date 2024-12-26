@@ -24,6 +24,7 @@ public class LoginPageViewModel : ViewModelBase
         this.service = service;
         LoginCommand = new Command(OnLogin);
         RegisterCommand = new Command(OnRegister);
+        CancelCommand = new Command(OnCancel);
         email = "";
         password = "";
         displayName="";
@@ -40,6 +41,7 @@ public class LoginPageViewModel : ViewModelBase
     public string DisplayName { get => displayName; set { if (displayName != value) { displayName = value; OnPropertyChanged(nameof(displayName)); } } }
     public ICommand LoginCommand { get; set; }
     public ICommand RegisterCommand { get; set; }
+    public ICommand CancelCommand { get; set; }
     private async void OnLogin()
     {
         //Choose the way you want to blobk the page while indicating a server call
@@ -73,5 +75,13 @@ public class LoginPageViewModel : ViewModelBase
         Password = "";
         // Navigate to the Register View page
         ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<SignupPage>());
+    }
+    private void OnCancel()
+    {
+        DisplayName = "";
+        Email = "";
+        Password = "";
+        // Navigate to the Register View page
+        ((App)Application.Current).MainPage.Navigation.PopAsync();
     }
 }

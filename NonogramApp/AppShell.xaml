@@ -5,6 +5,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Views="clr-namespace:NonogramApp.Views"
     xmlns:local="clr-namespace:NonogramApp"
+    NavigationPage.HasNavigationBar="False"
     Shell.FlyoutBehavior="Disabled"
     Shell.TabBarBackgroundColor="Black"
     Shell.TabBarTitleColor="White"
@@ -28,6 +29,7 @@
         <ShellContent
             Title="Profile"
             ContentTemplate="{DataTemplate Views:ProfilePage}"
+            Icon="profile.png"
             Route="Profile" />
     </TabBar>
 
