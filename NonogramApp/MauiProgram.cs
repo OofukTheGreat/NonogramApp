@@ -39,6 +39,7 @@ namespace NonogramApp
             builder.Services.AddTransient<WelcomePage>();
             builder.Services.AddTransient<CreateLevelsPage>();
             builder.Services.AddTransient<ProfilePage>();
+            builder.Services.AddTransient<LogoutPage>();
             return builder;
         }
 
@@ -59,6 +60,7 @@ namespace NonogramApp
             builder.Services.AddTransient<GameViewModel>();
             builder.Services.AddTransient<CreateLevelsViewModel>();
             builder.Services.AddTransient<AppShellViewModel>();
+            builder.Services.AddTransient<LogoutPageViewModel>();
             return builder;
         }
     }

@@ -61,7 +61,7 @@ public class LoginPageViewModel : ViewModelBase
         }
         else
         {
-            ErrorMsg = "amogus";
+            ErrorMsg = "";
             //Navigate to the main page
             AppShell shell = serviceProvider.GetService<AppShell>();
             ((App)Application.Current).MainPage = shell;

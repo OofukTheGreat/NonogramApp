@@ -17,6 +17,7 @@ namespace NonogramApp
             Routing.RegisterRoute("Create", typeof(CreateLevelsPage));
             Routing.RegisterRoute("Select", typeof(LevelSelectPage));
             Routing.RegisterRoute("Profile", typeof(ProfilePage));
+            Routing.RegisterRoute("Logout", typeof(LogoutPage));
             InitializeComponent();
         }
     }

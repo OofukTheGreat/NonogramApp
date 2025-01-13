@@ -8,6 +8,7 @@
     NavigationPage.HasNavigationBar="False"
     Shell.FlyoutBehavior="Disabled"
     Shell.TabBarBackgroundColor="Black"
+    Shell.TabBarForegroundColor="White"
     Shell.TabBarTitleColor="White"
     Shell.TabBarUnselectedColor="Gray">
     <TabBar>
@@ -31,6 +32,11 @@
             ContentTemplate="{DataTemplate Views:ProfilePage}"
             Icon="profile.png"
             Route="Profile" />
+        <ShellContent
+            Title="Logout"
+            ContentTemplate="{DataTemplate Views:LogoutPage}"
+            Icon="logout.png"
+            Route="Logout" />
     </TabBar>
 
 </Shell>

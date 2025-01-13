@@ -135,6 +135,7 @@ namespace NonogramApp.ViewModels
                 {
                     Title = "Please select a photo",
                 });
+
                 if (result != null)
                 {
                     // The user picked a file
@@ -145,7 +146,9 @@ namespace NonogramApp.ViewModels
             catch (Exception ex)
             {
             }
+
         }
+
         private void UpdatePhotoURL(string virtualPath)
         {
             Random r = new Random();

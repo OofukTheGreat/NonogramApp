@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="NonogramApp.Views.LogoutPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    Title="LogoutPage"
+    BackgroundImageSource="pixelbg.png"
+    Shell.NavBarIsVisible="False">
+    <Grid RowDefinitions="6*,2*">
+        <Image
+            IsAnimationPlaying="True"
+            Source="congrats.png"
+            WidthRequest="400" />
+        <Image
+            Grid.RowSpan="2"
+            IsAnimationPlaying="True"
+            Source="firework.gif"
+            WidthRequest="800" />
+    </Grid>
+</ContentPage>
