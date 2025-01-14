@@ -63,6 +63,7 @@
 	  <None Remove="Resources\Images\create.png" />
 	  <None Remove="Resources\Images\edit.png" />
 	  <None Remove="Resources\Images\firework.gif" />
+	  <None Remove="Resources\Images\firework2.gif" />
 	  <None Remove="Resources\Images\homepagepixelbg.png" />
 	  <None Remove="Resources\Images\loginbg.png" />
 	  <None Remove="Resources\Images\logout.png" />
