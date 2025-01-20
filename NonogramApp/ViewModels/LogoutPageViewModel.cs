@@ -8,18 +8,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace NonogramApp.ViewModels
 {
-    public class LogoutPageViewModel:ViewModelBase
+    public class LogoutPageViewModel : ViewModelBase
     {
         private NonogramService service;
         private IServiceProvider serviceProvider;
-        private async void OnLogin()
+        public LogoutPageViewModel(NonogramService service, IServiceProvider serviceProvider)
+        {
+            this.serviceProvider = serviceProvider;
+            this.service = service;
+            LogoutCommand = new Command(OnLogout);
+        }
+        public ICommand LogoutCommand { get; set; }
+        private async void OnLogout()
         {
             ((App)Application.Current).LoggedInUser = null;
             //Navigate to the welcome page
-            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<WelcomePage>());
+            ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<WelcomePage>());
         }
     }
 }

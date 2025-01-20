@@ -40,43 +40,58 @@
             Source="backarrow"
             VerticalOptions="Start"
             WidthRequest="50" />
-        <Entry
+        <Frame
             Grid.Row="3"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             BackgroundColor="Gray"
-            FontAttributes="Bold"
-            FontSize="20"
-            HeightRequest="45"
-            Placeholder="Email"
-            PlaceholderColor="Black"
-            Text="{Binding Email}"
-            TextColor="Black" />
-        <Entry
+            BorderColor="Black"
+            HeightRequest="50">
+            <Entry
+                BackgroundColor="Gray"
+                FontAttributes="Bold"
+                FontSize="20"
+                HeightRequest="45"
+                Placeholder="Email"
+                PlaceholderColor="Black"
+                Text="{Binding Email}"
+                TextColor="Black" />
+        </Frame>
+        <Frame
             Grid.Row="4"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             BackgroundColor="Gray"
-            FontAttributes="Bold"
-            FontSize="20"
-            HeightRequest="45"
-            IsPassword="True"
-            Placeholder="Password"
-            PlaceholderColor="Black"
-            Text="{Binding Password}"
-            TextColor="Black" />
-        <Entry
+            BorderColor="Black"
+            HeightRequest="50">
+            <Entry
+                BackgroundColor="Gray"
+                FontAttributes="Bold"
+                FontSize="20"
+                HeightRequest="45"
+                IsPassword="True"
+                Placeholder="Password"
+                PlaceholderColor="Black"
+                Text="{Binding Password}"
+                TextColor="Black" />
+        </Frame>
+        <Frame
             Grid.Row="5"
             Grid.Column="1"
             Grid.ColumnSpan="5"
             BackgroundColor="Gray"
-            FontAttributes="Bold"
-            FontSize="20"
-            HeightRequest="45"
-            Placeholder="Display Name"
-            PlaceholderColor="Black"
-            Text="{Binding DisplayName}"
-            TextColor="Black" />
+            BorderColor="Black"
+            HeightRequest="50">
+            <Entry
+                BackgroundColor="Gray"
+                FontAttributes="Bold"
+                FontSize="20"
+                HeightRequest="45"
+                Placeholder="Display Name"
+                PlaceholderColor="Black"
+                Text="{Binding DisplayName}"
+                TextColor="Black" />
+        </Frame>
         <Label
             Grid.Row="2"
             Grid.Column="1"

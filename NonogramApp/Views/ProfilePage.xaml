@@ -6,10 +6,43 @@
     Title="ProfilePage"
     BackgroundImageSource="pixelbg.png"
     Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    <Border
+        Margin="10"
+        BackgroundColor="Transparent"
+        Stroke="Gray"
+        StrokeShape="RoundRectangle 10,10,10,10"
+        StrokeThickness="2">
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="5*,5*">
+                <Border
+                    Grid.Column="0"
+                    Margin="10"
+                    BackgroundColor="Transparent"
+                    Stroke="Gray"
+                    StrokeShape="ellipse"
+                    StrokeThickness="2">
+                    <Image Source="pfp.png" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1">
+                    <Border
+                        Grid.Column="0"
+                        Margin="10"
+                        BackgroundColor="#50505050"
+                        Stroke="Gray"
+                        StrokeShape="roundrectangle 5,5,5,5"
+                        StrokeThickness="2">
+                        <Label
+                            Margin="10"
+                            FontAttributes="Bold"
+                            FontSize="30"
+                            HorizontalOptions="CenterAndExpand"
+                            HorizontalTextAlignment="Start"
+                            Text="Warlock Lives Matter"
+                            TextColor="Gray"
+                            VerticalTextAlignment="Center" />
+                    </Border>
+                </VerticalStackLayout>
+            </Grid>
+        </VerticalStackLayout>
+    </Border>
 </ContentPage>

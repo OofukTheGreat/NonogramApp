@@ -9,6 +9,7 @@ namespace NonogramApp
         //Application level variables
         public PlayerDTO? LoggedInUser { get; set; }
         private NonogramService service;
+        public WelcomePage WelcomePage;
         public App(IServiceProvider serviceProvider, NonogramService service)
         {   
             this.service = service;
