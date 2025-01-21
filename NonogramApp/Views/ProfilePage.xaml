@@ -18,31 +18,58 @@
                     Grid.Column="0"
                     Margin="10"
                     BackgroundColor="Transparent"
+                    HeightRequest="165"
                     Stroke="Gray"
-                    StrokeShape="ellipse"
-                    StrokeThickness="2">
-                    <Image Source="pfp.png" />
+                    StrokeShape="Ellipse"
+                    StrokeThickness="2"
+                    WidthRequest="165">
+                    <Image Source="dotnet_bot.png" />
                 </Border>
-                <VerticalStackLayout Grid.Column="1">
+                <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                     <Border
                         Grid.Column="0"
                         Margin="10"
-                        BackgroundColor="#50505050"
+                        BackgroundColor="Transparent"
                         Stroke="Gray"
-                        StrokeShape="roundrectangle 5,5,5,5"
+                        StrokeShape="RoundRectangle 5,5,5,5"
                         StrokeThickness="2">
                         <Label
                             Margin="10"
                             FontAttributes="Bold"
                             FontSize="30"
                             HorizontalOptions="CenterAndExpand"
-                            HorizontalTextAlignment="Start"
-                            Text="Warlock Lives Matter"
-                            TextColor="Gray"
+                            HorizontalTextAlignment="Center"
+                            Text="{Binding LoggedUser.DisplayName}"
+                            TextColor="White"
                             VerticalTextAlignment="Center" />
                     </Border>
                 </VerticalStackLayout>
             </Grid>
+            <Label HorizontalOptions="CenterAndExpand">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="Email: "
+                            TextColor="White" />
+                        <Span
+                            FontAttributes="Bold"
+                            FontSize="20"
+                            Text="{Binding LoggedUser.Email}"
+                            TextColor="White" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Border
+                Margin="10"
+                HeightRequest="1"
+                Stroke="Gray"
+                StrokeThickness="2" />
+            <Label
+                Margin="10"
+                Text="Accolades go here"
+                TextColor="White" />
         </VerticalStackLayout>
     </Border>
 </ContentPage>

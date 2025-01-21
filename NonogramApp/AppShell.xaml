@@ -11,6 +11,27 @@
     Shell.TabBarForegroundColor="White"
     Shell.TabBarTitleColor="White"
     Shell.TabBarUnselectedColor="Gray">
+    <Shell.Resources>
+        <ResourceDictionary>
+            <Style x:Key="EntryFrame" TargetType="Frame">
+                <Setter Property="BackgroundColor" Value="Gray" />
+                <Setter Property="BorderColor" Value="Black" />
+            </Style>
+            <Style x:Key="Button" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="Black" />
+                <Setter Property="BorderColor" Value="Gray" />
+                <Setter Property="BorderWidth" Value="5" />
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="TextColor" Value="Gray" />
+            </Style>
+            <Style x:Key="Entry" TargetType="Entry">
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="PlaceholderColor" Value="Black" />
+                <Setter Property="BackgroundColor" Value="Gray" />
+                <Setter Property="TextColor" Value="Black" />
+            </Style>
+        </ResourceDictionary>
+    </Shell.Resources>
     <TabBar>
         <ShellContent
             Title="Create"
