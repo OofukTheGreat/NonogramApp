@@ -23,7 +23,7 @@
                     StrokeShape="Ellipse"
                     StrokeThickness="2"
                     WidthRequest="165">
-                    <Image Source="dotnet_bot.png" />
+                    <Image Source="pfp.png" />
                 </Border>
                 <VerticalStackLayout Grid.Column="1" VerticalOptions="Center">
                     <Border
