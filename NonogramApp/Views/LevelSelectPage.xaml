@@ -7,9 +7,6 @@
     BackgroundImageSource="pixelbg.png"
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+        <Button Style="{StaticResource Button}" Text="Real go to Game Page button" />
     </VerticalStackLayout>
 </ContentPage>

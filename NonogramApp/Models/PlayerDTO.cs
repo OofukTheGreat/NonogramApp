@@ -7,7 +7,7 @@
         public string DisplayName { get; set; }
         public bool IsAdmin { get; set; }
         public string ProfileImagePath { get; set; } = "";
-        public virtual List<CreatedLevelsDTO> Levels { get; set; } = new List<CreatedLevelsDTO>();
+        public virtual List<LevelDTO> Levels { get; set; } = new List<LevelDTO>();
         public PlayerDTO() { }
         public PlayerDTO(string email, string password, string displayname, bool isAdmin)
         {
