@@ -3,6 +3,7 @@
     x:Class="NonogramApp.Views.GamePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:models="clr-namespace:NonogramApp.Models"
     xmlns:viewmodel="clr-namespace:NonogramApp.ViewModels"
     Title="GamePage"
     x:DataType="viewmodel:GameViewModel">
@@ -10,11 +11,11 @@
         <Grid
             x:Name="grid"
             BackgroundColor="Blue"
+            BindableLayout.ItemsSource="tiles"
             ColumnDefinitions="{Binding Columns}"
             RowDefinitions="{Binding Rows}">
             <BindableLayout.ItemTemplate>
-                <DataTemplate >
-                    
+                <DataTemplate x:DataType="Models:Tile">
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </Grid>
