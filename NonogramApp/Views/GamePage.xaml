@@ -14,12 +14,18 @@
             BindableLayout.ItemsSource="{Binding Tiles}"
             ColumnDefinitions="{Binding Columns}"
             RowDefinitions="{Binding Rows}">
+            <Label
+                Grid.Row="1"
+                Text="1"
+                TextColor="White" />
             <BindableLayout.ItemTemplate>
                 <DataTemplate x:DataType="Models:Tile">
                     <Border
                         Grid.Row="{Binding Y}"
                         Grid.Column="{Binding X}"
-                        BackgroundColor="{Binding TrueColor}" />
+                        BackgroundColor="{Binding TrueColor}">
+                        <Label Text="Joe" />
+                    </Border>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </Grid>

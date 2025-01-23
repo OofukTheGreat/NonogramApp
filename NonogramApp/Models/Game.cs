@@ -45,7 +45,7 @@ namespace NonogramApp.Models
             string selectedColor = "White";
             for (int i = 0; i < size; i++)
             {
-                while (layout[index] != '.')
+                while (index < layout.Length && layout[index] != '.')
                 {
                     for (int h = 0; h < int.Parse(layout[index].ToString()); h++)
                     {
