@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 
 namespace NonogramApp.ViewModels
 {
+    //[QueryProperty(nameof(Level), "Level")]
     public class GameViewModel : ViewModelBase
     {
         private NonogramService service;
@@ -17,7 +18,21 @@ namespace NonogramApp.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.service = service;
-            Level = new LevelDTO(1, "placeholder", "placeholder", 15, 1,1);
+            Level = new LevelDTO(1, "Heart", "11111.05.05.131.212.", 15, 1,1);
+            CreateGame();
+        }
+        private Game game;
+        public Game Game
+        {
+            get
+            {
+                return game;
+            }
+            set
+            {
+                game = value;
+                OnPropertyChanged(nameof(Game));
+            }
         }
         private int boardSize;
         public int BoardSize
@@ -83,7 +98,6 @@ namespace NonogramApp.ViewModels
                 level = value;
                 OnPropertyChanged(nameof(Level));
                 ExpandGrid(Level.DifficultyId);
-                BuildBoard(Level.DifficultyId);
             }
         }
         private RowDefinitionCollection rows;
@@ -112,7 +126,7 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(Columns));
             }
         }
-        public void ExpandGrid(int size)
+        public async void ExpandGrid(int size)
         {
             Rows = new();
             Columns = new();
@@ -124,9 +138,14 @@ namespace NonogramApp.ViewModels
                 Columns.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
             }
         }
-        public void BuildBoard(int size)
+        private async Task TileArrayToList(int size)
         {
-
+            Tiles = new ObservableCollection<Tile>(Game.GetBoardAsList(size));
+        }
+        private async void CreateGame()
+        {
+            Game = new Game(Level);
+            TileArrayToList(Level.DifficultyId);
         }
     }
 

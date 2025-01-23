@@ -45,8 +45,8 @@ namespace NonogramApp.Models
                 OnPropertyChanged(nameof(Y));
             }
         }
-        private bool currentColor;  //קונבנציה - טרו זה לבן, פולס זה שחור
-        public bool CurrentColor
+        private string currentColor;  //קונבנציה - טרו זה לבן, פולס זה שחור
+        public string CurrentColor
         {
             get
             {
@@ -58,8 +58,8 @@ namespace NonogramApp.Models
                 OnPropertyChanged(nameof(CurrentColor));
             }
         }
-        private bool trueColor;
-        public bool TrueColor
+        private string trueColor;
+        public string TrueColor
         {
             get
             {
@@ -70,6 +70,26 @@ namespace NonogramApp.Models
                 trueColor = value;
                 OnPropertyChanged(nameof(TrueColor));
             }
+        }
+        public Tile()
+        {
+            this.X = 0;
+            this.Y = 0;
+            this.CurrentColor = "White";
+            this.TrueColor = "White";
+        }
+        public void FlipColor()
+        {
+            if (this.CurrentColor == "Black") this.CurrentColor = "White";
+            else this.CurrentColor = "Black";
+        }
+        public void Black()
+        {
+            this.CurrentColor = "Black";
+        }
+        public void White()
+        {
+            this.CurrentColor = "White";
         }
     }
 }

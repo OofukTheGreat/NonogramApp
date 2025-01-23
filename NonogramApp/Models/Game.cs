@@ -35,7 +35,7 @@ namespace NonogramApp.Models
             Tile[,] board = new Tile[size, size];
             int j = 0;
             int index = 0;
-            bool selectedColor = true;
+            string selectedColor = "White";
             for (int i = 0; i < size; i++)
             {
                 while (layout[index] != '.')
@@ -43,16 +43,29 @@ namespace NonogramApp.Models
                     for (int h = 0; h < int.Parse(layout[index].ToString()); h++)
                     {
                         board[i, j].TrueColor = selectedColor;
+                        board[i,j].X = j+1;
+                        board[i,j].Y = i+1;
                         j++;
                     }
                     index++;
-                    selectedColor = !selectedColor;
+                    if (selectedColor == "White") selectedColor = "Black";
+                    else selectedColor = "White";
                 }
                 index += 1;
                 j = 0;
-                selectedColor = true;
+                selectedColor = "White";
             }
             return board;
+        }
+        public List<Tile> GetBoardAsList(int size)
+        {
+            List<Tile> list = new List<Tile>(size*size);
+            for (int i = 0; i < Board.Length; i++)
+            {
+                for (int j = 0; j < Board.Length; j++)
+                    list.Add(Board[i, j]);
+            }
+            return list;
         }
     }
 }

@@ -3,19 +3,23 @@
     x:Class="NonogramApp.Views.GamePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:models="clr-namespace:NonogramApp.Models"
-    xmlns:viewmodel="clr-namespace:NonogramApp.ViewModels"
+    xmlns:Models="clr-namespace:NonogramApp.Models"
+    xmlns:ViewModel="clr-namespace:NonogramApp.ViewModels"
     Title="GamePage"
-    x:DataType="viewmodel:GameViewModel">
+    x:DataType="ViewModel:GameViewModel">
     <VerticalStackLayout>
         <Grid
             x:Name="grid"
             BackgroundColor="Blue"
-            BindableLayout.ItemsSource="tiles"
+            BindableLayout.ItemsSource="{Binding Tiles}"
             ColumnDefinitions="{Binding Columns}"
             RowDefinitions="{Binding Rows}">
             <BindableLayout.ItemTemplate>
                 <DataTemplate x:DataType="Models:Tile">
+                    <Border
+                        Grid.Row="{Binding Y}"
+                        Grid.Column="{Binding X}"
+                        BackgroundColor="{Binding TrueColor}" />
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
         </Grid>
