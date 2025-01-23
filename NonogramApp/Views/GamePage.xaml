@@ -8,6 +8,7 @@
     Title="GamePage"
     x:DataType="ViewModel:GameViewModel">
     <VerticalStackLayout>
+        <Label Text="{Binding Time}"/>
         <Grid
             x:Name="grid"
             BackgroundColor="Blue"

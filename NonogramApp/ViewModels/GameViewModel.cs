@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
+using System.Timers;
 
 namespace NonogramApp.ViewModels
 {
@@ -20,6 +21,18 @@ namespace NonogramApp.ViewModels
             this.service = service;
             Level = new LevelDTO(1, "Heart", "11111.05.05.131.212.", 15, 1,1);
             CreateGame();
+            time = 0;
+            Timer();
+        }
+        private double time;
+        public double Time
+        {
+            get => Math.Round(time,3);
+            set
+            {
+                time = value;
+                OnPropertyChanged();
+            }
         }
         private Game game;
         public Game Game
@@ -138,14 +151,28 @@ namespace NonogramApp.ViewModels
                 Columns.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
             }
         }
-        private async Task TileArrayToList(int size)
-        {
-            Tiles = new ObservableCollection<Tile>(Game.GetBoardAsList(size));
-        }
         private async void CreateGame()
         {
             Game = new Game(Level);
             TileArrayToList(Level.DifficultyId);
+        }
+        private async Task TileArrayToList(int size)
+        {
+            Tiles = new ObservableCollection<Tile>(Game.GetBoardAsList(size));
+        }
+
+        private async void Timer()
+        {
+            System.Timers.Timer aTimer = new System.Timers.Timer();
+            aTimer.Elapsed += new ElapsedEventHandler(UpdateTime);
+            aTimer.Interval = 10; 
+            aTimer.Enabled = true;
+        }
+
+        private void UpdateTime(object source, ElapsedEventArgs e)
+        {
+            this.time += 0.01;
+            OnPropertyChanged("Time");
         }
     }
 

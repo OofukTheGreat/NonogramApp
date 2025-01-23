@@ -67,10 +67,12 @@ namespace NonogramApp.Models
         public List<Tile> GetBoardAsList(int size)
         {
             List<Tile> list = new List<Tile>(size*size);
-            for (int i = 0; i < Board.Length; i++)
+            for (int i = 0; i < size; i++)
             {
-                for (int j = 0; j < Board.Length; j++)
+                for (int j = 0; j < size; j++)
+                {
                     list.Add(Board[i, j]);
+                }
             }
             return list;
         }
