@@ -33,6 +33,13 @@ namespace NonogramApp.Models
         public static Tile[,] MakeBoard(int size, string layout)
         {
             Tile[,] board = new Tile[size, size];
+            for (int i = 0; i < size; i++)
+            {
+                for (int k = 0; k < size; k++)
+                {
+                    board[i, k] = new Tile();
+                }
+            }
             int j = 0;
             int index = 0;
             string selectedColor = "White";
