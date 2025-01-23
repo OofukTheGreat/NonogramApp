@@ -27,7 +27,7 @@ namespace NonogramApp.ViewModels
         private double time;
         public double Time
         {
-            get => Math.Round(time,3);
+            get => Math.Round(time,3); // second number is how many decimels it rounds to
             set
             {
                 time = value;
@@ -165,13 +165,13 @@ namespace NonogramApp.ViewModels
         {
             System.Timers.Timer aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(UpdateTime);
-            aTimer.Interval = 10; 
+            aTimer.Interval = 10; //how often it triggers (in milliseconds)
             aTimer.Enabled = true;
         }
 
         private void UpdateTime(object source, ElapsedEventArgs e)
         {
-            this.time += 0.01;
+            this.time += 0.01; //how much gets added every trigger (in seconds)
             OnPropertyChanged("Time");
         }
     }
