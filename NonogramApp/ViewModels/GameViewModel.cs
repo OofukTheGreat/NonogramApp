@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Timers;
+using System.Windows.Input;
 
 namespace NonogramApp.ViewModels
 {
@@ -19,11 +20,21 @@ namespace NonogramApp.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.service = service;
-            Level = new LevelDTO(1, "Heart", "11111.05.05.131.212.", 15, 1,1);
+            Level = new LevelDTO(1, "Heart", "11111.05.05.131.212.", 5, 1, 1);
+            UpCommand = new Command(Up);
+            DownCommand = new Command(Down);
+            LeftCommand = new Command(Left);
+            RightCommand = new Command(Right);
+            SelectedX = 1;
+            SelectedY = 1;
             CreateGame();
             time = 0;
             Timer();
         }
+        public ICommand UpCommand {get; set;}
+        public ICommand DownCommand {get; set;}
+        public ICommand LeftCommand {get; set;}
+        public ICommand RightCommand { get; set;}
         private double time;
         public double Time
         {
@@ -47,17 +58,30 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(Game));
             }
         }
-        private int boardSize;
-        public int BoardSize
+        private int selectedX;
+        public int SelectedX
         {
             get
             {
-                return boardSize;
+                return selectedX;
             }
             set
             {
-                boardSize = value;
-                OnPropertyChanged(nameof(BoardSize));
+                selectedX = value;
+                OnPropertyChanged(nameof(SelectedX));
+            }
+        }
+        private int selectedY;
+        public int SelectedY
+        {
+            get
+            {
+                return selectedY;
+            }
+            set
+            {
+                selectedY = value;
+                OnPropertyChanged(nameof(SelectedY));
             }
         }
         private ObservableCollection<Tile> tiles;
@@ -71,32 +95,6 @@ namespace NonogramApp.ViewModels
             {
                 tiles = value;
                 OnPropertyChanged(nameof(Tiles));
-            }
-        }
-        private int selectedRow;
-        public int SelectedRow
-        {
-            get
-            {
-                return selectedRow;
-            }
-            set
-            {
-                selectedRow = value;
-                OnPropertyChanged(nameof(SelectedRow));
-            }
-        }
-        private int selectedColumn;
-        public int SelectedColumn
-        {
-            get
-            {
-                return selectedColumn;
-            }
-            set
-            {
-                selectedColumn = value;
-                OnPropertyChanged(nameof(SelectedColumn));
             }
         }
         private LevelDTO level;
@@ -173,6 +171,45 @@ namespace NonogramApp.ViewModels
         {
             this.time += 0.01; //how much gets added every trigger (in seconds)
             OnPropertyChanged("Time");
+        }
+        private void Up()
+        {
+            int temp = SelectedY;
+            SelectedY -= 1;
+            if (SelectedY < 1) SelectedY = Level.DifficultyId;
+            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
+            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
+        }
+        private void Down()
+        {
+            int temp = SelectedY;
+            SelectedY += 1;
+            if (SelectedY > Level.DifficultyId) SelectedY = 1;
+            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
+            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
+        }
+        private void Left()
+        {
+            int temp = SelectedX;
+            SelectedX -= 1;
+            if (SelectedX < 1) SelectedX = Level.DifficultyId;
+            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
+            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
+        }
+        private void Right()
+        {
+            int temp = SelectedX;
+            SelectedX += 1;
+            if (SelectedX > Level.DifficultyId) SelectedX = 1;
+            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
+            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
+        }
+        private void ColorTile()
+        {
+            foreach (Tile T in Tiles)
+            {
+                if (T.X == SelectedX && T.Y == SelectedY) T.FlipColor();
+            }
         }
     }
 

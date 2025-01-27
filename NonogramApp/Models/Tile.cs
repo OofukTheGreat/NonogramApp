@@ -71,6 +71,19 @@ namespace NonogramApp.Models
                 OnPropertyChanged(nameof(TrueColor));
             }
         }
+        private Color borderColor;
+        public Color BorderColor
+        {
+            get
+            {
+                return borderColor;
+            }
+            set
+            {
+                borderColor = value;
+                OnPropertyChanged(nameof(BorderColor));
+            }
+        }
         public Tile()
         {
             this.X = 0;

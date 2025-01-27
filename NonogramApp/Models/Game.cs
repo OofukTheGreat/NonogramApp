@@ -52,6 +52,7 @@ namespace NonogramApp.Models
                         board[i, j].TrueColor = selectedColor;
                         board[i,j].X = j+1;
                         board[i,j].Y = i+1;
+                        board[i, j].BorderColor = Color.FromArgb("#000000");
                         j++;
                     }
                     index++;
@@ -62,6 +63,7 @@ namespace NonogramApp.Models
                 j = 0;
                 selectedColor = "White";
             }
+            board[0, 0].BorderColor = Color.FromArgb("#FF0000");
             return board;
         }
         public List<Tile> GetBoardAsList(int size)

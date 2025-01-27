@@ -8,10 +8,10 @@
     Title="GamePage"
     x:DataType="ViewModel:GameViewModel">
     <VerticalStackLayout>
-        <Label Text="{Binding Time}"/>
+        <Label Text="{Binding Time}" />
         <Grid
             x:Name="grid"
-            BackgroundColor="Blue"
+            Padding="0"
             BindableLayout.ItemsSource="{Binding Tiles}"
             ColumnDefinitions="{Binding Columns}"
             RowDefinitions="{Binding Rows}">
@@ -24,11 +24,68 @@
                     <Border
                         Grid.Row="{Binding Y}"
                         Grid.Column="{Binding X}"
-                        BackgroundColor="{Binding TrueColor}">
-                        <Label Text="Joe" />
+                        BackgroundColor="{Binding TrueColor}"
+                        Stroke="{Binding BorderColor}"
+                        StrokeThickness="5">
+                        <Label Text="" />
                     </Border>
                 </DataTemplate>
             </BindableLayout.ItemTemplate>
+        </Grid>
+        <Grid
+            ColumnDefinitions="*,*,*,3*"
+            HeightRequest="450"
+            RowDefinitions="*,*,*"
+            WidthRequest="900">
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="StartAndExpand"
+                StrokeShape="RoundRectangle 0,100,0,100"
+                WidthRequest="185">
+                <Button
+                    BackgroundColor="Black"
+                    Command="{Binding LeftCommand}"
+                    Text="Left" />
+            </Border>
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                HorizontalOptions="EndAndExpand"
+                StrokeShape="RoundRectangle 100,0,100,0"
+                WidthRequest="185">
+                <Button
+                    BackgroundColor="Black"
+                    Command="{Binding RightCommand}"
+                    Text="Right" />
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                HeightRequest="185"
+                StrokeShape="RoundRectangle 0,0,100,100"
+                VerticalOptions="StartAndExpand">
+                <Button
+                    BackgroundColor="Black"
+                    Command="{Binding UpCommand}"
+                    Text="Up" />
+            </Border>
+            <Border
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                HeightRequest="185"
+                StrokeShape="RoundRectangle 100,100,0,0"
+                VerticalOptions="EndAndExpand">
+                <Button
+                    BackgroundColor="Black"
+                    Command="{Binding DownCommand}"
+                    Text="Down" />
+            </Border>
+
         </Grid>
     </VerticalStackLayout>
 </ContentPage>
