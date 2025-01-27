@@ -24,7 +24,7 @@
                     <Border
                         Grid.Row="{Binding Y}"
                         Grid.Column="{Binding X}"
-                        BackgroundColor="{Binding TrueColor}"
+                        BackgroundColor="{Binding CurrentColor}"
                         Stroke="{Binding BorderColor}"
                         StrokeThickness="5">
                         <Label Text="" />
@@ -85,7 +85,14 @@
                     Command="{Binding DownCommand}"
                     Text="Down" />
             </Border>
-
+            <Button
+                Grid.Row="0"
+                Grid.RowSpan="3"
+                Grid.Column="3"
+                Grid.ColumnSpan="3"
+                Command="{Binding ColorCommand}"
+                HeightRequest="300"
+                WidthRequest="300" />
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

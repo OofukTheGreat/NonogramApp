@@ -1,5 +1,6 @@
 ﻿using NonogramApp.Models;
 using NonogramApp.Services;
+using NonogramApp.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,14 @@ namespace NonogramApp.ViewModels
             DownCommand = new Command(Down);
             LeftCommand = new Command(Left);
             RightCommand = new Command(Right);
+            ColorCommand = new Command(ColorTile);
             SelectedX = 1;
             SelectedY = 1;
             CreateGame();
             time = 0;
             Timer();
         }
+        public ICommand ColorCommand { get; set; }
         public ICommand UpCommand {get; set;}
         public ICommand DownCommand {get; set;}
         public ICommand LeftCommand {get; set;}
@@ -206,10 +209,13 @@ namespace NonogramApp.ViewModels
         }
         private void ColorTile()
         {
+            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().FlipColor();
+            bool hasWon = true;
             foreach (Tile T in Tiles)
             {
-                if (T.X == SelectedX && T.Y == SelectedY) T.FlipColor();
+                if (T.CurrentColor != T.TrueColor) hasWon = false;
             }
+            if (hasWon==true ) ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<WelcomePage>());
         }
     }
 
