@@ -4,95 +4,127 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:NonogramApp.Models"
+    BackgroundImageSource="pixelbg.png"
     xmlns:ViewModel="clr-namespace:NonogramApp.ViewModels"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False"
     Title="GamePage"
     x:DataType="ViewModel:GameViewModel">
     <VerticalStackLayout>
-        <Label Text="{Binding Time}" />
+        <Label Text="{Binding Time}" TextColor="White"/>
         <Grid
-            x:Name="grid"
-            Padding="0"
-            BindableLayout.ItemsSource="{Binding Tiles}"
-            ColumnDefinitions="{Binding Columns}"
-            RowDefinitions="{Binding Rows}">
-            <Label
-                Grid.Row="1"
-                Text="1"
-                TextColor="White" />
+                x:Name="grid"
+                BindableLayout.ItemsSource="{Binding Tiles}"
+                ColumnDefinitions="{Binding Columns}"
+                RowDefinitions="{Binding Rows}">
             <BindableLayout.ItemTemplate>
-                <DataTemplate x:DataType="Models:Tile">
-                    <Border
-                        Grid.Row="{Binding Y}"
-                        Grid.Column="{Binding X}"
-                        BackgroundColor="{Binding CurrentColor}"
-                        Stroke="{Binding BorderColor}"
-                        StrokeThickness="5">
-                        <Label Text="" />
-                    </Border>
-                </DataTemplate>
-            </BindableLayout.ItemTemplate>
-        </Grid>
-        <Grid
-            ColumnDefinitions="*,*,*,3*"
-            HeightRequest="450"
-            RowDefinitions="*,*,*"
-            WidthRequest="900">
+                    <DataTemplate x:DataType="Models:Tile">
+                        <Border
+                            Grid.Row="{Binding Y}"
+                            Grid.Column="{Binding X}"
+                            BackgroundColor="{Binding CurrentColor}"
+                            Stroke="{Binding BorderColor}"
+                            StrokeThickness="5">
+                            <Image Source="mark.png" IsVisible="{Binding IsMarked}"/>
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </Grid>
+            <Grid
+            ColumnDefinitions="*,*,*,0.666*,*,0.666*,*,0.666*"
+            HeightRequest="150"
+            Margin="20"
+            RowDefinitions="*,*,*">
             <Border
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
+                BackgroundColor="#a9a9a9"
+                StrokeThickness="2"
+                Stroke="Gray"
+                WidthRequest="62"
                 HorizontalOptions="StartAndExpand"
-                StrokeShape="RoundRectangle 0,100,0,100"
-                WidthRequest="185">
+                StrokeShape="RoundRectangle 0,100,0,100">
                 <Button
-                    BackgroundColor="Black"
-                    Command="{Binding LeftCommand}"
-                    Text="Left" />
+                    BackgroundColor="#a9a9a9"
+                    Command="{Binding LeftCommand}"/>
             </Border>
             <Border
                 Grid.Row="1"
                 Grid.Column="1"
+                WidthRequest="62"
+                BackgroundColor="#a9a9a9"
+                StrokeThickness="2"
+                Stroke="Gray"
                 Grid.ColumnSpan="2"
                 HorizontalOptions="EndAndExpand"
-                StrokeShape="RoundRectangle 100,0,100,0"
-                WidthRequest="185">
+                StrokeShape="RoundRectangle 100,0,100,0">
                 <Button
-                    BackgroundColor="Black"
-                    Command="{Binding RightCommand}"
-                    Text="Right" />
+                    BackgroundColor="#a9a9a9"
+                    Command="{Binding RightCommand}"/>
             </Border>
             <Border
                 Grid.Row="0"
                 Grid.RowSpan="2"
+                HeightRequest="62"
                 Grid.Column="1"
-                HeightRequest="185"
+                BackgroundColor="#a9a9a9"
+                StrokeThickness="2"
+                Stroke="Gray"
                 StrokeShape="RoundRectangle 0,0,100,100"
                 VerticalOptions="StartAndExpand">
                 <Button
-                    BackgroundColor="Black"
-                    Command="{Binding UpCommand}"
-                    Text="Up" />
+                    BackgroundColor="#a9a9a9"
+                    Command="{Binding UpCommand}"/>
             </Border>
             <Border
                 Grid.Row="1"
                 Grid.RowSpan="2"
                 Grid.Column="1"
-                HeightRequest="185"
+                HeightRequest="62"
+                BackgroundColor="#a9a9a9"
+                StrokeThickness="2"
+                Stroke="Gray"
                 StrokeShape="RoundRectangle 100,100,0,0"
                 VerticalOptions="EndAndExpand">
                 <Button
-                    BackgroundColor="Black"
-                    Command="{Binding DownCommand}"
-                    Text="Down" />
+                    BackgroundColor="#a9a9a9"
+                    Command="{Binding DownCommand}"/>
             </Border>
-            <Button
+            <Label Grid.Row="1" Grid.Column="1"/>
+            <ImageButton
+                Padding="5"
                 Grid.Row="0"
+                Grid.ColumnSpan="3"
+                Grid.RowSpan="3"
+                Grid.Column="5"
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                HeightRequest="80"
+                WidthRequest="80"
+                Margin="30,0,0,0"
+                BackgroundColor="#a9a9a9"
+                BorderColor="gray"
+                BorderWidth="2"
+                CornerRadius="10"
+                Source="color.png"
+                Command="{Binding ColorCommand}"/>
+            <ImageButton
+                Padding="5"
+                Grid.Row="0"
+                Grid.ColumnSpan="3"
                 Grid.RowSpan="3"
                 Grid.Column="3"
-                Grid.ColumnSpan="3"
-                Command="{Binding ColorCommand}"
-                HeightRequest="300"
-                WidthRequest="300" />
+                HorizontalOptions="CenterAndExpand"
+                VerticalOptions="CenterAndExpand"
+                HeightRequest="80"
+                WidthRequest="80"
+                BackgroundColor="#a9a9a9"
+                BorderColor="gray"
+                BorderWidth="2"
+                CornerRadius="10"
+                Source="mark.png"
+                Command="{Binding MarkCommand}"/>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

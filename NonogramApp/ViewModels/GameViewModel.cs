@@ -27,6 +27,7 @@ namespace NonogramApp.ViewModels
             LeftCommand = new Command(Left);
             RightCommand = new Command(Right);
             ColorCommand = new Command(ColorTile);
+            MarkCommand = new Command(MarkTile);
             SelectedX = 1;
             SelectedY = 1;
             CreateGame();
@@ -34,6 +35,7 @@ namespace NonogramApp.ViewModels
             Timer();
         }
         public ICommand ColorCommand { get; set; }
+        public ICommand MarkCommand { get; set; }
         public ICommand UpCommand {get; set;}
         public ICommand DownCommand {get; set;}
         public ICommand LeftCommand {get; set;}
@@ -144,8 +146,8 @@ namespace NonogramApp.ViewModels
         {
             Rows = new();
             Columns = new();
-            Rows.Add(new RowDefinition(new GridLength(6, GridUnitType.Star)));
-            Columns.Add(new ColumnDefinition(new GridLength(6, GridUnitType.Star)));
+            Rows.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
+            Columns.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
             for (int i = 0; i < size; i++)
             {
                 Rows.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
@@ -209,13 +211,17 @@ namespace NonogramApp.ViewModels
         }
         private void ColorTile()
         {
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().FlipColor();
+            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Blacken();
             bool hasWon = true;
             foreach (Tile T in Tiles)
             {
                 if (T.CurrentColor != T.TrueColor) hasWon = false;
             }
             if (hasWon==true ) ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<WelcomePage>());
+        }
+        private void MarkTile()
+        {
+            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Mark();
         }
     }
 

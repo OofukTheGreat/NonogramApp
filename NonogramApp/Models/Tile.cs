@@ -71,6 +71,19 @@ namespace NonogramApp.Models
                 OnPropertyChanged(nameof(TrueColor));
             }
         }
+        private bool isMarked;
+        public bool IsMarked
+        {
+            get
+            {
+                return isMarked;
+            }
+            set
+            {
+                isMarked = value;
+                OnPropertyChanged(nameof(IsMarked));
+            }
+        }
         private Color borderColor;
         public Color BorderColor
         {
@@ -91,18 +104,17 @@ namespace NonogramApp.Models
             this.CurrentColor = "White";
             this.TrueColor = "White";
         }
-        public void FlipColor()
+        public void Blacken()
         {
-            if (this.CurrentColor == "Black") this.CurrentColor = "White";
+            if (this.IsMarked) this.IsMarked = false;
+            else if (this.CurrentColor == "Black") this.CurrentColor = "White";
             else this.CurrentColor = "Black";
         }
-        public void Black()
+        public void Mark()
         {
-            this.CurrentColor = "Black";
-        }
-        public void White()
-        {
-            this.CurrentColor = "White";
+            if (this.CurrentColor == "Black") this.CurrentColor = "White";
+            else if (this.IsMarked) this.IsMarked = false;
+            else this.IsMarked = true;
         }
     }
 }

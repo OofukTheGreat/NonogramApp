@@ -53,6 +53,7 @@ namespace NonogramApp.Models
                         board[i,j].X = j+1;
                         board[i,j].Y = i+1;
                         board[i, j].BorderColor = Color.FromArgb("#000000");
+                        board[i,j].IsMarked = false;
                         j++;
                     }
                     index++;
