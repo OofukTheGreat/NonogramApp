@@ -50,9 +50,10 @@ namespace NonogramApp.Models
                     for (int h = 0; h < int.Parse(layout[index].ToString()); h++)
                     {
                         board[i, j].TrueColor = selectedColor;
-                        board[i,j].X = j+1;
-                        board[i,j].Y = i+1;
+                        board[i,j].X = j;
+                        board[i,j].Y = i;
                         board[i, j].BorderColor = Color.FromArgb("#000000");
+                        board[i, j].BorderWidth = 1;
                         board[i,j].IsMarked = false;
                         j++;
                     }
@@ -65,6 +66,7 @@ namespace NonogramApp.Models
                 selectedColor = "White";
             }
             board[0, 0].BorderColor = Color.FromArgb("#FF0000");
+            board[0, 0].BorderWidth = 4;
             return board;
         }
         public List<Tile> GetBoardAsList(int size)
@@ -76,6 +78,58 @@ namespace NonogramApp.Models
                 {
                     list.Add(Board[i, j]);
                 }
+            }
+            return list;
+        }
+        public List<Hint> GetLayoutList(int size)
+        {
+            List<Hint> list = new List<Hint>(2 * size);
+            for (int i = 0; i < size; i++)
+            {
+                int count = 0;
+                string label = "";
+                for (int j = 0; j < size; j++)
+                {
+                    if (this.Board[i, j].TrueColor == "White")
+                    {
+                        if (count != 0)
+                        {
+                            label += ' ';
+                            label += count;
+                        }
+                        count = 0;
+                    }
+                    else if (j == size - 1 && this.Board[i, j].TrueColor == "Black")
+                    {
+                        count++;
+                        label += ' ';
+                        label += count;
+                        count = 0;
+                    }
+                    else count++;
+                }
+                list.Add(new Hint(0, i+1, label));
+            }
+            for (int i = 0; i < size; i++)
+            {
+                int count = 0;
+                string label = "";
+                for (int j = 0; j < size; j++)
+                {
+                    if (this.Board[j, i].TrueColor == "White")
+                    {
+                        if (count != 0) label += count;
+                        count = 0;
+                    }
+                    else if (j == size - 1 && this.Board[i, j].TrueColor == "Black")
+                    {
+                        count++;
+                        label += count;
+                        count = 0;
+                    }
+                    else count++;
+                }
+                list.Add(new Hint(i + 1, 0, label));
             }
             return list;
         }

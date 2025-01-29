@@ -97,6 +97,19 @@ namespace NonogramApp.Models
                 OnPropertyChanged(nameof(BorderColor));
             }
         }
+        private int borderWidth;
+        public int BorderWidth
+        {
+            get
+            {
+                return borderWidth;
+            }
+            set
+            {
+                borderWidth = value;
+                OnPropertyChanged(nameof(BorderWidth));
+            }
+        }
         public Tile()
         {
             this.X = 0;

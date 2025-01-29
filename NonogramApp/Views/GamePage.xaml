@@ -4,32 +4,55 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Models="clr-namespace:NonogramApp.Models"
-    BackgroundImageSource="pixelbg.png"
     xmlns:ViewModel="clr-namespace:NonogramApp.ViewModels"
     NavigationPage.HasNavigationBar="False"
     Shell.NavBarIsVisible="False"
     Title="GamePage"
     x:DataType="ViewModel:GameViewModel">
     <VerticalStackLayout>
-        <Label Text="{Binding Time}" TextColor="White"/>
-        <Grid
+        <Label Text="{Binding Time}"/>
+        <Grid x:Name="basegrid" Margin="20" ColumnDefinitions="{Binding ExColumns}" RowDefinitions="{Binding ExRows}">
+            <Grid
+                Padding="-1"
+                Grid.Column="1"
+                Grid.Row="1"
+                Grid.ColumnSpan="{Binding Level.DifficultyId}"
+                Grid.RowSpan="{Binding Level.DifficultyId}"
                 x:Name="grid"
                 BindableLayout.ItemsSource="{Binding Tiles}"
                 ColumnDefinitions="{Binding Columns}"
                 RowDefinitions="{Binding Rows}">
-            <BindableLayout.ItemTemplate>
+                <BindableLayout.ItemTemplate>
                     <DataTemplate x:DataType="Models:Tile">
                         <Border
-                            Grid.Row="{Binding Y}"
-                            Grid.Column="{Binding X}"
-                            BackgroundColor="{Binding CurrentColor}"
-                            Stroke="{Binding BorderColor}"
-                            StrokeThickness="5">
+                        Margin="-1"
+                        Grid.Row="{Binding Y}"
+                        Grid.Column="{Binding X}"
+                        BackgroundColor="{Binding TrueColor}"
+                        Stroke="{Binding BorderColor}"
+                        StrokeThickness="{Binding BorderWidth}">
                             <Image Source="mark.png" IsVisible="{Binding IsMarked}"/>
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </Grid>
+            <Grid 
+                x:Name="labelgrid" 
+                Grid.Row="0" Grid.Column="0"
+                BindableLayout.ItemsSource="{Binding Labels}" 
+                ColumnDefinitions="{Binding ExColumns}"
+                RowDefinitions="{Binding ExRows}"
+                Grid.ColumnSpan="{Binding Level.DifficultyId}"
+                Grid.RowSpan="{Binding Level.DifficultyId}"
+                VerticalOptions="StartAndExpand"
+                HorizontalOptions="StartAndExpand">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="Models:Hint">
+                        <Label Grid.Column="{Binding X}" Grid.Row="{Binding Y}" Text="{Binding Text}"/>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </Grid>
+        </Grid>
             <Grid
             ColumnDefinitions="*,*,*,0.666*,*,0.666*,*,0.666*"
             HeightRequest="150"
