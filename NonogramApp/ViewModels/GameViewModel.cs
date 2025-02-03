@@ -28,8 +28,9 @@ namespace NonogramApp.ViewModels
             RightCommand = new Command(Right);
             ColorCommand = new Command(ColorTile);
             MarkCommand = new Command(MarkTile);
-            SelectedX = 1;
-            SelectedY = 1;
+            SizePlusOne = Level.DifficultyId + 1;
+            SelectedX = 0;
+            SelectedY = 0;
             CreateGame();
             time = 0;
             Timer();
@@ -200,8 +201,8 @@ namespace NonogramApp.ViewModels
             ExRows = new();
             Columns = new();
             ExColumns = new();
-            ExRows.Add(new RowDefinition(new GridLength(20, GridUnitType.Absolute)));
-            ExColumns.Add(new ColumnDefinition(new GridLength(20, GridUnitType.Absolute)));
+            ExRows.Add(new RowDefinition(new GridLength(50, GridUnitType.Absolute)));
+            ExColumns.Add(new ColumnDefinition(new GridLength(50, GridUnitType.Absolute)));
             for (int i = 0; i < size; i++)
             {
                 Rows.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
@@ -242,7 +243,7 @@ namespace NonogramApp.ViewModels
         {
             int temp = SelectedY;
             SelectedY -= 1;
-            if (SelectedY < 1) SelectedY = Level.DifficultyId;
+            if (SelectedY < 0) SelectedY = Level.DifficultyId-1;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
             Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
@@ -252,7 +253,7 @@ namespace NonogramApp.ViewModels
         {
             int temp = SelectedY;
             SelectedY += 1;
-            if (SelectedY > Level.DifficultyId) SelectedY = 1;
+            if (SelectedY > Level.DifficultyId-1) SelectedY = 0;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
             Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
@@ -262,7 +263,7 @@ namespace NonogramApp.ViewModels
         {
             int temp = SelectedX;
             SelectedX -= 1;
-            if (SelectedX < 1) SelectedX = Level.DifficultyId;
+            if (SelectedX < 0) SelectedX = Level.DifficultyId-1;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
             Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
@@ -272,7 +273,7 @@ namespace NonogramApp.ViewModels
         {
             int temp = SelectedX;
             SelectedX += 1;
-            if (SelectedX > Level.DifficultyId) SelectedX = 1;
+            if (SelectedX > Level.DifficultyId-1) SelectedX = 0;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
             Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#000000");

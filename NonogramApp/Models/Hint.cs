@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AndroidX.Core.View;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -58,14 +59,65 @@ namespace NonogramApp.Models
                 OnPropertyChanged(nameof(Text));
             }
         }
+        private Thickness margin;
+        public Thickness Margin
+        {
+            get
+            {
+                return margin;
+            }
+            set
+            {
+                margin = value;
+                OnPropertyChanged(nameof(Margin));
+            }
+        }
+        private TextAlignment horAlign;
+        public TextAlignment HorAlign
+        {
+            get
+            {
+                return horAlign;
+            }
+            set
+            {
+                horAlign = value;
+                OnPropertyChanged(nameof(HorAlign));
+            }
+        }
+        private TextAlignment vertAlign;
+        public TextAlignment VertAlign
+        {
+            get
+            {
+                return vertAlign;
+            }
+            set
+            {
+                vertAlign = value;
+                OnPropertyChanged(nameof(VertAlign));
+            }
+        }
         public Hint()
         {
             this.X = 0;
             this.Y = 0;
             this.Text = "";
         }
-        public Hint(int x, int y, string text)
+        public Hint(int x, int y, string text, bool istop)
         {
+            if (istop)
+            {
+                HorAlign = TextAlignment.Center;
+                VertAlign = TextAlignment.End;
+                Margin = new Thickness(12, 4, 12, 4);
+            }
+            else if (!istop)
+            {
+                HorAlign = TextAlignment.End;
+                VertAlign = TextAlignment.Center;
+                Margin = new Thickness(4, 9, 4, 9);
+            }
             this.X = x;
             this.Y = y;
             this.Text = text;

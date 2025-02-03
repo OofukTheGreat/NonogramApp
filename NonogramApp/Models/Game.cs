@@ -108,7 +108,7 @@ namespace NonogramApp.Models
                     }
                     else count++;
                 }
-                list.Add(new Hint(0, i+1, label));
+                list.Add(new Hint(0, i+1, label, false));
             }
             for (int i = 0; i < size; i++)
             {
@@ -121,7 +121,7 @@ namespace NonogramApp.Models
                         if (count != 0) label += count;
                         count = 0;
                     }
-                    else if (j == size - 1 && this.Board[i, j].TrueColor == "Black")
+                    else if (j == size - 1 && this.Board[j, i].TrueColor == "Black")
                     {
                         count++;
                         label += count;
@@ -129,7 +129,7 @@ namespace NonogramApp.Models
                     }
                     else count++;
                 }
-                list.Add(new Hint(i + 1, 0, label));
+                list.Add(new Hint(i + 1, 0, label, true));
             }
             return list;
         }
