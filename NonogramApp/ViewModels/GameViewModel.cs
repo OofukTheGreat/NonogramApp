@@ -41,6 +41,34 @@ namespace NonogramApp.ViewModels
         public ICommand DownCommand {get; set;}
         public ICommand LeftCommand {get; set;}
         public ICommand RightCommand { get; set;}
+        private int minutes;
+        public int Minutes
+        {
+            get
+            {
+                return minutes;
+            }
+            set
+            {
+                minutes = value;
+
+                OnPropertyChanged();
+            }
+        }
+        private int hours;
+        public int Hours
+        {
+            get
+            {
+                return hours;
+            }
+            set
+            {
+                hours = value;
+
+                OnPropertyChanged();
+            }
+        }
         private double time;
         public double Time
         {
@@ -48,6 +76,7 @@ namespace NonogramApp.ViewModels
             set
             {
                 time = value;
+
                 OnPropertyChanged();
             }
         }

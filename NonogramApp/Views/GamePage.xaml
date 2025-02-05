@@ -11,7 +11,9 @@
     NavigationPage.HasNavigationBar="False"
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
-        <Label Text="{Binding Time}" />
+        <Border Stroke="Gray" StrokeThickness="3" StrokeShape="RoundRectangle 5,5,5,5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" WidthRequest="100">
+            <Label Text="{Binding Time}" TextColor="White" FontAttributes="Bold"/>
+        </Border>
         <Grid
             x:Name="basegrid"
             Margin="20"
