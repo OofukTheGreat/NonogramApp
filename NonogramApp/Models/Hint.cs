@@ -1,5 +1,4 @@
-﻿using AndroidX.Core.View;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -98,6 +97,19 @@ namespace NonogramApp.Models
                 OnPropertyChanged(nameof(VertAlign));
             }
         }
+        private string textColor;
+        public string TextColor
+        {
+            get
+            {
+                return textColor;
+            }
+            set
+            {
+                textColor = value;
+                OnPropertyChanged(nameof(TextColor));
+            }
+        }
         public Hint()
         {
             this.X = 0;
@@ -118,6 +130,7 @@ namespace NonogramApp.Models
                 VertAlign = TextAlignment.Center;
                 Margin = new Thickness(4, 9, 4, 9);
             }
+            this.TextColor = "White";
             this.X = x;
             this.Y = y;
             this.Text = text;

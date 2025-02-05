@@ -68,7 +68,7 @@
                             FontSize="10"
                             HorizontalTextAlignment="{Binding HorAlign}"
                             Text="{Binding Text}"
-                            TextColor="White"
+                            TextColor="{Binding TextColor}"
                             VerticalTextAlignment="{Binding VertAlign}" />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>

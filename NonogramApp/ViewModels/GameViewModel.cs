@@ -21,7 +21,7 @@ namespace NonogramApp.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.service = service;
-            Level = new LevelDTO(1, "Cherry", "64.5221.41122.32212.21412.13231.012322.011413.0415.12331.", 10, 1, 1);
+            Level = new LevelDTO(1, "Cherry", "6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.", 10, 1, 1); /*64.5221.41122.32212.21412.13231.012322.011413.0415.12331.*/
             UpCommand = new Command(Up);
             DownCommand = new Command(Down);
             LeftCommand = new Command(Left);
@@ -216,6 +216,7 @@ namespace NonogramApp.ViewModels
             Game = new Game(Level);
             TileArrayToList(Level.DifficultyId);
             LabelsToList(Level.DifficultyId);
+            MarkEmptyRowColumn();
         }
         private async Task TileArrayToList(int size)
         {
@@ -246,7 +247,7 @@ namespace NonogramApp.ViewModels
             if (SelectedY < 0) SelectedY = Level.DifficultyId-1;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
+            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
             Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderWidth = 1;
         }
         private void Down()
@@ -256,7 +257,7 @@ namespace NonogramApp.ViewModels
             if (SelectedY > Level.DifficultyId-1) SelectedY = 0;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
+            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
             Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderWidth = 1;
         }
         private void Left()
@@ -266,7 +267,7 @@ namespace NonogramApp.ViewModels
             if (SelectedX < 0) SelectedX = Level.DifficultyId-1;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
+            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
             Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
         }
         private void Right()
@@ -276,7 +277,7 @@ namespace NonogramApp.ViewModels
             if (SelectedX > Level.DifficultyId-1) SelectedX = 0;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#000000");
+            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
             Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
         }
         private void ColorTile()
@@ -288,10 +289,46 @@ namespace NonogramApp.ViewModels
                 if (T.CurrentColor != T.TrueColor) hasWon = false;
             }
             if (hasWon==true ) ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<WelcomePage>());
+            MarkRowColumn(SelectedX, SelectedY);
         }
         private void MarkTile()
         {
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Mark();
+        }
+        private void MarkRowColumn(int selectedx, int selectedy)
+        {
+            bool rowcorrect = true;
+            bool columncorrect = true;
+            foreach (Tile T in Tiles)
+            {
+                if (T.X == selectedx && T.CurrentColor != T.TrueColor) columncorrect = false;
+                if (T.Y == selectedy && T.CurrentColor != T.TrueColor) rowcorrect = false;
+            }
+            if (columncorrect)
+            {
+                foreach (Tile T in Tiles)
+                {
+                    if (T.X == SelectedX && T.CurrentColor != "Black") T.IsMarked = true;
+                    Labels.Where(L => L.X == selectedx + 1).FirstOrDefault().TextColor = "Gray";
+                }
+            }
+            if (rowcorrect)
+            {
+                foreach (Tile T in Tiles)
+                {
+                    if (T.Y == SelectedY && T.CurrentColor != "Black") T.IsMarked = true;
+                    Labels.Where(L => L.Y == selectedy + 1).FirstOrDefault().TextColor = "Gray";
+                }
+            }
+        }
+        private void MarkEmptyRowColumn()
+        {
+            int j = 0;
+            for (int i = 0; i < Level.DifficultyId; i++)
+            {
+                MarkRowColumn(i, j);
+                j++;
+            }
         }
     }
 

@@ -45,21 +45,29 @@ namespace NonogramApp.Models
             string selectedColor = "White";
             for (int i = 0; i < size; i++)
             {
+                string number = "";
                 while (index < layout.Length && layout[index] != '.')
                 {
-                    for (int h = 0; h < int.Parse(layout[index].ToString()); h++)
+                    if (layout[index] == ',')
                     {
-                        board[i, j].TrueColor = selectedColor;
-                        board[i,j].X = j;
-                        board[i,j].Y = i;
-                        board[i, j].BorderColor = Color.FromArgb("#000000");
-                        board[i, j].BorderWidth = 1;
-                        board[i,j].IsMarked = false;
-                        j++;
+                        int realnumber = int.Parse(number);
+                        for (int h = 0; h < realnumber; h++)
+                        {
+                            board[i, j].TrueColor = selectedColor;
+                            board[i, j].X = j;
+                            board[i, j].Y = i;
+                            board[i, j].BorderColor = Color.FromArgb("#808080");
+                            board[i, j].BorderWidth = 1;
+                            board[i, j].IsMarked = false;
+                            j++;
+                        }
+                        
+                        if (selectedColor == "White") selectedColor = "Black";
+                        else selectedColor = "White";
+                        number = "";
                     }
+                    else number += layout[index];
                     index++;
-                    if (selectedColor == "White") selectedColor = "Black";
-                    else selectedColor = "White";
                 }
                 index += 1;
                 j = 0;
@@ -108,6 +116,7 @@ namespace NonogramApp.Models
                     }
                     else count++;
                 }
+                if (label == "") label = "0";
                 list.Add(new Hint(0, i+1, label, false));
             }
             for (int i = 0; i < size; i++)
@@ -129,6 +138,7 @@ namespace NonogramApp.Models
                     }
                     else count++;
                 }
+                if (label == "") label = "0";
                 list.Add(new Hint(i + 1, 0, label, true));
             }
             return list;
