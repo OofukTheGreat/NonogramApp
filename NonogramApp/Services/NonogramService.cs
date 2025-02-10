@@ -152,5 +152,21 @@ namespace NonogramApp.Services
                 return null;
             }
         }
+        private Tile[,] TileListToArray(int size, List<Tile> tiles)
+        {
+            Tile[,] array = new Tile[size, size];
+            foreach (Tile T in tiles)
+            {
+                array[T.Y, T.X] = new Tile()
+                {
+                    CurrentColor = T.CurrentColor,
+                    X = T.X,
+                    Y = T.Y,
+                    IsMarked = T.IsMarked,
+                };
+            }
+            return array;
+        }
+
     }
 }

@@ -17,7 +17,7 @@ namespace NonogramApp.ViewModels
     {
         private NonogramService service;
         private IServiceProvider serviceProvider;
-        public GameViewModel(NonogramService service, IServiceProvider serviceProvider)
+        public GameViewModel(NonogramService service, IServiceProvider serviceProvider) 
         {
             this.serviceProvider = serviceProvider;
             this.service = service;
@@ -26,21 +26,24 @@ namespace NonogramApp.ViewModels
             DownCommand = new Command(Down);
             LeftCommand = new Command(Left);
             RightCommand = new Command(Right);
+            ExitCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             MarkCommand = new Command(MarkTile);
             SizePlusOne = Level.DifficultyId + 1;
             SelectedX = 0;
             SelectedY = 0;
             CreateGame();
-            time = 0;
+            Time = 0;
             Timer();
         }
+        #region (Instance)Variables
         public ICommand ColorCommand { get; set; }
         public ICommand MarkCommand { get; set; }
         public ICommand UpCommand {get; set;}
         public ICommand DownCommand {get; set;}
         public ICommand LeftCommand {get; set;}
         public ICommand RightCommand { get; set;}
+        public ICommand ExitCommand { get; set;}
         private int minutes;
         public int Minutes
         {
@@ -51,6 +54,20 @@ namespace NonogramApp.ViewModels
             set
             {
                 minutes = value;
+
+                OnPropertyChanged();
+            }
+        }
+        private int seconds;
+        public int Seconds
+        {
+            get
+            {
+                return seconds;
+            }
+            set
+            {
+                seconds = value;
 
                 OnPropertyChanged();
             }
@@ -69,14 +86,19 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private double time;
-        public double Time
+        private int time;
+        public int Time
         {
-            get => Math.Round(time,3); // second number is how many decimels it rounds to
+            get
+            {
+                return time;
+            }
             set
             {
+                Hours = Time / 3600;
+                Minutes = (Time / 60) % 60;
+                Seconds = Time % 60;
                 time = value;
-
                 OnPropertyChanged();
             }
         }
@@ -224,6 +246,8 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(ExColumns));
             }
         }
+        #endregion
+        #region GameCreation
         public async void ExpandGrid(int size)
         {
             Rows = new();
@@ -250,25 +274,41 @@ namespace NonogramApp.ViewModels
         private async Task TileArrayToList(int size)
         {
             Tiles = new ObservableCollection<Tile>(Game.GetBoardAsList(size));
+            int i = 0;
         }
         private async Task LabelsToList(int size)
         {
             Labels = new ObservableCollection<Hint>(Game.GetLayoutList(size));
         }
-
         private async void Timer()
         {
             System.Timers.Timer aTimer = new System.Timers.Timer();
             aTimer.Elapsed += new ElapsedEventHandler(UpdateTime);
-            aTimer.Interval = 10; //how often it triggers (in milliseconds)
+            aTimer.Interval = 1000; //how often it triggers (in milliseconds)
             aTimer.Enabled = true;
         }
 
         private void UpdateTime(object source, ElapsedEventArgs e)
         {
-            this.time += 0.01; //how much gets added every trigger (in seconds)
+            this.Time += 1; //how much gets added every trigger (in seconds)
             OnPropertyChanged("Time");
+            OnPropertyChanged("Hours");
+            OnPropertyChanged("Seconds");
+            OnPropertyChanged("Minutes");
+
+
         }
+        private void MarkEmptyRowColumn()
+        {
+            int j = 0;
+            for (int i = 0; i < Level.DifficultyId; i++)
+            {
+                MarkRowColumn(i, j);
+                j++;
+            }
+        }
+        #endregion
+        #region GameOperation
         private void Up()
         {
             int temp = SelectedY;
@@ -350,15 +390,11 @@ namespace NonogramApp.ViewModels
                 }
             }
         }
-        private void MarkEmptyRowColumn()
+        #endregion
+        private void OnExit()
         {
-            int j = 0;
-            for (int i = 0; i < Level.DifficultyId; i++)
-            {
-                MarkRowColumn(i, j);
-                j++;
-            }
+            // Navigate to the Register View page
+            ((App)Application.Current).MainPage.Navigation.PopAsync();
         }
     }
-
 }

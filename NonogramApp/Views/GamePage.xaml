@@ -11,9 +11,56 @@
     NavigationPage.HasNavigationBar="False"
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
-        <Border Stroke="Gray" StrokeThickness="3" StrokeShape="RoundRectangle 5,5,5,5" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" WidthRequest="100">
-            <Label Text="{Binding Time}" TextColor="White" FontAttributes="Bold"/>
-        </Border>
+        <Grid ColumnDefinitions="*" RowDefinitions="*">
+            <ImageButton
+                Margin="10"
+                Padding="5"
+                BorderColor="Gray"
+                BorderWidth="3"
+                Command="{Binding ExitCommand}"
+                CornerRadius="5"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                Source="backarrow"
+                VerticalOptions="Start"
+                WidthRequest="50" />
+            <Border
+                Margin="10"
+                Padding="5"
+                BackgroundColor="Black"
+                HorizontalOptions="CenterAndExpand"
+                Stroke="Gray"
+                StrokeShape="RoundRectangle 5,5,5,5"
+                StrokeThickness="4"
+                VerticalOptions="CenterAndExpand">
+                <Label HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span
+                                FontAttributes="Bold"
+                                Text="{Binding Hours}"
+                                TextColor="White" />
+                            <Span
+                                FontAttributes="Bold"
+                                Text=":"
+                                TextColor="White" />
+                            <Span
+                                FontAttributes="Bold"
+                                Text="{Binding Minutes, StringFormat='{0:D2}'}"
+                                TextColor="White" />
+                            <Span
+                                FontAttributes="Bold"
+                                Text=":"
+                                TextColor="White" />
+                            <Span
+                                FontAttributes="Bold"
+                                Text="{Binding Seconds, StringFormat='{0:D2}'}"
+                                TextColor="White" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+            </Border>
+        </Grid>
         <Grid
             x:Name="basegrid"
             Margin="20"
