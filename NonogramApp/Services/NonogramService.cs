@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Text.Json;
@@ -152,7 +153,7 @@ namespace NonogramApp.Services
                 return null;
             }
         }
-        private Tile[,] TileListToArray(int size, List<Tile> tiles)
+        public Tile[,] TileListToArray(int size, ObservableCollection<Tile> tiles)
         {
             Tile[,] array = new Tile[size, size];
             foreach (Tile T in tiles)
@@ -167,6 +168,42 @@ namespace NonogramApp.Services
             }
             return array;
         }
+        public string TileArrayToLayout(Tile[,] board)
+        {
+            int size = board.GetLength(0);
+            string layout = "";
+            for (int i = 0; i < size; i++)
+            {
+                string color = "White";
+                int count = 0;
+                if (board[i, 0].CurrentColor == "Black")
+                {
+                    count++;
+                    layout += "0,";
+                    color = "Black";
 
+                }
+                else count++;
+                for (int j = 1; j < size; j++)
+                {
+                    if (j == size - 1 && board[i, j].CurrentColor == color)
+                    {
+                        layout += count+1;
+                        layout += ',';
+                    }
+                    else if (board[i, j].CurrentColor == color) count++;
+                    else
+                    {
+                        if (board[i,j].CurrentColor == "White") color = "White";
+                        else color = "Black";
+                        layout += count;
+                        layout += ',';
+                        count = 1;
+                    }
+                }
+                layout += '.';
+            }
+            return layout;
+        }
     }
 }

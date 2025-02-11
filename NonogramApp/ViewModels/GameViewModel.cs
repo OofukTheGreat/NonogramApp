@@ -391,8 +391,9 @@ namespace NonogramApp.ViewModels
             }
         }
         #endregion
-        private void OnExit()
+        private async void OnExit()
         {
+            string layout = this.service.TileArrayToLayout(this.service.TileListToArray(SizePlusOne-1, Tiles));
             // Navigate to the Register View page
             ((App)Application.Current).MainPage.Navigation.PopAsync();
         }
