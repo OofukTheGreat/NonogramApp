@@ -3,6 +3,8 @@ using Microsoft.Win32;
 using NonogramApp.Services;
 using NonogramApp.ViewModels;
 using NonogramApp.Views;
+using CommunityToolkit.Maui.Core;
+using CommunityToolkit.Maui;
 
 namespace NonogramApp
 {
@@ -11,6 +13,17 @@ namespace NonogramApp
         public static MauiApp CreateMauiApp()
         {
             var builder = MauiApp.CreateBuilder();
+            builder
+                .UseMauiApp<App>()
+                // Initialize the .NET MAUI Community Toolkit by adding the below line of code
+                .UseMauiCommunityToolkit()
+                // After initializing the .NET MAUI Community Toolkit, optionally add additional fonts
+                .ConfigureFonts(fonts =>
+                {
+                    fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
+                    fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                });
+            // Continue initializing your .NET MAUI App here
             builder
                 .UseMauiApp<App>()
                 .ConfigureFonts(fonts =>

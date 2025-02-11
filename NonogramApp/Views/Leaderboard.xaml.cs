@@ -1,9 +1,11 @@
+using CommunityToolkit.Maui.Views;
+
 namespace NonogramApp.Views;
 
-public partial class Leaderboard : ContentView
+public partial class SimplePopup : Popup
 {
-	public Leaderboard()
-	{
-		InitializeComponent();
-	}
+    public SimplePopup()
+    {
+        InitializeComponent();
+    }
 }
