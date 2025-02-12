@@ -88,7 +88,7 @@ namespace NonogramApp.Services
         public async Task<PlayerDTO?> Signup(PlayerDTO user)
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}SignUp";
+            string url = $"{this.baseUrl}signUp";
             try
             {
                 //Call the server API
@@ -204,6 +204,39 @@ namespace NonogramApp.Services
                 layout += '.';
             }
             return layout;
+        }
+        public async Task<ScoreDTO> AddScore(ScoreDTO score)
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}addScore";
+            try
+            {
+                //Call the server API
+                string json = JsonSerializer.Serialize(score);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    ScoreDTO? result = JsonSerializer.Deserialize<ScoreDTO>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
     }
 }

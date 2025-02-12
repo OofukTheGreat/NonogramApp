@@ -74,9 +74,9 @@
             <Grid
                 x:Name="grid"
                 Grid.Row="1"
-                Grid.RowSpan="{Binding Level.DifficultyId}"
+                Grid.RowSpan="{Binding Level.Size}"
                 Grid.Column="1"
-                Grid.ColumnSpan="{Binding Level.DifficultyId}"
+                Grid.ColumnSpan="{Binding Level.Size}"
                 Padding="-1"
                 BindableLayout.ItemsSource="{Binding Tiles}"
                 ColumnDefinitions="{Binding Columns}"

@@ -28,7 +28,7 @@ namespace NonogramApp.Models
         {
             StartTime = DateTime.Now;
             EndTime = DateTime.Now;
-            Board = MakeBoard(Level.DifficultyId, Level.Layout);
+            Board = MakeBoard(Level.Size, Level.Layout);
         }
         public static Tile[,] MakeBoard(int size, string layout)
         {

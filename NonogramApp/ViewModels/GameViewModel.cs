@@ -13,8 +13,10 @@ using System.Windows.Input;
 namespace NonogramApp.ViewModels
 {
     //[QueryProperty(nameof(Level), "Level")]
+    //[QueryProperty(nameof(Score), "Score")]
     public class GameViewModel : ViewModelBase
     {
+        public event Action<List<string>> OpenPopup;
         private NonogramService service;
         private IServiceProvider serviceProvider;
         public GameViewModel(NonogramService service, IServiceProvider serviceProvider) 
@@ -22,6 +24,7 @@ namespace NonogramApp.ViewModels
             this.serviceProvider = serviceProvider;
             this.service = service;
             Level = new LevelDTO(1, "Cherry", "6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.", 10, 1, 1); /*64.5221.41122.32212.21412.13231.012322.011413.0415.12331.*/
+            ((App)Application.Current).LoggedInUser = new PlayerDTO(1, "ofekrom1@gmail.com", "1234", "JoeBiden", true);
             UpCommand = new Command(Up);
             DownCommand = new Command(Down);
             LeftCommand = new Command(Left);
@@ -29,7 +32,7 @@ namespace NonogramApp.ViewModels
             ExitCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             MarkCommand = new Command(MarkTile);
-            SizePlusOne = Level.DifficultyId + 1;
+            SizePlusOne = Level.Size + 1;
             SelectedX = 0;
             SelectedY = 0;
             CreateGame();
@@ -191,7 +194,7 @@ namespace NonogramApp.ViewModels
             {
                 level = value;
                 OnPropertyChanged(nameof(Level));
-                ExpandGrid(Level.DifficultyId);
+                ExpandGrid(Level.Size);
             }
         }
         private RowDefinitionCollection rows;
@@ -267,8 +270,8 @@ namespace NonogramApp.ViewModels
         private async void CreateGame()
         {
             Game = new Game(Level);
-            TileArrayToList(Level.DifficultyId);
-            LabelsToList(Level.DifficultyId);
+            TileArrayToList(Level.Size);
+            LabelsToList(Level.Size);
             MarkEmptyRowColumn();
         }
         private async Task TileArrayToList(int size)
@@ -280,9 +283,13 @@ namespace NonogramApp.ViewModels
         {
             Labels = new ObservableCollection<Hint>(Game.GetLayoutList(size));
         }
+
+        private System.Timers.Timer timer;
         private async void Timer()
         {
+
             System.Timers.Timer aTimer = new System.Timers.Timer();
+            timer = aTimer;
             aTimer.Elapsed += new ElapsedEventHandler(UpdateTime);
             aTimer.Interval = 1000; //how often it triggers (in milliseconds)
             aTimer.Enabled = true;
@@ -301,7 +308,7 @@ namespace NonogramApp.ViewModels
         private void MarkEmptyRowColumn()
         {
             int j = 0;
-            for (int i = 0; i < Level.DifficultyId; i++)
+            for (int i = 0; i < Level.Size; i++)
             {
                 MarkRowColumn(i, j);
                 j++;
@@ -313,7 +320,7 @@ namespace NonogramApp.ViewModels
         {
             int temp = SelectedY;
             SelectedY -= 1;
-            if (SelectedY < 0) SelectedY = Level.DifficultyId-1;
+            if (SelectedY < 0) SelectedY = Level.Size-1;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
             Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
@@ -323,7 +330,7 @@ namespace NonogramApp.ViewModels
         {
             int temp = SelectedY;
             SelectedY += 1;
-            if (SelectedY > Level.DifficultyId-1) SelectedY = 0;
+            if (SelectedY > Level.Size-1) SelectedY = 0;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
             Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
@@ -333,7 +340,7 @@ namespace NonogramApp.ViewModels
         {
             int temp = SelectedX;
             SelectedX -= 1;
-            if (SelectedX < 0) SelectedX = Level.DifficultyId-1;
+            if (SelectedX < 0) SelectedX = Level.Size-1;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
             Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
@@ -343,7 +350,7 @@ namespace NonogramApp.ViewModels
         {
             int temp = SelectedX;
             SelectedX += 1;
-            if (SelectedX > Level.DifficultyId-1) SelectedX = 0;
+            if (SelectedX > Level.Size-1) SelectedX = 0;
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
             Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
@@ -357,7 +364,7 @@ namespace NonogramApp.ViewModels
             {
                 if (T.CurrentColor != T.TrueColor) hasWon = false;
             }
-            if (hasWon==true ) ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<WelcomePage>());
+            if (hasWon) ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<WelcomePage>());
             MarkRowColumn(SelectedX, SelectedY);
         }
         private void MarkTile()
@@ -391,11 +398,32 @@ namespace NonogramApp.ViewModels
             }
         }
         #endregion
+        #region PostGame
+        private async void GameWon()
+        {
+            timer.Stop();
+            //Open the leaderboard popup
+            bool f = await SaveProgress(true);
+            if (OpenPopup != null)
+            {
+                List<string> l = new List<string>();
+                OpenPopup(l);
+            }
+        }
         private async void OnExit()
         {
-            string layout = this.service.TileArrayToLayout(this.service.TileListToArray(SizePlusOne-1, Tiles));
+            timer.Stop();
+            bool f = await SaveProgress(false);
             // Navigate to the Register View page
             ((App)Application.Current).MainPage.Navigation.PopAsync();
         }
+        private async Task<bool> SaveProgress(bool haswon)
+        {
+            string layout = this.service.TileArrayToLayout(this.service.TileListToArray(Level.Size, Tiles));
+            ScoreDTO score = new ScoreDTO(((App)Application.Current).LoggedInUser.Id, Level.LevelId, layout, Time, haswon);
+            score = await this.service.AddScore(score);
+            return true;
+        }
+        #endregion
     }
 }

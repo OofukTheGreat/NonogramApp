@@ -2,10 +2,12 @@ using CommunityToolkit.Maui.Views;
 
 namespace NonogramApp.Views;
 
-public partial class SimplePopup : Popup
+public partial class Leaderboard : Popup
 {
-    public SimplePopup()
+    public Leaderboard()
     {
         InitializeComponent();
     }
+
+
 }

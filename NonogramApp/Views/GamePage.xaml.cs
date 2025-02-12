@@ -8,11 +8,12 @@ public partial class GamePage : ContentPage
 	public GamePage(GameViewModel vm)
 	{
 		this.BindingContext = vm;
+		vm.OpenPopup += DisplayPopup;
 		InitializeComponent();
 	}
-	public void DisplayPopup()
+	public void DisplayPopup(List<string> l)
 	{
-        var popup = new SimplePopup();
+        var popup = new Leaderboard();
         this.ShowPopup(popup);
     }
 }
