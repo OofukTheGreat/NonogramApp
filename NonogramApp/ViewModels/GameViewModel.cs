@@ -23,7 +23,7 @@ namespace NonogramApp.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.service = service;
-            Level = new LevelDTO(1, "Cherry", "6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.", 10, 1, 1); /*64.5221.41122.32212.21412.13231.012322.011413.0415.12331.*/
+            Level = new LevelDTO(1, "Cherry", "6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.", 10, 1, 1); /*6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.*/ /*1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.*/
             ((App)Application.Current).LoggedInUser = new PlayerDTO(1, "ofekrom1@gmail.com", "1234", "JoeBiden", true);
             UpCommand = new Command(Up);
             DownCommand = new Command(Down);
@@ -364,8 +364,8 @@ namespace NonogramApp.ViewModels
             {
                 if (T.CurrentColor != T.TrueColor) hasWon = false;
             }
-            if (hasWon) ((App)Application.Current).MainPage = new NavigationPage(serviceProvider.GetService<WelcomePage>());
             MarkRowColumn(SelectedX, SelectedY);
+            if (hasWon) GameWon();
         }
         private void MarkTile()
         {
@@ -373,27 +373,33 @@ namespace NonogramApp.ViewModels
         }
         private void MarkRowColumn(int selectedx, int selectedy)
         {
+            ObservableCollection<Tile> joe = Tiles;
             bool rowcorrect = true;
             bool columncorrect = true;
+            bool iscorrect = true;
             foreach (Tile T in Tiles)
             {
+                if (T.X == selectedx && T.Y == selectedy && T.CurrentColor != T.TrueColor) iscorrect = false;
                 if (T.X == selectedx && T.CurrentColor != T.TrueColor) columncorrect = false;
                 if (T.Y == selectedy && T.CurrentColor != T.TrueColor) rowcorrect = false;
             }
-            if (columncorrect)
+            if (iscorrect)
             {
-                foreach (Tile T in Tiles)
+                if (columncorrect)
                 {
-                    if (T.X == SelectedX && T.CurrentColor != "Black") T.IsMarked = true;
-                    Labels.Where(L => L.X == selectedx + 1).FirstOrDefault().TextColor = "Gray";
+                    foreach (Tile T in Tiles)
+                    {
+                        if (T.X == selectedx && T.CurrentColor != "Black") T.IsMarked = true;
+                        Labels.Where(L => L.X == selectedx + 1).FirstOrDefault().TextColor = "Gray";
+                    }
                 }
-            }
-            if (rowcorrect)
-            {
-                foreach (Tile T in Tiles)
+                if (rowcorrect)
                 {
-                    if (T.Y == SelectedY && T.CurrentColor != "Black") T.IsMarked = true;
-                    Labels.Where(L => L.Y == selectedy + 1).FirstOrDefault().TextColor = "Gray";
+                    foreach (Tile T in Tiles)
+                    {
+                        if (T.Y == selectedy && T.CurrentColor != "Black") T.IsMarked = true;
+                        Labels.Where(L => L.Y == selectedy + 1).FirstOrDefault().TextColor = "Gray";
+                    }
                 }
             }
         }
@@ -403,12 +409,12 @@ namespace NonogramApp.ViewModels
         {
             timer.Stop();
             //Open the leaderboard popup
-            bool f = await SaveProgress(true);
             if (OpenPopup != null)
             {
                 List<string> l = new List<string>();
                 OpenPopup(l);
             }
+            bool f = await SaveProgress(true);
         }
         private async void OnExit()
         {

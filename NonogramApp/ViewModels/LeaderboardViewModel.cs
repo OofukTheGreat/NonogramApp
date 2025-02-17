@@ -7,7 +7,7 @@ using CommunityToolkit;
 
 namespace NonogramApp.ViewModels
 {
-    internal class LeaderboardViewModel
+    public class LeaderboardViewModel:ViewModelBase
     {
     }
 }

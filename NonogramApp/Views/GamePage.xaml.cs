@@ -13,7 +13,8 @@ public partial class GamePage : ContentPage
 	}
 	public void DisplayPopup(List<string> l)
 	{
-        var popup = new Leaderboard();
+		LeaderboardViewModel vm = new LeaderboardViewModel();
+        var popup = new Leaderboard(vm);
         this.ShowPopup(popup);
     }
 }
