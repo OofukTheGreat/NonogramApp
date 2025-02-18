@@ -50,6 +50,7 @@ namespace NonogramApp
             builder.Services.AddTransient<LevelSelectPage>();
             builder.Services.AddTransient<GamePage>();
             builder.Services.AddTransient<WelcomePage>();
+            builder.Services.AddTransient<Leaderboard>();
             builder.Services.AddTransient<CreateLevelsPage>();
             builder.Services.AddTransient<ProfilePage>();
             builder.Services.AddTransient<LogoutPage>();

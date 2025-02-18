@@ -5,7 +5,7 @@ namespace NonogramApp.Views;
 
 public partial class Leaderboard : Popup
 {
-    public Leaderboard(LeaderboardViewModel vm)
+    public Leaderboard(GameViewModel vm)
     {
         this.BindingContext = vm;
         InitializeComponent();

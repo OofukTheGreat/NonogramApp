@@ -14,7 +14,7 @@ namespace NonogramApp.ViewModels
 {
     //[QueryProperty(nameof(Level), "Level")]
     //[QueryProperty(nameof(Score), "Score")]
-    public class GameViewModel : ViewModelBase
+    public partial class GameViewModel : ViewModelBase
     {
         public event Action<List<string>> OpenPopup;
         private NonogramService service;
@@ -23,7 +23,7 @@ namespace NonogramApp.ViewModels
         {
             this.serviceProvider = serviceProvider;
             this.service = service;
-            Level = new LevelDTO(1, "Cherry", "6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.", 10, 1, 1); /*6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.*/ /*1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.*/
+            Level = new LevelDTO(1, "Heart", "1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.", 5, 1, 1); /*6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.*/ /*1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.*/
             ((App)Application.Current).LoggedInUser = new PlayerDTO(1, "ofekrom1@gmail.com", "1234", "JoeBiden", true);
             UpCommand = new Command(Up);
             DownCommand = new Command(Down);
@@ -412,6 +412,7 @@ namespace NonogramApp.ViewModels
             if (OpenPopup != null)
             {
                 List<string> l = new List<string>();
+                InitData();
                 OpenPopup(l);
             }
             bool f = await SaveProgress(true);
