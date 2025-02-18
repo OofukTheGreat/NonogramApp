@@ -24,13 +24,15 @@ namespace NonogramApp.ViewModels
         }
         private async Task GetScoresByList()
         {
+            scores.Clear();
+            Scores.Clear();
             List<ScoreDTO> _scores = await service.GetScoresByList(Level.LevelId);
             foreach (ScoreDTO s in _scores)
             {
                 string name = players.Where(x => x.Id == s.PlayerId).FirstOrDefault().DisplayName;
                 scores.Add(new ScoreWithPlayerName(s, name));
             }
-            foreach (ScoreWithPlayerName s in this.scores)
+            foreach (ScoreWithPlayerName s in scores)
             {
                 Scores.Add(s);
             }
