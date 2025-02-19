@@ -3,12 +3,144 @@
     x:Class="NonogramApp.Views.Leaderboard"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit">
-    <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="This is the popup"
-            TextColor="Red"
-            VerticalOptions="Center" />
-    </VerticalStackLayout>
+    xmlns:Models="clr-namespace:NonogramApp.Models"
+    xmlns:ViewModel="clr-namespace:NonogramApp.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    CanBeDismissedByTappingOutsideOfPopup="True"
+    HorizontalOptions="Center"
+    Size="270,580"
+    VerticalOptions="Center"
+    Color="Gray">
+    <Grid
+        ColumnDefinitions="*"
+        HorizontalOptions="Fill"
+        RowDefinitions="*"
+        VerticalOptions="Fill">
+        <Image
+            Grid.Row="0"
+            Grid.Column="0"
+            Margin="2"
+            HorizontalOptions="Fill"
+            Source="pixelbg.png"
+            VerticalOptions="Fill" />
+        <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+            <Label>
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="Congratulations! You beat level &quot;" TextColor="White" />
+                        <Span Text="{Binding Level.Title}" TextColor="White" />
+                        <Span Text="&quot; in " TextColor="White" />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="{Binding Hours}"
+                            TextColor="White" />
+                        <Span
+                            FontAttributes="Bold"
+                            Text=":"
+                            TextColor="White" />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="{Binding Minutes, StringFormat='{0:D2}'}"
+                            TextColor="White" />
+                        <Span
+                            FontAttributes="Bold"
+                            Text=":"
+                            TextColor="White" />
+                        <Span
+                            FontAttributes="Bold"
+                            Text="{Binding Seconds, StringFormat='{0:D2}'}"
+                            TextColor="White" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+            <Grid ColumnDefinitions="*" RowDefinitions="*">
+                <Border
+                    HeightRequest="160"
+                    StrokeShape="RoundRectangle 5,5,5,5"
+                    StrokeThickness="0"
+                    WidthRequest="160">
+                    <Image
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        HeightRequest="160"
+                        IsAnimationPlaying="True"
+                        Source="rainbowborder.gif"
+                        WidthRequest="160" />
+                </Border>
+                <Grid
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    Padding="-1"
+                    BindableLayout.ItemsSource="{Binding Tiles}"
+                    ColumnDefinitions="{Binding Columns}"
+                    HeightRequest="147"
+                    RowDefinitions="{Binding Rows}"
+                    WidthRequest="147">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="Models:Tile">
+                            <Border
+                                Grid.Row="{Binding Y}"
+                                Grid.Column="{Binding X}"
+                                Margin="-1"
+                                BackgroundColor="{Binding TrueColor}"
+                                StrokeThickness="0" />
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </Grid>
+            </Grid>
+            <CollectionView
+                Grid.Row="1"
+                ItemsLayout="VerticalList"
+                ItemsSource="{Binding Scores}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid
+                            Padding="20"
+                            ColumnDefinitions="*,2*"
+                            HorizontalOptions="FillAndExpand"
+                            RowDefinitions="*,*,*,*"
+                            VerticalOptions="Start">
+                            <Image
+                                Grid.Row="0"
+                                Grid.RowSpan="4"
+                                Grid.Column="0"
+                                HorizontalOptions="Start"
+                                Source="{Binding UserImage}"
+                                WidthRequest="100" />
+                            <Label
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                FontAttributes="Bold"
+                                Text="{Binding UserName}" />
+                            <Label Grid.Row="1" Grid.Column="1">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Joined in: " />
+                                        <Span Text="{Binding Email}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Grid.Row="2" Grid.Column="1">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Contact information: " />
+                                        <Span Text="{Binding Email}" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Grid.Row="3" Grid.Column="1">
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="Has " />
+                                        <Span Text="{Binding RecipeAmout}" />
+                                        <Span Text=" Recipes" />
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </Grid>
 </toolkit:Popup>

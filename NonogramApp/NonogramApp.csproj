@@ -74,6 +74,7 @@
 	  <None Remove="Resources\Images\play.png" />
 	  <None Remove="Resources\Images\pond.png" />
 	  <None Remove="Resources\Images\profile.png" />
+	  <None Remove="Resources\Images\rainbowborder.gif" />
 	</ItemGroup>
 
 	<ItemGroup>
