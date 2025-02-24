@@ -6,13 +6,23 @@
     BackgroundImageSource="pixelbg.png"
     NavigationPage.HasNavigationBar="False">
     <Grid ColumnDefinitions="2*,1*,1*,5*,1*,1*,2*" RowDefinitions="5*,1*,1*,1*,1*,1*,4*">
-        <Image
+        <Border
             Grid.Row="0"
             Grid.RowSpan="2"
             Grid.Column="2"
             Grid.ColumnSpan="3"
-            Source="pfp.png"
-            WidthRequest="250" />
+            HeightRequest="250"
+            StrokeShape="Ellipse"
+            WidthRequest="250">
+            <Image
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="2"
+                Grid.ColumnSpan="3"
+                HorizontalOptions="Fill"
+                Source="{Binding PhotoURL}"
+                VerticalOptions="Fill" />
+        </Border>
         <ImageButton
             Grid.Row="0"
             Grid.Column="4"

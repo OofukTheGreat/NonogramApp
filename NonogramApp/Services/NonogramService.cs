@@ -30,7 +30,7 @@ namespace NonogramApp.Services
         private HttpClient client;
         private string baseUrl;
         public static string BaseAddress = "https://rbswm66k-5068.euw.devtunnels.ms/api/";
-        private static string ImageBaseAddress = "https://rbswm66k-5068.euw.devtunnels.ms";
+        public static string ImageBaseAddress = "https://rbswm66k-5068.euw.devtunnels.ms";
         #endregion
 
         public NonogramService()
@@ -118,10 +118,10 @@ namespace NonogramApp.Services
                 return null;
             }
         }
-        public async Task<PlayerDTO?> UploadProfileImage(string imagePath)
+        public async Task<string?> UploadProfileImage(string imagePath, int userId)
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}uploadprofileimage";
+            string url = $"{this.baseUrl}uploadprofileimage?userId={userId}";
             try
             {
                 //Create the form data
@@ -140,7 +140,7 @@ namespace NonogramApp.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    PlayerDTO? result = JsonSerializer.Deserialize<PlayerDTO>(resContent, options);
+                    string? result = JsonSerializer.Deserialize<string>(resContent, options);
                     return result;
                 }
                 else

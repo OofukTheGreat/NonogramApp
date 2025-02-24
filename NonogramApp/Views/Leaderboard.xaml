@@ -94,50 +94,50 @@
                 ItemsSource="{Binding Scores}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Grid
-                            Padding="20"
-                            ColumnDefinitions="*,2*"
-                            HorizontalOptions="FillAndExpand"
-                            RowDefinitions="*,*,*,*"
-                            VerticalOptions="Start">
-                            <Image
-                                Grid.Row="0"
-                                Grid.RowSpan="4"
-                                Grid.Column="0"
-                                HorizontalOptions="Start"
-                                Source="{Binding UserImage}"
-                                WidthRequest="100" />
-                            <Label
-                                Grid.Row="0"
-                                Grid.Column="1"
-                                FontAttributes="Bold"
-                                Text="{Binding UserName}" />
-                            <Label Grid.Row="1" Grid.Column="1">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="Joined in: " />
-                                        <Span Text="{Binding Email}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label Grid.Row="2" Grid.Column="1">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="Contact information: " />
-                                        <Span Text="{Binding Email}" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                            <Label Grid.Row="3" Grid.Column="1">
-                                <Label.FormattedText>
-                                    <FormattedString>
-                                        <Span Text="Has " />
-                                        <Span Text="{Binding RecipeAmout}" />
-                                        <Span Text=" Recipes" />
-                                    </FormattedString>
-                                </Label.FormattedText>
-                            </Label>
-                        </Grid>
+                        <Border Margin="20,0,20,0">
+                            <Grid
+                                Padding="0"
+                                ColumnDefinitions="*,*,*"
+                                HorizontalOptions="FillAndExpand"
+                                RowDefinitions="*"
+                                VerticalOptions="Start">
+                                <Image
+                                    Grid.Column="0"
+                                    Source="pfp.png"
+                                    WidthRequest="50" />
+                                <Label
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    FontAttributes="Bold"
+                                    Text="{Binding Name}"
+                                    TextColor="White" />
+                                <Label Grid.Row="1" Grid.Column="1">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Joined in: " TextColor="White" />
+                                            <Span Text="{Binding Email}" TextColor="White" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Grid.Row="2" Grid.Column="1">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Contact information: " TextColor="White" />
+                                            <Span Text="{Binding Email}" TextColor="White" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label Grid.Row="3" Grid.Column="1">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span Text="Has " TextColor="White" />
+                                            <Span Text="{Binding RecipeAmout}" TextColor="White" />
+                                            <Span Text=" Recipes" TextColor="White" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                            </Grid>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

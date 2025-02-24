@@ -25,7 +25,7 @@ namespace NonogramApp.ViewModels
             SignupCommand = new Command(OnSignup);
             CancelCommand = new Command(OnCancel);
             UploadPhotoCommand = new Command(OnUploadPhoto);
-            PhotoURL = service.GetDefaultProfilePhotoUrl();
+            PhotoURL = "pfp.png";
             LocalPhotoPath = "";
             DisplayNameError = "Name is required";
             EmailError = "Email is required";
@@ -263,12 +263,14 @@ namespace NonogramApp.ViewModels
                     if (!string.IsNullOrEmpty(LocalPhotoPath))
                     {
                         await service.LoginAsync(new LoginInfo { Email = newUser.Email, Password = newUser.Password });
-                        PlayerDTO? updatedUser = await service.UploadProfileImage(LocalPhotoPath);
-                        if (updatedUser == null)
+                        string? imagePath = await service.UploadProfileImage(LocalPhotoPath, newUser.Id);
+                        if (imagePath == null)
                         {
                             InServerCall = false;
                             await Application.Current.MainPage.DisplayAlert("Registration", "User Data Was Saved BUT Profile image upload failed", "ok");
                         }
+                        else
+                            newUser.ProfileImagePath = imagePath;
                     }
                     InServerCall = false;
 

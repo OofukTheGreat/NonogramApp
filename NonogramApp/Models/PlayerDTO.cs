@@ -1,4 +1,6 @@
-﻿namespace NonogramApp.Models
+﻿using NonogramApp.Services;
+
+namespace NonogramApp.Models
 {
     public class PlayerDTO
     {
@@ -8,6 +10,13 @@
         public string DisplayName { get; set; }
         public bool IsAdmin { get; set; }
         public string ProfileImagePath { get; set; } = "";
+        public string FullUrl
+        {
+            get
+            {
+                return NonogramService.ImageBaseAddress + ProfileImagePath;
+            }
+        }
         public PlayerDTO() { }
         public PlayerDTO(int id, string email, string password, string displayname, bool isAdmin)
         {

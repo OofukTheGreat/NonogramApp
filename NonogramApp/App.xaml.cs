@@ -16,7 +16,7 @@ namespace NonogramApp
             InitializeComponent();
             LoggedInUser = null;
             //Start with the Login View
-            MainPage = new NavigationPage(serviceProvider.GetService<GamePage>());
+            MainPage = new NavigationPage(serviceProvider.GetService<WelcomePage>());
         }
     }
 }

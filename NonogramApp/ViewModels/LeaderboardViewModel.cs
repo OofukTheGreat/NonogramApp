@@ -30,15 +30,16 @@ namespace NonogramApp.ViewModels
             foreach (ScoreDTO s in _scores)
             {
                 string name = players.Where(x => x.Id == s.PlayerId).FirstOrDefault().DisplayName;
-                scores.Add(new ScoreWithPlayerName(s, name));
+                string url = players.Where(x => x.Id == s.PlayerId).FirstOrDefault().FullUrl;
+                scores.Add(new ScoreWithPlayerData(s, name, url));
             }
-            foreach (ScoreWithPlayerName s in scores)
+            foreach (ScoreWithPlayerData s in scores)
             {
                 Scores.Add(s);
             }
         }
         private List<PlayerDTO> players;
-        private List<ScoreWithPlayerName> scores;
-        public ObservableCollection<ScoreWithPlayerName> Scores { get; set; }
+        private List<ScoreWithPlayerData> scores;
+        public ObservableCollection<ScoreWithPlayerData> Scores { get; set; }
     }
 }
