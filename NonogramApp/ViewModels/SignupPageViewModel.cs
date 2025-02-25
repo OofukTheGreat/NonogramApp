@@ -3,14 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using NonogramApp.Models; 
 using NonogramApp.Services;
-using Microsoft.Win32;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 using NonogramApp.Views;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Maui.Controls;
+
 //using static Java.Util.Jar.Attributes;
 
 namespace NonogramApp.ViewModels
@@ -22,6 +21,7 @@ namespace NonogramApp.ViewModels
         public SignupPageViewModel(NonogramService service, IServiceProvider serviceProvider)
         {
             this.service = service;
+            this.serviceProvider = serviceProvider;
             SignupCommand = new Command(OnSignup);
             CancelCommand = new Command(OnCancel);
             UploadPhotoCommand = new Command(OnUploadPhoto);
@@ -270,11 +270,14 @@ namespace NonogramApp.ViewModels
                             await Application.Current.MainPage.DisplayAlert("Registration", "User Data Was Saved BUT Profile image upload failed", "ok");
                         }
                         else
-                            newUser.ProfileImagePath = imagePath;
+                            newUser.ProfilePicture = imagePath;
                     }
                     InServerCall = false;
 
-                    ((App)(Application.Current)).MainPage.Navigation.PopAsync();
+                    await Application.Current.MainPage.DisplayAlert("register", "register successful", "ok");
+                    ((App)Application.Current).LoggedInUser = newUser;
+                    AppShell shell = serviceProvider.GetService<AppShell>();
+                    ((App)Application.Current).MainPage = shell;
                 }
                 else
                 {

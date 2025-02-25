@@ -140,7 +140,7 @@ namespace NonogramApp.Services
                     {
                         PropertyNameCaseInsensitive = true
                     };
-                    string? result = JsonSerializer.Deserialize<string>(resContent, options);
+                    string? result = resContent;
                     return result;
                 }
                 else

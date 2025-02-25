@@ -9,12 +9,12 @@ namespace NonogramApp.Models
         public string Password { get; set; }
         public string DisplayName { get; set; }
         public bool IsAdmin { get; set; }
-        public string ProfileImagePath { get; set; } = "";
+        public string ProfilePicture { get; set; } = "";
         public string FullUrl
         {
             get
             {
-                return NonogramService.ImageBaseAddress + ProfileImagePath;
+                return NonogramService.ImageBaseAddress + this.ProfilePicture;
             }
         }
         public PlayerDTO() { }
