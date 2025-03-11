@@ -103,7 +103,7 @@
                                 VerticalOptions="Start">
                                 <Image
                                     Grid.Column="0"
-                                    Source="pfp.png"
+                                    Source="{Binding URL}"
                                     WidthRequest="50" />
                                 <Label
                                     Grid.Row="0"
