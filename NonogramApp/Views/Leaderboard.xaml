@@ -24,30 +24,39 @@
             Source="pixelbg.png"
             VerticalOptions="Fill" />
         <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-            <Label>
+            <Label Margin="3" HorizontalTextAlignment="Center">
                 <Label.FormattedText>
                     <FormattedString>
-                        <Span Text="Congratulations! You beat level &quot;" TextColor="White" />
-                        <Span Text="{Binding Level.Title}" TextColor="White" />
-                        <Span Text="&quot; in " TextColor="White" />
                         <Span
-                            FontAttributes="Bold"
+                            FontFamily="Font"
+                            Text="Congratulations! You beat level &quot;"
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
+                            Text="{Binding Level.Title}"
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
+                            Text="&quot; in "
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
                             Text="{Binding Hours}"
                             TextColor="White" />
                         <Span
-                            FontAttributes="Bold"
+                            FontFamily="Font"
                             Text=":"
                             TextColor="White" />
                         <Span
-                            FontAttributes="Bold"
+                            FontFamily="Font"
                             Text="{Binding Minutes, StringFormat='{0:D2}'}"
                             TextColor="White" />
                         <Span
-                            FontAttributes="Bold"
+                            FontFamily="Font"
                             Text=":"
                             TextColor="White" />
                         <Span
-                            FontAttributes="Bold"
+                            FontFamily="Font"
                             Text="{Binding Seconds, StringFormat='{0:D2}'}"
                             TextColor="White" />
                     </FormattedString>
@@ -90,49 +99,63 @@
             </Grid>
             <CollectionView
                 Grid.Row="1"
+                Margin="0,10,0,0"
                 ItemsLayout="VerticalList"
                 ItemsSource="{Binding Scores}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
-                        <Border Margin="20,0,20,0">
+                        <Border
+                            Margin="20,2,20,0"
+                            BackgroundColor="Black"
+                            StrokeShape="RoundRectangle 5,5,5,5">
                             <Grid
                                 Padding="0"
                                 ColumnDefinitions="*,*,*"
                                 HorizontalOptions="FillAndExpand"
                                 RowDefinitions="*"
                                 VerticalOptions="Start">
-                                <Image
-                                    Grid.Column="0"
-                                    Source="{Binding URL}"
-                                    WidthRequest="50" />
+                                <Border
+                                    HeightRequest="50"
+                                    StrokeShape="Ellipse"
+                                    WidthRequest="50">
+                                    <Image
+                                        Grid.Column="0"
+                                        HeightRequest="50"
+                                        Source="{Binding URL}" />
+                                </Border>
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="1"
-                                    FontAttributes="Bold"
+                                    HorizontalOptions="Center"
                                     Text="{Binding Name}"
-                                    TextColor="White" />
-                                <Label Grid.Row="1" Grid.Column="1">
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="2"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
-                                            <Span Text="Joined in: " TextColor="White" />
-                                            <Span Text="{Binding Email}" TextColor="White" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                                <Label Grid.Row="2" Grid.Column="1">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="Contact information: " TextColor="White" />
-                                            <Span Text="{Binding Email}" TextColor="White" />
-                                        </FormattedString>
-                                    </Label.FormattedText>
-                                </Label>
-                                <Label Grid.Row="3" Grid.Column="1">
-                                    <Label.FormattedText>
-                                        <FormattedString>
-                                            <Span Text="Has " TextColor="White" />
-                                            <Span Text="{Binding RecipeAmout}" TextColor="White" />
-                                            <Span Text=" Recipes" TextColor="White" />
+                                            <Span
+                                                FontFamily="Font"
+                                                Text="{Binding Score.Hours}"
+                                                TextColor="White" />
+                                            <Span
+                                                FontFamily="Font"
+                                                Text=":"
+                                                TextColor="White" />
+                                            <Span
+                                                FontFamily="Font"
+                                                Text="{Binding Score.Minutes, StringFormat='{0:D2}'}"
+                                                TextColor="White" />
+                                            <Span
+                                                FontFamily="Font"
+                                                Text=":"
+                                                TextColor="White" />
+                                            <Span
+                                                FontFamily="Font"
+                                                Text="{Binding Score.Seconds, StringFormat='{0:D2}'}"
+                                                TextColor="White" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>

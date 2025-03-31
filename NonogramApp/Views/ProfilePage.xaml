@@ -3,11 +3,11 @@
     x:Class="NonogramApp.Views.ProfilePage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    Title="ProfilePage"
-    BackgroundImageSource="pixelbg.png"
-    Shell.NavBarIsVisible="False"
     xmlns:viewmodels="clr-namespace:NonogramApp.ViewModels"
-    x:DataType="viewmodels:ProfileViewModel">
+    Title="ProfilePage"
+    x:DataType="viewmodels:ProfileViewModel"
+    BackgroundImageSource="pixelbg.png"
+    Shell.NavBarIsVisible="False">
     <Border
         Margin="10"
         BackgroundColor="Transparent"
@@ -37,7 +37,6 @@
                         StrokeThickness="2">
                         <Label
                             Margin="10"
-                            FontAttributes="Bold"
                             FontSize="30"
                             HorizontalOptions="CenterAndExpand"
                             HorizontalTextAlignment="Center"
@@ -51,12 +50,12 @@
                 <Label.FormattedText>
                     <FormattedString>
                         <Span
-                            FontAttributes="Bold"
+                            FontFamily="Font"
                             FontSize="20"
                             Text="Email: "
                             TextColor="White" />
                         <Span
-                            FontAttributes="Bold"
+                            FontFamily="Font"
                             FontSize="20"
                             Text="{Binding LoggedUser.Email}"
                             TextColor="White" />

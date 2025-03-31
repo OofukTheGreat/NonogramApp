@@ -59,7 +59,6 @@
             HeightRequest="50">
             <Entry
                 BackgroundColor="Gray"
-                FontAttributes="Bold"
                 FontSize="20"
                 HeightRequest="45"
                 Placeholder="Email"
@@ -76,7 +75,6 @@
             HeightRequest="50">
             <Entry
                 BackgroundColor="Gray"
-                FontAttributes="Bold"
                 FontSize="20"
                 HeightRequest="45"
                 IsPassword="True"
@@ -94,7 +92,6 @@
             HeightRequest="50">
             <Entry
                 BackgroundColor="Gray"
-                FontAttributes="Bold"
                 FontSize="20"
                 HeightRequest="45"
                 Placeholder="Display Name"
@@ -106,7 +103,6 @@
             Grid.Row="2"
             Grid.Column="1"
             Grid.ColumnSpan="5"
-            FontAttributes="Bold"
             FontSize="25"
             HorizontalTextAlignment="Center"
             Text="{Binding ErrorMsg}"
@@ -120,7 +116,6 @@
             BorderColor="Gray"
             BorderWidth="5"
             Command="{Binding SignupCommand}"
-            FontAttributes="Bold"
             FontSize="30"
             HeightRequest="80"
             Text="Sign Up"

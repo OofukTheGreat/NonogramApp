@@ -18,7 +18,6 @@
             BorderColor="Yellow"
             BorderWidth="5"
             Command="{Binding LogoutCommand}"
-            FontAttributes="Bold"
             FontSize="30"
             HeightRequest="90"
             Text="Log out"

@@ -38,23 +38,23 @@
                     <Label.FormattedText>
                         <FormattedString>
                             <Span
-                                FontAttributes="Bold"
+                                FontFamily="Font"
                                 Text="{Binding Hours}"
                                 TextColor="White" />
                             <Span
-                                FontAttributes="Bold"
+                                FontFamily="Font"
                                 Text=":"
                                 TextColor="White" />
                             <Span
-                                FontAttributes="Bold"
+                                FontFamily="Font"
                                 Text="{Binding Minutes, StringFormat='{0:D2}'}"
                                 TextColor="White" />
                             <Span
-                                FontAttributes="Bold"
+                                FontFamily="Font"
                                 Text=":"
                                 TextColor="White" />
                             <Span
-                                FontAttributes="Bold"
+                                FontFamily="Font"
                                 Text="{Binding Seconds, StringFormat='{0:D2}'}"
                                 TextColor="White" />
                         </FormattedString>

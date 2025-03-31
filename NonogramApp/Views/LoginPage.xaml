@@ -39,13 +39,13 @@
             HeightRequest="55">
             <Entry
                 BackgroundColor="Gray"
-                FontAttributes="Bold"
                 FontSize="20"
-                HeightRequest="50"
+                HeightRequest="45"
                 Placeholder="Email"
                 PlaceholderColor="Black"
                 Text="{Binding Email}"
-                TextColor="Black" />
+                TextColor="Black"
+                VerticalOptions="Center" />
         </Frame>
         <Frame
             Grid.Row="2"
@@ -56,30 +56,31 @@
             HeightRequest="55">
             <Entry
                 BackgroundColor="Gray"
-                FontAttributes="Bold"
                 FontSize="20"
-                HeightRequest="50"
+                HeightRequest="45"
                 IsPassword="True"
                 Placeholder="Password"
                 PlaceholderColor="Black"
                 Text="{Binding Password}"
-                TextColor="Black" />
+                TextColor="Black"
+                VerticalOptions="Center" />
         </Frame>
         <Label
             Grid.Row="3"
             Grid.Column="1"
-            Grid.ColumnSpan="3">
+            Grid.ColumnSpan="3"
+            Margin="0,-5,0,0">
             <Label.FormattedText>
                 <FormattedString>
                     <Span
-                        FontAttributes="Bold"
-                        FontSize="15"
+                        FontFamily="Font"
+                        FontSize="13"
                         Text="Don't have an account yet? "
                         TextColor="Gray" />
                     <Span
-                        FontAttributes="Bold"
-                        FontSize="15"
-                        Text="Sign up here"
+                        FontFamily="Font"
+                        FontSize="13"
+                        Text="Sign up here!"
                         TextColor="Gold">
                         <Span.GestureRecognizers>
                             <TapGestureRecognizer Command="{Binding RegisterCommand}" />
@@ -97,7 +98,6 @@
             BorderColor="Gray"
             BorderWidth="5"
             Command="{Binding LoginCommand}"
-            FontAttributes="Bold"
             FontSize="30"
             HeightRequest="90"
             Text="Log in"
