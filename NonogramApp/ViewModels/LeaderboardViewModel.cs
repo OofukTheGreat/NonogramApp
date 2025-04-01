@@ -7,6 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using CommunityToolkit;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Core.Extensions;
 
 
 namespace NonogramApp.ViewModels
@@ -34,7 +35,6 @@ namespace NonogramApp.ViewModels
         }
         private async Task GetScoresByList()
         {
-            scores.Clear();
             Scores.Clear();
             List<ScoreDTO> _scores = await service.GetScoresByList(Level.LevelId);
             foreach (ScoreDTO s in _scores)
@@ -54,9 +54,9 @@ namespace NonogramApp.ViewModels
             {
                 Scores.Add(s);
             }
+            scores.Clear();
             Scores = new(Scores.OrderBy(s => s.Score.Time).ToList());
             scores = Scores.ToList();
-
         }
         private List<PlayerDTO> players;
         private List<ScoreWithPlayerData> scores;

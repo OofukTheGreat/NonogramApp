@@ -3,13 +3,177 @@
     x:Class="NonogramApp.Views.CreateLevelsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:NonogramApp.Models"
+    xmlns:ViewModel="clr-namespace:NonogramApp.ViewModels"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     Title="CreateLevelsPage"
     BackgroundImageSource="pixelbg.png"
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+        <Grid ColumnDefinitions="*" RowDefinitions="*">
+            <ImageButton
+                Margin="10"
+                Padding="5"
+                BorderColor="Gray"
+                BorderWidth="3"
+                Command="{Binding ExitCommand}"
+                CornerRadius="5"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                Source="backarrow"
+                VerticalOptions="Start"
+                WidthRequest="50" />
+        </Grid>
+        <Grid
+            x:Name="basegrid"
+            Margin="20"
+            Padding="0"
+            BackgroundColor="Black"
+            ColumnDefinitions="{Binding ExColumns}"
+            HeightRequest="350"
+            RowDefinitions="{Binding ExRows}"
+            WidthRequest="350">
+            <Grid
+                x:Name="grid"
+                Grid.Row="1"
+                Grid.RowSpan="{Binding Level.Size}"
+                Grid.Column="1"
+                Grid.ColumnSpan="{Binding Level.Size}"
+                Padding="-1"
+                BindableLayout.ItemsSource="{Binding Tiles}"
+                ColumnDefinitions="{Binding Columns}"
+                HorizontalOptions="Fill"
+                RowDefinitions="{Binding Rows}"
+                VerticalOptions="Fill">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="Models:Tile">
+                        <Border
+                            Grid.Row="{Binding Y}"
+                            Grid.Column="{Binding X}"
+                            Margin="-1"
+                            BackgroundColor="{Binding CurrentColor}"
+                            Stroke="{Binding BorderColor}"
+                            StrokeThickness="{Binding BorderWidth}">
+                        </Border>
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </Grid>
+            <Grid
+                x:Name="labelgrid"
+                Grid.Row="0"
+                Grid.RowSpan="{Binding SizePlusOne}"
+                Grid.Column="0"
+                Grid.ColumnSpan="{Binding SizePlusOne}"
+                BindableLayout.ItemsSource="{Binding Labels}"
+                ColumnDefinitions="{Binding ExColumns}"
+                HorizontalOptions="Fill"
+                RowDefinitions="{Binding ExRows}"
+                VerticalOptions="Fill">
+                <BindableLayout.ItemTemplate>
+                    <DataTemplate x:DataType="Models:Hint">
+                        <Label
+                            Grid.Row="{Binding Y}"
+                            Grid.Column="{Binding X}"
+                            Margin="{Binding Margin}"
+                            FontAttributes="Bold"
+                            FontSize="10"
+                            HorizontalTextAlignment="{Binding HorAlign}"
+                            Text="{Binding Text}"
+                            TextColor="{Binding TextColor}"
+                            VerticalTextAlignment="{Binding VertAlign}" />
+                    </DataTemplate>
+                </BindableLayout.ItemTemplate>
+            </Grid>
+        </Grid>
+        <Grid
+            Margin="20"
+            ColumnDefinitions="*,*,*,*,*"
+            HeightRequest="200"
+            RowDefinitions="*,*,*"
+            WidthRequest="333">
+            <Border
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#a9a9a9"
+                HorizontalOptions="StartAndExpand"
+                Stroke="Gray"
+                StrokeShape="RoundRectangle 0,100,0,100"
+                StrokeThickness="2"
+                WidthRequest="80">
+                <Button BackgroundColor="#a9a9a9" Command="{Binding LeftCommand}" />
+            </Border>
+            <Border
+                Grid.Row="1"
+                Grid.Column="1"
+                Grid.ColumnSpan="2"
+                BackgroundColor="#a9a9a9"
+                HorizontalOptions="EndAndExpand"
+                Stroke="Gray"
+                StrokeShape="RoundRectangle 100,0,100,0"
+                StrokeThickness="2"
+                WidthRequest="80">
+                <Button BackgroundColor="#a9a9a9" Command="{Binding RightCommand}" />
+            </Border>
+            <Border
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                BackgroundColor="#a9a9a9"
+                HeightRequest="80"
+                Stroke="Gray"
+                StrokeShape="RoundRectangle 0,0,100,100"
+                StrokeThickness="2"
+                VerticalOptions="StartAndExpand">
+                <Button BackgroundColor="#a9a9a9" Command="{Binding UpCommand}" />
+            </Border>
+            <Border
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="1"
+                BackgroundColor="#a9a9a9"
+                HeightRequest="80"
+                Stroke="Gray"
+                StrokeShape="RoundRectangle 100,100,0,0"
+                StrokeThickness="2"
+                VerticalOptions="EndAndExpand">
+                <Button BackgroundColor="#a9a9a9" Command="{Binding DownCommand}" />
+            </Border>
+            <Label Grid.Row="1" Grid.Column="1" />
+            <ImageButton
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                Margin="25,0,0,40"
+                Padding="5"
+                BackgroundColor="#a9a9a9"
+                BorderColor="gray"
+                BorderWidth="2"
+                Command="{Binding ColorCommand}"
+                CornerRadius="10"
+                HeightRequest="80"
+                HorizontalOptions="CenterAndExpand"
+                Source="color.png"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="80" />
+            <ImageButton
+                Grid.Row="1"
+                Grid.RowSpan="2"
+                Grid.Column="3"
+                Grid.ColumnSpan="2"
+                Margin="25,40,0,0"
+                Padding="5"
+                BackgroundColor="#a9a9a9"
+                BorderColor="gray"
+                BorderWidth="2"
+                Command="{Binding MarkCommand}"
+                CornerRadius="10"
+                HeightRequest="80"
+                HorizontalOptions="CenterAndExpand"
+                Source="mark.png"
+                VerticalOptions="CenterAndExpand"
+                WidthRequest="80" />
+        </Grid>
     </VerticalStackLayout>
 </ContentPage>

@@ -21,16 +21,16 @@ namespace NonogramApp.Models
 
         //#endregion
         private Tile[,] Board;
-        public DateTime StartTime { get; private set; }
-        public DateTime EndTime { get; private set; }
         public bool HasWon {  get; private set; }
         public Game(LevelDTO Level) 
         {
-            StartTime = DateTime.Now;
-            EndTime = DateTime.Now;
-            Board = MakeBoard(Level.Size, Level.Layout);
+            Board = MakeGameBoard(Level.Size, Level.Layout);
         }
-        public static Tile[,] MakeBoard(int size, string layout)
+        public Game(int size) 
+        {
+            Board = MakeDrawBoard(size);
+        }
+        public static Tile[,] MakeGameBoard(int size, string layout)
         {
             Tile[,] board = new Tile[size, size];
             for (int i = 0; i < size; i++)
@@ -72,6 +72,30 @@ namespace NonogramApp.Models
                 index += 1;
                 j = 0;
                 selectedColor = "White";
+            }
+            board[0, 0].BorderColor = Color.FromArgb("#FF0000");
+            board[0, 0].BorderWidth = 4;
+            return board;
+        }
+        public static Tile[,] MakeDrawBoard(int size)
+        {
+            Tile[,] board = new Tile[size, size];
+            for (int i = 0; i < size; i++)
+            {
+                for (int k = 0; k < size; k++)
+                {
+                    board[i, k] = new Tile();
+                }
+            }
+            for (int i = 0; i < size; i++)
+            {
+                for (int j = 0; j < size; j++)
+                {
+                    board[i, j].X = j;
+                    board[i, j].Y = i;
+                    board[i, j].BorderColor = Color.FromArgb("#808080");
+                    board[i, j].BorderWidth = 1;
+                }
             }
             board[0, 0].BorderColor = Color.FromArgb("#FF0000");
             board[0, 0].BorderWidth = 4;

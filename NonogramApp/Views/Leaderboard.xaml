@@ -111,7 +111,6 @@
                             <Grid
                                 Padding="0"
                                 ColumnDefinitions="*,*,*"
-                                HorizontalOptions="FillAndExpand"
                                 RowDefinitions="*"
                                 VerticalOptions="Start">
                                 <Border
