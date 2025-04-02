@@ -27,6 +27,16 @@ namespace NonogramApp.ViewModels
             SaveCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             BoardSize = 5;
+            Sizes = new List<string>()
+            {
+                "5x5",
+                "10x10",
+                "15x15",
+                "20x20",
+                "25x25",
+                "30x30"
+            };
+            Title = "";
             SelectedX = 0;
             SelectedY = 0;
             CreateGame();
@@ -52,6 +62,47 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(Game));
             }
         }
+        private string title;
+        public string Title
+        {
+            get
+            {
+                return title;
+            }
+            set
+            {
+                title = value;
+                OnPropertyChanged(nameof(Title));
+            }
+        }
+        private List<string> sizes;
+        public List<string> Sizes
+        {
+            get
+            {
+                return sizes;
+            }
+            set
+            {
+                sizes = value;
+                OnPropertyChanged(nameof(Sizes));
+            }
+        }
+        private string selectedSize;
+        public string SelectedSize
+        {
+            get
+            {
+                return selectedSize;
+            }
+            set
+            {
+                selectedSize = value;
+                ExpandGrid(ExtractSizeFromSizes(SelectedSize));
+                CreateGame();
+                OnPropertyChanged(nameof(SelectedSize));
+            }
+        }
         private int selectedX;
         public int SelectedX
         {
@@ -75,7 +126,6 @@ namespace NonogramApp.ViewModels
             set
             {
                 boardSize = value;
-                ExpandGrid(BoardSize);
                 OnPropertyChanged(nameof(BoardSize));
             }
         }
@@ -133,7 +183,7 @@ namespace NonogramApp.ViewModels
         }
         #endregion
         #region GameCreation
-        public async void ExpandGrid(int size)
+        public void ExpandGrid(int size)
         {
             Rows = new();
             Columns = new();
@@ -142,6 +192,18 @@ namespace NonogramApp.ViewModels
                 Rows.Add(new RowDefinition(new GridLength(1, GridUnitType.Star)));
                 Columns.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
             }
+        }
+        public int ExtractSizeFromSizes(string size)
+        {
+            string finalsize = "";
+            int i = 0;
+            while (size[i] != 'x')
+            {
+                finalsize += size[i];
+                i++;
+            }
+            BoardSize = int.Parse(finalsize);
+            return BoardSize;
         }
         private async void CreateGame()
         {
@@ -220,6 +282,7 @@ namespace NonogramApp.ViewModels
         private async Task<bool> SaveProgress(bool haswon)
         {
             string layout = this.service.TileArrayToLayout(this.service.TileListToArray(BoardSize, Tiles));
+            this.service.AddLevel(new LevelDTO(0, Title, layout, BoardSize, ((App)Application.Current).LoggedInUser.Id, 1));
             return true;
         }
         #endregion

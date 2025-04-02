@@ -23,10 +23,43 @@
                 Source="backarrow"
                 VerticalOptions="Start"
                 WidthRequest="50" />
+            <Frame
+                BackgroundColor="#a9a9a9"
+                BorderColor="Black"
+                HeightRequest="50"
+                VerticalOptions="Center"
+                WidthRequest="120">
+                <Entry
+                    BackgroundColor="#a9a9a9"
+                    FontSize="20"
+                    HeightRequest="45"
+                    HorizontalTextAlignment="Center"
+                    Placeholder="Title"
+                    PlaceholderColor="Black"
+                    Text="{Binding Title}"
+                    TextColor="Black"
+                    WidthRequest="100" />
+            </Frame>
+            <Frame
+                BackgroundColor="#a9a9a9"
+                BorderColor="Black"
+                HeightRequest="50"
+                VerticalOptions="Center"
+                WidthRequest="120">
+                <Picker
+                    Title="5x5"
+                    HorizontalOptions="End"
+                    ItemsSource="{Binding Sizes}"
+                    SelectedIndex="0"
+                    SelectedItem="{Binding SelectedSize}"
+                    TextColor="White"
+                    TitleColor="White"
+                    VerticalOptions="Center" />
+            </Frame>
         </Grid>
         <Grid
             x:Name="basegrid"
-            Margin="20"
+            Margin="20,0,20,0"
             Padding="0"
             BackgroundColor="Black"
             ColumnDefinitions="{Binding ExColumns}"
@@ -53,8 +86,7 @@
                             Margin="-1"
                             BackgroundColor="{Binding CurrentColor}"
                             Stroke="{Binding BorderColor}"
-                            StrokeThickness="{Binding BorderWidth}">
-                        </Border>
+                            StrokeThickness="{Binding BorderWidth}" />
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </Grid>
@@ -96,7 +128,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 BackgroundColor="#a9a9a9"
-                HorizontalOptions="StartAndExpand"
+                HorizontalOptions="Start"
                 Stroke="Gray"
                 StrokeShape="RoundRectangle 0,100,0,100"
                 StrokeThickness="2"
@@ -108,7 +140,7 @@
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 BackgroundColor="#a9a9a9"
-                HorizontalOptions="EndAndExpand"
+                HorizontalOptions="End"
                 Stroke="Gray"
                 StrokeShape="RoundRectangle 100,0,100,0"
                 StrokeThickness="2"
@@ -124,7 +156,7 @@
                 Stroke="Gray"
                 StrokeShape="RoundRectangle 0,0,100,100"
                 StrokeThickness="2"
-                VerticalOptions="StartAndExpand">
+                VerticalOptions="Start">
                 <Button BackgroundColor="#a9a9a9" Command="{Binding UpCommand}" />
             </Border>
             <Border
@@ -136,44 +168,27 @@
                 Stroke="Gray"
                 StrokeShape="RoundRectangle 100,100,0,0"
                 StrokeThickness="2"
-                VerticalOptions="EndAndExpand">
+                VerticalOptions="End">
                 <Button BackgroundColor="#a9a9a9" Command="{Binding DownCommand}" />
             </Border>
             <Label Grid.Row="1" Grid.Column="1" />
             <ImageButton
                 Grid.Row="0"
-                Grid.RowSpan="2"
+                Grid.RowSpan="5"
                 Grid.Column="3"
                 Grid.ColumnSpan="2"
-                Margin="25,0,0,40"
+                Margin="25,0,0,0"
                 Padding="5"
                 BackgroundColor="#a9a9a9"
                 BorderColor="gray"
                 BorderWidth="2"
                 Command="{Binding ColorCommand}"
-                CornerRadius="10"
-                HeightRequest="80"
-                HorizontalOptions="CenterAndExpand"
+                CornerRadius="20"
+                HeightRequest="120"
+                HorizontalOptions="Center"
                 Source="color.png"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="80" />
-            <ImageButton
-                Grid.Row="1"
-                Grid.RowSpan="2"
-                Grid.Column="3"
-                Grid.ColumnSpan="2"
-                Margin="25,40,0,0"
-                Padding="5"
-                BackgroundColor="#a9a9a9"
-                BorderColor="gray"
-                BorderWidth="2"
-                Command="{Binding MarkCommand}"
-                CornerRadius="10"
-                HeightRequest="80"
-                HorizontalOptions="CenterAndExpand"
-                Source="mark.png"
-                VerticalOptions="CenterAndExpand"
-                WidthRequest="80" />
+                VerticalOptions="Center"
+                WidthRequest="120" />
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

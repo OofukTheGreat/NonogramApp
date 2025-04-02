@@ -34,25 +34,25 @@
     </Shell.Resources>
     <TabBar>
         <ShellContent
-            Title="Create"
-            ContentTemplate="{DataTemplate Views:CreateLevelsPage}"
-            Icon="create.png"
-            Route="Create" />
-        <ShellContent
-            Title="Approve"
-            ContentTemplate="{DataTemplate Views:ApprovePuzzlesPage}"
-            Icon="approve.png"
-            Route="Approve" />
-        <ShellContent
             Title="Play"
             ContentTemplate="{DataTemplate Views:LevelSelectPage}"
             Icon="play.png"
             Route="Select" />
         <ShellContent
+            Title="Create"
+            ContentTemplate="{DataTemplate Views:CreateLevelsPage}"
+            Icon="create.png"
+            Route="Create" />
+        <ShellContent
             Title="Profile"
             ContentTemplate="{DataTemplate Views:ProfilePage}"
             Icon="profile.png"
             Route="Profile" />
+        <ShellContent
+            Title="Approve"
+            ContentTemplate="{DataTemplate Views:ApprovePuzzlesPage}"
+            Icon="approve.png"
+            Route="Approve" />
         <ShellContent
             Title="Logout"
             ContentTemplate="{DataTemplate Views:LogoutPage}"
