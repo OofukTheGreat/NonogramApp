@@ -293,7 +293,7 @@ namespace NonogramApp.ViewModels
             timer = aTimer;
             aTimer.Elapsed += new ElapsedEventHandler(UpdateTime);
             aTimer.Interval = 1000; //how often it triggers (in milliseconds)
-            aTimer.Enabled = true;
+            aTimer.Start();
         }
 
         private void UpdateTime(object source, ElapsedEventArgs e)
@@ -303,8 +303,6 @@ namespace NonogramApp.ViewModels
             OnPropertyChanged("Hours");
             OnPropertyChanged("Seconds");
             OnPropertyChanged("Minutes");
-
-
         }
         private void MarkEmptyRowColumn()
         {
@@ -366,7 +364,11 @@ namespace NonogramApp.ViewModels
                 if (T.CurrentColor != T.TrueColor) hasWon = false;
             }
             MarkRowColumn(SelectedX, SelectedY);
-            if (hasWon) GameWon();
+            if (hasWon)
+            {
+                timer.Stop();
+                GameWon();
+            }
         }
         private void MarkTile()
         {
@@ -408,7 +410,7 @@ namespace NonogramApp.ViewModels
         #region PostGame
         private async void GameWon()
         {
-            timer.Stop();
+            Time--;
             //Open the leaderboard popup
             if (OpenPopup != null)
             {
@@ -423,7 +425,7 @@ namespace NonogramApp.ViewModels
             timer.Stop();
             bool f = await SaveProgress(false);
             // Navigate to the Register View page
-            ((App)Application.Current).MainPage.Navigation.PopAsync();
+            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<LevelSelectPage>());
         }
         private async Task<bool> SaveProgress(bool haswon)
         {

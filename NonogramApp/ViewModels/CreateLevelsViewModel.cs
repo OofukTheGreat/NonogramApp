@@ -26,6 +26,7 @@ namespace NonogramApp.ViewModels
             ExitCommand = new Command(OnExit);
             SaveCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
+            UploadCommand = new Command(OnUpload);
             BoardSize = 5;
             Sizes = new List<string>()
             {
@@ -33,12 +34,13 @@ namespace NonogramApp.ViewModels
                 "10x10",
                 "15x15",
                 "20x20",
-                "25x25",
-                "30x30"
+                "25x25"
             };
             Title = "";
             SelectedX = 0;
             SelectedY = 0;
+            SelectedSize = "5x5";
+            TitleError = "Title required";
             CreateGame();
         }
         #region (Instance)Variables
@@ -49,6 +51,7 @@ namespace NonogramApp.ViewModels
         public ICommand RightCommand { get; set; }
         public ICommand ExitCommand { get; set; }
         public ICommand SaveCommand { get; set; }
+        public ICommand UploadCommand { get; set; }
         private Game game;
         public Game Game
         {
@@ -72,6 +75,7 @@ namespace NonogramApp.ViewModels
             set
             {
                 title = value;
+                ValidateTitleError();
                 OnPropertyChanged(nameof(Title));
             }
         }
@@ -98,7 +102,8 @@ namespace NonogramApp.ViewModels
             set
             {
                 selectedSize = value;
-                ExpandGrid(ExtractSizeFromSizes(SelectedSize));
+                ExtractSizeFromSizes(SelectedSize);
+                ExpandGrid(BoardSize);
                 CreateGame();
                 OnPropertyChanged(nameof(SelectedSize));
             }
@@ -127,6 +132,33 @@ namespace NonogramApp.ViewModels
             {
                 boardSize = value;
                 OnPropertyChanged(nameof(BoardSize));
+            }
+        }
+        private string titleError;
+        public string TitleError
+        {
+            get
+            {
+                return titleError;
+            }
+            set
+            {
+                titleError = value;
+                OnPropertyChanged(nameof(TitleError));
+            }
+        }
+
+        private bool showTitleError;
+        public bool ShowTitleError
+        {
+            get
+            {
+                return showTitleError;
+            }
+            set
+            {
+                showTitleError = value;
+                OnPropertyChanged(nameof(ShowTitleError));
             }
         }
         private int selectedY;
@@ -193,17 +225,9 @@ namespace NonogramApp.ViewModels
                 Columns.Add(new ColumnDefinition(new GridLength(1, GridUnitType.Star)));
             }
         }
-        public int ExtractSizeFromSizes(string size)
+        public void ExtractSizeFromSizes(string size)
         {
-            string finalsize = "";
-            int i = 0;
-            while (size[i] != 'x')
-            {
-                finalsize += size[i];
-                i++;
-            }
-            BoardSize = int.Parse(finalsize);
-            return BoardSize;
+            BoardSize = int.Parse((size.Substring(0, ((size.Length - 1) / 2))));
         }
         private async void CreateGame()
         {
@@ -217,6 +241,10 @@ namespace NonogramApp.ViewModels
         }
         #endregion
         #region GameOperation
+        public async void ValidateTitleError()
+        {
+            this.ShowTitleError = string.IsNullOrEmpty(Title);
+        }
         private void Up()
         {
             int temp = SelectedY;
@@ -260,30 +288,31 @@ namespace NonogramApp.ViewModels
         private void ColorTile()
         {
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Blacken();
-            bool hasWon = true;
-            foreach (Tile T in Tiles)
-            {
-                if (T.CurrentColor != T.TrueColor) hasWon = false;
-            }
-            if (hasWon) GameWon();
         }
         #endregion
         #region PostGame
-        private async void GameWon()
+        private async void OnUpload()
         {
-            bool f = await SaveProgress(true);
+            bool f = await SaveProgress();
+            ((App)Application.Current).MainPage.Navigation.PopAsync();
         }
         private async void OnExit()
         {
-            bool f = await SaveProgress(false);
-            // Navigate to the Register View page
             ((App)Application.Current).MainPage.Navigation.PopAsync();
         }
-        private async Task<bool> SaveProgress(bool haswon)
+        private async Task<bool> SaveProgress()
         {
-            string layout = this.service.TileArrayToLayout(this.service.TileListToArray(BoardSize, Tiles));
-            this.service.AddLevel(new LevelDTO(0, Title, layout, BoardSize, ((App)Application.Current).LoggedInUser.Id, 1));
-            return true;
+            ValidateTitleError();
+            if (!ShowTitleError)
+            {
+                string layout = this.service.TileArrayToLayout(this.service.TileListToArray(BoardSize, Tiles));
+                this.service.AddLevel(new LevelDTO(0, Title, layout, BoardSize, ((App)Application.Current).LoggedInUser.Id, 1));
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         #endregion
     }

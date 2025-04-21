@@ -23,40 +23,51 @@
                 Source="backarrow"
                 VerticalOptions="Start"
                 WidthRequest="50" />
-            <Frame
+            <Border
                 BackgroundColor="#a9a9a9"
-                BorderColor="Black"
-                HeightRequest="50"
+                HeightRequest="30"
+                StrokeShape="RoundRectangle 10,10,10,10"
                 VerticalOptions="Center"
                 WidthRequest="120">
                 <Entry
+                    Margin="0,8,0,0"
                     BackgroundColor="#a9a9a9"
                     FontSize="20"
                     HeightRequest="45"
                     HorizontalTextAlignment="Center"
+                    MaxLength="20"
                     Placeholder="Title"
                     PlaceholderColor="Black"
                     Text="{Binding Title}"
                     TextColor="Black"
                     WidthRequest="100" />
-            </Frame>
-            <Frame
+            </Border>
+            <Border
+                Margin="0,0,20,0"
                 BackgroundColor="#a9a9a9"
-                BorderColor="Black"
-                HeightRequest="50"
-                VerticalOptions="Center"
-                WidthRequest="120">
+                HeightRequest="28"
+                HorizontalOptions="End"
+                StrokeShape="RoundRectangle 5,5,5,5"
+                VerticalOptions="Center">
                 <Picker
-                    Title="5x5"
-                    HorizontalOptions="End"
+                    Title="Joe Biden"
+                    Margin="0,7,0,0"
+                    FontSize="20"
+                    HeightRequest="50"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
                     ItemsSource="{Binding Sizes}"
-                    SelectedIndex="0"
                     SelectedItem="{Binding SelectedSize}"
-                    TextColor="White"
-                    TitleColor="White"
-                    VerticalOptions="Center" />
-            </Frame>
+                    TextColor="Black"
+                    TitleColor="Black"
+                    VerticalOptions="Center"
+                    WidthRequest="70" />
+            </Border>
         </Grid>
+        <Label
+            IsVisible="{Binding ShowTitleError}"
+            Text="{Binding TitleError}"
+            TextColor="Red" /> 
         <Grid
             x:Name="basegrid"
             Margin="20,0,20,0"
@@ -190,5 +201,15 @@
                 VerticalOptions="Center"
                 WidthRequest="120" />
         </Grid>
+        <Button
+            BackgroundColor="#a9a9a9"
+            BorderColor="Gray"
+            BorderWidth="2"
+            Command="{Binding UploadCommand}"
+            FontSize="25"
+            HeightRequest="40"
+            HorizontalOptions="Center"
+            Text="Upload Level"
+            TextColor="Black" />
     </VerticalStackLayout>
 </ContentPage>
