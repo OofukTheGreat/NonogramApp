@@ -65,9 +65,13 @@
             </Border>
         </Grid>
         <Label
+            Margin="0,-15,0,0"
+            FontSize="15"
+            HorizontalOptions="Center"
             IsVisible="{Binding ShowTitleError}"
             Text="{Binding TitleError}"
-            TextColor="Red" /> 
+            TextColor="Red"
+            VerticalOptions="Start" />
         <Grid
             x:Name="basegrid"
             Margin="20,0,20,0"
@@ -97,7 +101,22 @@
                             Margin="-1"
                             BackgroundColor="{Binding CurrentColor}"
                             Stroke="{Binding BorderColor}"
-                            StrokeThickness="{Binding BorderWidth}" />
+                            StrokeThickness="{Binding BorderWidth}">
+                            <!--<Border.GestureRecognizers>
+                                <TapGestureRecognizer>
+                                    <TapGestureRecognizer.CommandParameter>
+                                        <MultiBinding Converter="{StaticResource Converter}">
+                                            <Binding Path="X" />
+                                            <Binding Path="Y" />
+                                        </MultiBinding>
+                                    </TapGestureRecognizer.CommandParameter>
+                                </TapGestureRecognizer>
+                            </Border.GestureRecognizers>-->
+                            <Button
+                                BackgroundColor="Transparent"
+                                Command="{Binding AltColorCommand}"
+                                CommandParameter="{Binding Source=}" />
+                        </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </Grid>

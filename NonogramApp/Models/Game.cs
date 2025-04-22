@@ -74,7 +74,9 @@ namespace NonogramApp.Models
                 selectedColor = "White";
             }
             board[0, 0].BorderColor = Color.FromArgb("#FF0000");
-            board[0, 0].BorderWidth = 4;
+            if (size == 5) board[0, 0].BorderWidth = 4;
+            else if (size == 10 || size == 15) board[0, 0].BorderWidth = 3;
+            else if (size == 20 || size == 25) board[0, 0].BorderWidth = 2;
             return board;
         }
         public static Tile[,] MakeDrawBoard(int size)
@@ -98,7 +100,9 @@ namespace NonogramApp.Models
                 }
             }
             board[0, 0].BorderColor = Color.FromArgb("#FF0000");
-            board[0, 0].BorderWidth = 4;
+            if (size == 5) board[0, 0].BorderWidth = 4;
+            else if (size == 10 || size == 15) board[0, 0].BorderWidth = 3;
+            else if (size == 20 || size == 25) board[0, 0].BorderWidth = 2;
             return board;
         }
         public List<Tile> GetBoardAsList(int size)
