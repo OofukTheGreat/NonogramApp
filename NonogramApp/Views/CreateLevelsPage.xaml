@@ -9,7 +9,7 @@
     Title="CreateLevelsPage"
     BackgroundImageSource="pixelbg.png"
     Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
+    <VerticalStackLayout x:Name="layout">
         <Grid ColumnDefinitions="*" RowDefinitions="*">
             <ImageButton
                 Margin="10"
@@ -102,20 +102,10 @@
                             BackgroundColor="{Binding CurrentColor}"
                             Stroke="{Binding BorderColor}"
                             StrokeThickness="{Binding BorderWidth}">
-                            <!--<Border.GestureRecognizers>
-                                <TapGestureRecognizer>
-                                    <TapGestureRecognizer.CommandParameter>
-                                        <MultiBinding Converter="{StaticResource Converter}">
-                                            <Binding Path="X" />
-                                            <Binding Path="Y" />
-                                        </MultiBinding>
-                                    </TapGestureRecognizer.CommandParameter>
-                                </TapGestureRecognizer>
-                            </Border.GestureRecognizers>-->
                             <Button
                                 BackgroundColor="Transparent"
-                                Command="{Binding AltColorCommand}"
-                                CommandParameter="{Binding Source=}" />
+                                Command="{Binding Source={x:Reference layout}, Path=BindingContext.AltColorTileCommand}"
+                                CommandParameter="{Binding .}" />
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>

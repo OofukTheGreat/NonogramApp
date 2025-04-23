@@ -45,7 +45,7 @@ namespace NonogramApp.Models
                 OnPropertyChanged(nameof(Y));
             }
         }
-        private string currentColor;  //קונבנציה - טרו זה לבן, פולס זה שחור
+        private string currentColor; 
         public string CurrentColor
         {
             get
@@ -55,7 +55,7 @@ namespace NonogramApp.Models
             set
             {
                 currentColor = value;
-                OnPropertyChanged(nameof(CurrentColor));
+                OnPropertyChanged();
             }
         }
         private string trueColor;
@@ -68,7 +68,7 @@ namespace NonogramApp.Models
             set
             {
                 trueColor = value;
-                OnPropertyChanged(nameof(TrueColor));
+                OnPropertyChanged();
             }
         }
         private bool isMarked;

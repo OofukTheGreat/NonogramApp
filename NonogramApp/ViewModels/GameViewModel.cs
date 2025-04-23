@@ -33,12 +33,35 @@ namespace NonogramApp.ViewModels
             ExitCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             MarkCommand = new Command(MarkTile);
+            AlterCommand = new Command(AlterTile);
             SizePlusOne = Level.Size + 1;
             SelectedX = 0;
             SelectedY = 0;
             CreateGame();
             Time = 0;
             Timer();
+        }
+        public ICommand AltColorTileCommand { get; private set; }
+        public ICommand AltMarkTileCommand { get; private set; }
+        private async void AltColorTile(Object o)
+        {
+            try
+            {
+                Tile t = (Tile)o;
+                t.Blacken();
+                if (BoardSize == 5) t.BorderWidth = 4;
+                else if (BoardSize == 10 || BoardSize == 15) t.BorderWidth = 3;
+                else if (BoardSize == 20 || BoardSize == 25) t.BorderWidth = 2;
+                t.BorderColor = Color.FromArgb("#FF0000");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                SelectedX = t.X;
+                SelectedY = t.Y;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         #region (Instance)Variables
         public ICommand ColorCommand { get; set; }

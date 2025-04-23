@@ -27,6 +27,7 @@ namespace NonogramApp.ViewModels
             SaveCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             UploadCommand = new Command(OnUpload);
+            AltColorTileCommand = new Command((Object o) => AltColorTile(o));
             BoardSize = 5;
             Sizes = new List<string>()
             {
@@ -42,6 +43,27 @@ namespace NonogramApp.ViewModels
             SelectedSize = "5x5";
             TitleError = "Title required";
             CreateGame();
+        }
+        public ICommand AltColorTileCommand { get; private set; }
+        private async void AltColorTile(Object o)
+        {
+            try
+            {
+                Tile t = (Tile)o;
+                t.Blacken();
+                if (BoardSize == 5) t.BorderWidth = 4;
+                else if (BoardSize == 10 || BoardSize == 15) t.BorderWidth = 3;
+                else if (BoardSize == 20 || BoardSize == 25) t.BorderWidth = 2;
+                t.BorderColor = Color.FromArgb("#FF0000");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                SelectedX = t.X; 
+                SelectedY = t.Y;
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
         #region (Instance)Variables
         public ICommand ColorCommand { get; set; }
