@@ -44,28 +44,8 @@ namespace NonogramApp.ViewModels
             TitleError = "Title required";
             CreateGame();
         }
-        public ICommand AltColorTileCommand { get; private set; }
-        private async void AltColorTile(Object o)
-        {
-            try
-            {
-                Tile t = (Tile)o;
-                t.Blacken();
-                if (BoardSize == 5) t.BorderWidth = 4;
-                else if (BoardSize == 10 || BoardSize == 15) t.BorderWidth = 3;
-                else if (BoardSize == 20 || BoardSize == 25) t.BorderWidth = 2;
-                t.BorderColor = Color.FromArgb("#FF0000");
-                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
-                SelectedX = t.X; 
-                SelectedY = t.Y;
-            }
-            catch(Exception ex)
-            {
-
-            }
-        }
         #region (Instance)Variables
+        public ICommand AltColorTileCommand { get; private set; }
         public ICommand ColorCommand { get; set; }
         public ICommand UpCommand { get; set; }
         public ICommand DownCommand { get; set; }
@@ -318,6 +298,26 @@ namespace NonogramApp.ViewModels
         private void ColorTile()
         {
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Blacken();
+        }
+        private async void AltColorTile(Object o)
+        {
+            try
+            {
+                Tile t = (Tile)o;
+                t.Blacken();
+                if (BoardSize == 5) t.BorderWidth = 4;
+                else if (BoardSize == 10 || BoardSize == 15) t.BorderWidth = 3;
+                else if (BoardSize == 20 || BoardSize == 25) t.BorderWidth = 2;
+                t.BorderColor = Color.FromArgb("#FF0000");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                SelectedX = t.X; 
+                SelectedY = t.Y;
+            }
+            catch(Exception ex)
+            {
+
+            }
         }
         #endregion
         #region PostGame

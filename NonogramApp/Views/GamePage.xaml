@@ -92,7 +92,11 @@
                             BackgroundColor="{Binding CurrentColor}"
                             Stroke="{Binding BorderColor}"
                             StrokeThickness="{Binding BorderWidth}">
-                            <Image IsVisible="{Binding IsMarked}" Source="mark.png" />
+                            <ImageButton
+                                Command="{Binding Source={x:Reference basegrid}, Path=BindingContext.AlterCommand}"
+                                CommandParameter="{Binding .}"
+                                IsVisible="{Binding IsMarked}"
+                                Source="mark.png" />
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>

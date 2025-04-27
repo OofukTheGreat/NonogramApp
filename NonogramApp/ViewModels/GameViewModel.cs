@@ -33,7 +33,7 @@ namespace NonogramApp.ViewModels
             ExitCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             MarkCommand = new Command(MarkTile);
-            AlterCommand = new Command(AlterTile);
+            AlterCommand = new Command((Object o) => AlterTile(o));
             SizePlusOne = Level.Size + 1;
             SelectedX = 0;
             SelectedY = 0;
@@ -41,29 +41,8 @@ namespace NonogramApp.ViewModels
             Time = 0;
             Timer();
         }
-        public ICommand AltColorTileCommand { get; private set; }
-        public ICommand AltMarkTileCommand { get; private set; }
-        private async void AltColorTile(Object o)
-        {
-            try
-            {
-                Tile t = (Tile)o;
-                t.Blacken();
-                if (BoardSize == 5) t.BorderWidth = 4;
-                else if (BoardSize == 10 || BoardSize == 15) t.BorderWidth = 3;
-                else if (BoardSize == 20 || BoardSize == 25) t.BorderWidth = 2;
-                t.BorderColor = Color.FromArgb("#FF0000");
-                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
-                SelectedX = t.X;
-                SelectedY = t.Y;
-            }
-            catch (Exception ex)
-            {
-
-            }
-        }
         #region (Instance)Variables
+        public ICommand AlterCommand { get; set; }
         public ICommand ColorCommand { get; set; }
         public ICommand MarkCommand { get; set; }
         public ICommand UpCommand {get; set;}
@@ -71,17 +50,19 @@ namespace NonogramApp.ViewModels
         public ICommand LeftCommand {get; set;}
         public ICommand RightCommand { get; set;}
         public ICommand ExitCommand { get; set;}
-        private int minutes;
-        public int Minutes
+        private int time;
+        public int Time
         {
             get
             {
-                return minutes;
+                return time;
             }
             set
             {
-                minutes = value;
-
+                Hours = Time / 3600;
+                Minutes = (Time / 60) % 60;
+                Seconds = Time % 60;
+                time = value;
                 OnPropertyChanged();
             }
         }
@@ -99,6 +80,20 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged();
             }
         }
+        private int minutes;
+        public int Minutes
+        {
+            get
+            {
+                return minutes;
+            }
+            set
+            {
+                minutes = value;
+
+                OnPropertyChanged();
+            }
+        }
         private int hours;
         public int Hours
         {
@@ -110,22 +105,6 @@ namespace NonogramApp.ViewModels
             {
                 hours = value;
 
-                OnPropertyChanged();
-            }
-        }
-        private int time;
-        public int Time
-        {
-            get
-            {
-                return time;
-            }
-            set
-            {
-                Hours = Time / 3600;
-                Minutes = (Time / 60) % 60;
-                Seconds = Time % 60;
-                time = value;
                 OnPropertyChanged();
             }
         }
@@ -273,6 +252,19 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(ExColumns));
             }
         }
+        private bool isColoring;
+        public bool IsColoring
+        {
+            get
+            {
+                return isColoring;
+            }
+            set
+            {
+                isColoring = value;
+                OnPropertyChanged(nameof(IsColoring));
+            }
+        }
         #endregion
         #region GameCreation
         public async void ExpandGrid(int size)
@@ -392,10 +384,48 @@ namespace NonogramApp.ViewModels
                 timer.Stop();
                 GameWon();
             }
+            IsColoring = true;
         }
         private void MarkTile()
         {
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Mark();
+            IsColoring = false;
+        }
+        private async void AlterTile(Object o)
+        {
+            try
+            {
+                if (IsColoring)
+                {
+                    Tile t = (Tile)o;
+                    t.Blacken();
+                    if (Level.Size == 5) t.BorderWidth = 4;
+                    else if (Level.Size == 10 || Level.Size == 15) t.BorderWidth = 3;
+                    else if (Level.Size == 20 || Level.Size == 25) t.BorderWidth = 2;
+                    t.BorderColor = Color.FromArgb("#FF0000");
+                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                    SelectedX = t.X;
+                    SelectedY = t.Y;
+                }
+                else
+                {
+                    Tile t = (Tile)o;
+                    t.Mark();
+                    if (Level.Size == 5) t.BorderWidth = 4;
+                    else if (Level.Size == 10 || Level.Size == 15) t.BorderWidth = 3;
+                    else if (Level.Size == 20 || Level.Size == 25) t.BorderWidth = 2;
+                    t.BorderColor = Color.FromArgb("#FF0000");
+                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                    SelectedX = t.X;
+                    SelectedY = t.Y;
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
         private void MarkRowColumn(int selectedx, int selectedy)
         {
