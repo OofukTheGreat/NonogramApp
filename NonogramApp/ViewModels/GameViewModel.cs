@@ -265,6 +265,45 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(IsColoring));
             }
         }
+        private bool isClicking;
+        public bool IsClicking
+        {
+            get
+            {
+                return isClicking;
+            }
+            set
+            {
+                isClicking = value;
+                OnPropertyChanged(nameof(IsClicking));
+            }
+        }
+        private Color colorBorder;
+        public Color ColorBorder
+        {
+            get
+            {
+                return colorBorder;
+            }
+            set
+            {
+                colorBorder = value;
+                OnPropertyChanged(nameof(ColorBorder));
+            }
+        }
+        private Color markBorder;
+        public Color MarkBorder
+        {
+            get
+            {
+                return markBorder;
+            }
+            set
+            {
+                markBorder = value;
+                OnPropertyChanged(nameof(MarkBorder));
+            }
+        }
         #endregion
         #region GameCreation
         public async void ExpandGrid(int size)
@@ -332,99 +371,124 @@ namespace NonogramApp.ViewModels
         #region GameOperation
         private void Up()
         {
-            int temp = SelectedY;
-            SelectedY -= 1;
-            if (SelectedY < 0) SelectedY = Level.Size-1;
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderWidth = 1;
+            if (!IsClicking)
+            {
+                int temp = SelectedY;
+                SelectedY -= 1;
+                if (SelectedY < 0) SelectedY = Level.Size - 1;
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
+                Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderWidth = 1;
+            }
+            else IsClicking = false;
         }
         private void Down()
         {
-            int temp = SelectedY;
-            SelectedY += 1;
-            if (SelectedY > Level.Size-1) SelectedY = 0;
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderWidth = 1;
+            if (!IsClicking)
+            {
+                int temp = SelectedY;
+                SelectedY += 1;
+                if (SelectedY > Level.Size-1) SelectedY = 0;
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
+                Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderWidth = 1;
+            }
+            else IsClicking = false;
         }
         private void Left()
         {
-            int temp = SelectedX;
-            SelectedX -= 1;
-            if (SelectedX < 0) SelectedX = Level.Size-1;
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+            if (!IsClicking)
+            {
+                int temp = SelectedX;
+                SelectedX -= 1;
+                if (SelectedX < 0) SelectedX = Level.Size-1;
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
+                Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+            }
+            else IsClicking = false;
         }
         private void Right()
         {
-            int temp = SelectedX;
-            SelectedX += 1;
-            if (SelectedX > Level.Size-1) SelectedX = 0;
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+            if (!IsClicking)
+            {
+                int temp = SelectedX;
+                SelectedX += 1;
+                if (SelectedX > Level.Size-1) SelectedX = 0;
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#FF0000");
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
+                Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+            }
+            else IsClicking = false;
         }
         private void ColorTile()
         {
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Blacken();
-            bool hasWon = true;
-            foreach (Tile T in Tiles)
+            if (!IsClicking)
             {
-                if (T.CurrentColor != T.TrueColor) hasWon = false;
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Blacken();
+                bool hasWon = true;
+                foreach (Tile T in Tiles)
+                {
+                    if (T.CurrentColor != T.TrueColor) hasWon = false;
+                }
+                MarkRowColumn(SelectedX, SelectedY);
+                if (hasWon)
+                {
+                    timer.Stop();
+                    GameWon();
+                }
             }
-            MarkRowColumn(SelectedX, SelectedY);
-            if (hasWon)
-            {
-                timer.Stop();
-                GameWon();
-            }
-            IsColoring = true;
+            else IsColoring = true;
         }
         private void MarkTile()
         {
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Mark();
-            IsColoring = false;
+            if (!IsClicking)
+            {
+                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Mark();
+            }
+            else IsColoring = false;
         }
         private async void AlterTile(Object o)
         {
-            try
+            if (IsClicking)
             {
-                if (IsColoring)
+                try
                 {
-                    Tile t = (Tile)o;
-                    t.Blacken();
-                    if (Level.Size == 5) t.BorderWidth = 4;
-                    else if (Level.Size == 10 || Level.Size == 15) t.BorderWidth = 3;
-                    else if (Level.Size == 20 || Level.Size == 25) t.BorderWidth = 2;
-                    t.BorderColor = Color.FromArgb("#FF0000");
-                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
-                    SelectedX = t.X;
-                    SelectedY = t.Y;
+                    if (IsColoring)
+                    {
+                        Tile t = (Tile)o;
+                        t.Blacken();
+                        if (Level.Size == 5) t.BorderWidth = 4;
+                        else if (Level.Size == 10 || Level.Size == 15) t.BorderWidth = 3;
+                        else if (Level.Size == 20 || Level.Size == 25) t.BorderWidth = 2;
+                        t.BorderColor = Color.FromArgb("#FF0000");
+                        Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                        Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                        SelectedX = t.X;
+                        SelectedY = t.Y;
+                    }
+                    else
+                    {
+                        Tile t = (Tile)o;
+                        t.Mark();
+                        if (Level.Size == 5) t.BorderWidth = 4;
+                        else if (Level.Size == 10 || Level.Size == 15) t.BorderWidth = 3;
+                        else if (Level.Size == 20 || Level.Size == 25) t.BorderWidth = 2;
+                        t.BorderColor = Color.FromArgb("#FF0000");
+                        Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                        Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                        SelectedX = t.X;
+                        SelectedY = t.Y;
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    Tile t = (Tile)o;
-                    t.Mark();
-                    if (Level.Size == 5) t.BorderWidth = 4;
-                    else if (Level.Size == 10 || Level.Size == 15) t.BorderWidth = 3;
-                    else if (Level.Size == 20 || Level.Size == 25) t.BorderWidth = 2;
-                    t.BorderColor = Color.FromArgb("#FF0000");
-                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
-                    SelectedX = t.X;
-                    SelectedY = t.Y;
-                }
-            }
-            catch (Exception ex)
-            {
 
+                }
             }
         }
         private void MarkRowColumn(int selectedx, int selectedy)
