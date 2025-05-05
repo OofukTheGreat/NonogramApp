@@ -110,32 +110,6 @@
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
             </Grid>
-            <Grid
-                x:Name="labelgrid"
-                Grid.Row="0"
-                Grid.RowSpan="{Binding SizePlusOne}"
-                Grid.Column="0"
-                Grid.ColumnSpan="{Binding SizePlusOne}"
-                BindableLayout.ItemsSource="{Binding Labels}"
-                ColumnDefinitions="{Binding ExColumns}"
-                HorizontalOptions="Fill"
-                RowDefinitions="{Binding ExRows}"
-                VerticalOptions="Fill">
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate x:DataType="Models:Hint">
-                        <Label
-                            Grid.Row="{Binding Y}"
-                            Grid.Column="{Binding X}"
-                            Margin="{Binding Margin}"
-                            FontAttributes="Bold"
-                            FontSize="10"
-                            HorizontalTextAlignment="{Binding HorAlign}"
-                            Text="{Binding Text}"
-                            TextColor="{Binding TextColor}"
-                            VerticalTextAlignment="{Binding VertAlign}" />
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
-            </Grid>
         </Grid>
         <Grid
             Margin="20"

@@ -305,14 +305,17 @@ namespace NonogramApp.ViewModels
             {
                 Tile t = (Tile)o;
                 t.Blacken();
-                if (BoardSize == 5) t.BorderWidth = 4;
-                else if (BoardSize == 10 || BoardSize == 15) t.BorderWidth = 3;
-                else if (BoardSize == 20 || BoardSize == 25) t.BorderWidth = 2;
-                t.BorderColor = Color.FromArgb("#FF0000");
-                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
-                SelectedX = t.X; 
-                SelectedY = t.Y;
+                if (!(t.X == SelectedX && t.Y == SelectedY))
+                {
+                    t.BorderColor = Color.FromArgb("#FF0000");
+                    if (BoardSize == 5) t.BorderWidth = 4;
+                    else if (BoardSize == 10 || BoardSize == 15) t.BorderWidth = 3;
+                    else if (BoardSize == 20 || BoardSize == 25) t.BorderWidth = 2;
+                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
+                    Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                    SelectedX = t.X; 
+                    SelectedY = t.Y;
+                }
             }
             catch(Exception ex)
             {

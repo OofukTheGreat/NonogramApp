@@ -11,7 +11,7 @@
     BackgroundImageSource="pixelbg.png"
     NavigationPage.HasNavigationBar="False"
     Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
+    <VerticalStackLayout x:Name="layout">
         <Grid ColumnDefinitions="*" RowDefinitions="*">
             <ImageButton
                 Margin="10"
@@ -92,11 +92,13 @@
                             BackgroundColor="{Binding CurrentColor}"
                             Stroke="{Binding BorderColor}"
                             StrokeThickness="{Binding BorderWidth}">
-                            <ImageButton
-                                Command="{Binding Source={x:Reference basegrid}, Path=BindingContext.AlterCommand}"
-                                CommandParameter="{Binding .}"
-                                IsVisible="{Binding IsMarked}"
-                                Source="mark.png" />
+                            <Grid>
+                                <Button
+                                    BackgroundColor="Transparent"
+                                    Command="{Binding Source={x:Reference layout}, Path=BindingContext.AlterCommand}"
+                                    CommandParameter="{Binding .}" />
+                                <Image IsVisible="{Binding IsMarked}" Source="mark.png" />
+                            </Grid>
                         </Border>
                     </DataTemplate>
                 </BindableLayout.ItemTemplate>
@@ -191,7 +193,7 @@
                 Margin="25,0,0,40"
                 Padding="5"
                 BackgroundColor="#a9a9a9"
-                BorderColor="gray"
+                BorderColor="{Binding ColorBorder}"
                 BorderWidth="2"
                 Command="{Binding ColorCommand}"
                 CornerRadius="10"
@@ -208,7 +210,7 @@
                 Margin="25,40,0,0"
                 Padding="5"
                 BackgroundColor="#a9a9a9"
-                BorderColor="gray"
+                BorderColor="{Binding MarkBorder}"
                 BorderWidth="2"
                 Command="{Binding MarkCommand}"
                 CornerRadius="10"
