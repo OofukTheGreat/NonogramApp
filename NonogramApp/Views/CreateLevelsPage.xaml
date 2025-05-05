@@ -11,18 +11,6 @@
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout x:Name="layout">
         <Grid ColumnDefinitions="*" RowDefinitions="*">
-            <ImageButton
-                Margin="10"
-                Padding="5"
-                BorderColor="Gray"
-                BorderWidth="3"
-                Command="{Binding ExitCommand}"
-                CornerRadius="5"
-                HeightRequest="50"
-                HorizontalOptions="Start"
-                Source="backarrow"
-                VerticalOptions="Start"
-                WidthRequest="50" />
             <Border
                 BackgroundColor="#a9a9a9"
                 HeightRequest="30"

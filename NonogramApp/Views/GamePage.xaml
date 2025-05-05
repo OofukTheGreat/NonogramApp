@@ -96,7 +96,7 @@
                                 <Button
                                     BackgroundColor="Transparent"
                                     Command="{Binding Source={x:Reference layout}, Path=BindingContext.AlterCommand}"
-                                    CommandParameter="{Binding .}" />
+                                    CommandParameter="{Binding .}"/>
                                 <Image IsVisible="{Binding IsMarked}" Source="mark.png" />
                             </Grid>
                         </Border>

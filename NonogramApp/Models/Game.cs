@@ -73,7 +73,7 @@ namespace NonogramApp.Models
                 j = 0;
                 selectedColor = "White";
             }
-            board[0, 0].BorderColor = Color.FromArgb("#FF0000");
+            board[0, 0].BorderColor = Color.FromArgb("#ffbb00");
             if (size == 5) board[0, 0].BorderWidth = 4;
             else if (size == 10 || size == 15) board[0, 0].BorderWidth = 3;
             else if (size == 20 || size == 25) board[0, 0].BorderWidth = 2;
@@ -99,7 +99,7 @@ namespace NonogramApp.Models
                     board[i, j].BorderWidth = 1;
                 }
             }
-            board[0, 0].BorderColor = Color.FromArgb("#FF0000");
+            board[0, 0].BorderColor = Color.FromArgb("#ffbb00");
             if (size == 5) board[0, 0].BorderWidth = 4;
             else if (size == 10 || size == 15) board[0, 0].BorderWidth = 3;
             else if (size == 20 || size == 25) board[0, 0].BorderWidth = 2;
