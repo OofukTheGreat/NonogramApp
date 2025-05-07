@@ -379,12 +379,7 @@ namespace NonogramApp.ViewModels
                 int temp = SelectedY;
                 SelectedY -= 1;
                 if (SelectedY < 0) SelectedY = Level.Size - 1;
-                Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#ffbb00");
-                if (Level.Size == 5) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-                else if (Level.Size == 10 || Level.Size == 15) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 3;
-                else if (Level.Size == 20 || Level.Size == 25) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 2;
-                Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-                Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderWidth = 1;
+                Game.SelectTile(SelectedX, temp, SelectedX, SelectedY);
             }
             else
             {
@@ -398,14 +393,9 @@ namespace NonogramApp.ViewModels
             if (!IsClicking)
             {
                 int temp = SelectedY;
-            SelectedY += 1;
-            if (SelectedY > Level.Size - 1) SelectedY = 0;
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#ffbb00");
-            if (Level.Size == 5) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            else if (Level.Size == 10 || Level.Size == 15) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 3;
-            else if (Level.Size == 20 || Level.Size == 25) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 2;
-            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-            Tiles.Where(T => T.X == SelectedX && T.Y == temp).FirstOrDefault().BorderWidth = 1;
+                SelectedY += 1;
+                if (SelectedY > Level.Size - 1) SelectedY = 0;
+                Game.SelectTile(SelectedX, temp, SelectedX, SelectedY);
             }
             else
             {
@@ -418,15 +408,10 @@ namespace NonogramApp.ViewModels
         {
             if (!IsClicking)
             {
-            int temp = SelectedX;
-            SelectedX -= 1;
-            if (SelectedX < 0) SelectedX = Level.Size - 1;
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#ffbb00");
-            if (Level.Size == 5) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            else if (Level.Size == 10 || Level.Size == 15) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 3;
-            else if (Level.Size == 20 || Level.Size == 25) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 2;
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                int temp = SelectedX;
+                SelectedX -= 1;
+                if (SelectedX < 0) SelectedX = Level.Size - 1;
+                Game.SelectTile(temp, SelectedY, SelectedX, SelectedY);
             }
             else
             {
@@ -439,15 +424,10 @@ namespace NonogramApp.ViewModels
         {
             if (!IsClicking)
             {
-            int temp = SelectedX;
-            SelectedX += 1;
-            if (SelectedX > Level.Size - 1) SelectedX = 0;
-            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#ffbb00");
-            if (Level.Size == 5) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 4;
-            else if (Level.Size == 10 || Level.Size == 15) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 3;
-            else if (Level.Size == 20 || Level.Size == 25) Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 2;
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-            Tiles.Where(T => T.X == temp && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                int temp = SelectedX;
+                SelectedX += 1;
+                if (SelectedX > Level.Size - 1) SelectedX = 0;
+                Game.SelectTile(temp, SelectedY, SelectedX, SelectedY);
             }
             else
             {
@@ -516,12 +496,7 @@ namespace NonogramApp.ViewModels
                         }
                         if (!(t.X == SelectedX && t.Y == SelectedY))
                         {
-                            if (Level.Size == 5) t.BorderWidth = 4;
-                            else if (Level.Size == 10 || Level.Size == 15) t.BorderWidth = 3;
-                            else if (Level.Size == 20 || Level.Size == 25) t.BorderWidth = 2;
-                            t.BorderColor = Color.FromArgb("#ffbb00");
-                            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-                            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                            Game.SelectTile(SelectedX, SelectedY, t.X, t.Y);
                             SelectedX = t.X;
                             SelectedY = t.Y;
                         }
@@ -532,12 +507,7 @@ namespace NonogramApp.ViewModels
                         t.Mark();
                         if (!(t.X == SelectedX && t.Y == SelectedY))
                         {
-                            if (Level.Size == 5) t.BorderWidth = 4;
-                            else if (Level.Size == 10 || Level.Size == 15) t.BorderWidth = 3;
-                            else if (Level.Size == 20 || Level.Size == 25) t.BorderWidth = 2;
-                            t.BorderColor = Color.FromArgb("#ffbb00");
-                            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderColor = Color.FromArgb("#808080");
-                            Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().BorderWidth = 1;
+                            Game.SelectTile(SelectedX, SelectedY, t.X, t.Y);
                             SelectedX = t.X;
                             SelectedY = t.Y;
                         }

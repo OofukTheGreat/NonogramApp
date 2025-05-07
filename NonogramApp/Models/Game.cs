@@ -171,5 +171,15 @@ namespace NonogramApp.Models
             }
             return list;
         }
+        public void SelectTile(int currentX, int currentY, int newX, int newY)
+        {
+            Board[currentY,currentX].BorderColor = Color.FromArgb("#808080");
+            Board[currentY,currentX].BorderWidth = 1;
+            Board[newY,newX].BorderColor = Color.FromArgb("#ffbb00");
+            if (Board.GetLength(0) == 5) Board[newY, newX].BorderWidth = 4;
+            else if (Board.GetLength(0) == 10 || Board.GetLength(0) == 15) Board[newY, newX].BorderWidth = 3;
+            else if (Board.GetLength(0) == 20 || Board.GetLength(0) == 25) Board[newY, newX].BorderWidth = 2;
+        }
+
     }
 }
