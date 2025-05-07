@@ -3,12 +3,79 @@
     x:Class="NonogramApp.Views.LevelSelectPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:NonogramApp.Models"
     xmlns:viewmodels="clr-namespace:NonogramApp.ViewModels"
-             x:DataType="viewmodels:LevelSelectViewModel"
     Title="LevelSelectPage"
+    x:DataType="viewmodels:LevelSelectViewModel"
     BackgroundImageSource="pixelbg.png"
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
-        <Button Style="{StaticResource Button}" Text="Real go to Game Page button" Command="{Binding GoToGameCommand}" />
+        <Picker
+            Title="Joe Biden"
+            Margin="0,7,0,0"
+            FontSize="20"
+            HeightRequest="50"
+            HorizontalOptions="Center"
+            HorizontalTextAlignment="Center"
+            ItemsSource="{Binding SizeFilters}"
+            SelectedItem="{Binding SelectedSize}"
+            TextColor="White"
+            TitleColor="White"
+            VerticalOptions="Center"
+            WidthRequest="70" />
+        <ScrollView>
+
+            <CollectionView
+                x:Name="monster_collection"
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="3"
+                ItemsSource="{Binding FilterdLevels}"
+                SelectedItem="{Binding SelectedLevel}"
+                SelectionMode="Single">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Models:LevelDTO">
+                        <Border
+                            Margin="4,5"
+                            Padding="4"
+                            HeightRequest="80">
+                            <Grid ColumnDefinitions="*,*,*,*">
+                                <Label
+                                    Grid.Column="0"
+                                    Margin="3"
+                                    VerticalTextAlignment="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span
+                                                FontAttributes="Bold"
+                                                Text="{Binding LevelId}"
+                                                TextColor="Blue" />
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+                                <Label
+                                    Grid.Column="3"
+                                    Margin="3"
+                                    VerticalTextAlignment="Center">
+                                    <Label.FormattedText>
+                                        <FormattedString>
+                                            <Span
+                                                FontAttributes="Bold"
+                                                Text="{Binding Size}"
+                                                TextColor="AliceBlue" />
+
+                                        </FormattedString>
+                                    </Label.FormattedText>
+                                </Label>
+
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+        <ActivityIndicator IsEnabled="{Binding NotInServerCall}" />
     </VerticalStackLayout>
 </ContentPage>

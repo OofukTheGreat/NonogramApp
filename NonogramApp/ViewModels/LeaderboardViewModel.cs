@@ -47,19 +47,27 @@ namespace NonogramApp.ViewModels
             {
                 string name = players.Where(x => x.Id == s.PlayerId).FirstOrDefault().DisplayName;
                 string url = players.Where(x => x.Id == s.PlayerId).FirstOrDefault().FullUrl;
-                scores.Add(new ScoreWithPlayerData(s, name, url));
+                Scores.Add(new ScoreWithPlayerData(s, name, url));
             }
-            List<ScoreWithPlayerData> scores_ = new List<ScoreWithPlayerData>();
-            foreach (ScoreWithPlayerData s in scores)
-            {
-                Scores.Add(s);
-            }
-            scores.Clear();
+            //foreach (ScoreWithPlayerData s in scores)
+            //{
+            //    Scores.Add(s);
+            //}
+            //scores.Clear();
             Scores = new(Scores.OrderBy(s => s.Score.Time).ToList());
-            scores = Scores.ToList();
+            //scores = Scores.ToList();
         }
         private List<PlayerDTO> players;
-        private List<ScoreWithPlayerData> scores;
-        public ObservableCollection<ScoreWithPlayerData> Scores { get; set; }
+        //private List<ScoreWithPlayerData> scores;
+        private ObservableCollection<ScoreWithPlayerData> scores;
+        public ObservableCollection<ScoreWithPlayerData> Scores
+        {
+            get => scores;
+            set
+            {
+                scores = value;
+                OnPropertyChanged();
+            }
+        }
     }
 }

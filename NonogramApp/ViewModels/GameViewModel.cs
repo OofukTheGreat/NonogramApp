@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace NonogramApp.ViewModels
 {
-    //[QueryProperty(nameof(Level), "Level")]
+    [QueryProperty(nameof(Level), "Level")]
     //[QueryProperty(nameof(Score), "Score")]
     public partial class GameViewModel : ViewModelBase
     {
@@ -24,8 +24,7 @@ namespace NonogramApp.ViewModels
             this.serviceProvider = serviceProvider;
             this.service = service;
             scores = new();
-            Scores = new();
-            Level = new LevelDTO(2, "Heart", "1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.", 5, 1, 1); /*6,4,.5,2,2,1,.4,1,1,2,2,.3,2,2,1,2,.2,1,4,1,2,.1,3,2,3,1,.0,1,2,3,2,2,.0,1,1,4,1,3,.0,4,1,5,.1,2,3,3,1,.*/ /*1,1,1,1,1,.0,5,.0,5,.1,3,1,.2,1,2,.*/
+            Scores = new();           
             UpCommand = new Command(Up);
             DownCommand = new Command(Down);
             LeftCommand = new Command(Left);
@@ -33,16 +32,14 @@ namespace NonogramApp.ViewModels
             ExitCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             MarkCommand = new Command(MarkTile);
-            AlterCommand = new Command((Object o) => AlterTile(o));
-            SizePlusOne = Level.Size + 1;
+            AlterCommand = new Command((Object o) => AlterTile(o));            
             SelectedX = 0;
             SelectedY = 0;
             IsColoring = true;
             ColorBorder = Color.FromArgb("#808080");
             MarkBorder = Color.FromArgb("#808080");
-            CreateGame();
-            Time = 0;
-            Timer();
+            MoveBorder = Color.FromArgb("#ffbb00");
+            MoveBorder2 = "Red";            
         }
         #region (Instance)Variables
         public ICommand AlterCommand { get; set; }
@@ -199,8 +196,12 @@ namespace NonogramApp.ViewModels
             set
             {
                 level = value;
-                OnPropertyChanged(nameof(Level));
+                OnPropertyChanged();
                 ExpandGrid(Level.Size);
+                SizePlusOne = Level.Size + 1;
+                CreateGame();
+                Time = 0;
+                Timer();
             }
         }
         private RowDefinitionCollection rows;
@@ -307,6 +308,32 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(MarkBorder));
             }
         }
+        private Color moveBorder;
+        public Color MoveBorder
+        {
+            get
+            {
+                return moveBorder;
+            }
+            set
+            {
+                moveBorder = value;
+                OnPropertyChanged(nameof(MoveBorder));
+            }
+        }
+        private string moveBorder2;
+        public string MoveBorder2
+        {
+            get
+            {
+                return moveBorder2;
+            }
+            set
+            {
+                moveBorder2 = value;
+                OnPropertyChanged(nameof(MoveBorder2));
+            }
+        }
         #endregion
         #region GameCreation
         public async void ExpandGrid(int size)
@@ -386,6 +413,7 @@ namespace NonogramApp.ViewModels
                 IsClicking = false;
                 ColorBorder = Color.FromArgb("#808080");
                 MarkBorder = Color.FromArgb("#808080");
+                MoveBorder = Color.FromArgb("#ffbb00");
             }
         }
         private void Down()
@@ -402,6 +430,7 @@ namespace NonogramApp.ViewModels
                 IsClicking = false;
                 ColorBorder = Color.FromArgb("#808080");
                 MarkBorder = Color.FromArgb("#808080");
+                MoveBorder = Color.FromArgb("#ffbb00");
             }
         }
         private void Left()
@@ -418,6 +447,7 @@ namespace NonogramApp.ViewModels
                 IsClicking = false;
                 ColorBorder = Color.FromArgb("#808080");
                 MarkBorder = Color.FromArgb("#808080");
+                MoveBorder = Color.FromArgb("#ffbb00");
             }
         }
         private void Right()
@@ -434,6 +464,7 @@ namespace NonogramApp.ViewModels
                 IsClicking = false;
                 ColorBorder = Color.FromArgb("#808080");
                 MarkBorder = Color.FromArgb("#808080");
+                MoveBorder = Color.FromArgb("#ffbb00");
             }
         }
         private void ColorTile()
@@ -471,6 +502,7 @@ namespace NonogramApp.ViewModels
                 IsColoring = false;
                 MarkBorder = Color.FromArgb("#ffbb00");
                 ColorBorder = Color.FromArgb("#808080");
+
             }
         }
         private async void AlterTile(Object o)
@@ -524,6 +556,8 @@ namespace NonogramApp.ViewModels
                 IsColoring = true;
                 ColorBorder = Color.FromArgb("#ffbb00");
                 MarkBorder = Color.FromArgb("#808080");
+                MoveBorder = Color.FromArgb("#808080");
+
             }
         }
         private void MarkRowColumn(int selectedx, int selectedy)
@@ -566,6 +600,7 @@ namespace NonogramApp.ViewModels
             //Open the leaderboard popup
             if (OpenPopup != null)
             {
+                //await GetScoresByList();
                 List<string> l = new List<string>();
                 InitData();
                 OpenPopup(l);
