@@ -12,17 +12,31 @@
             IsAnimationPlaying="True"
             Source="congrats.png"
             WidthRequest="400" />
-        <Button
-            Grid.Row="1"
-            BackgroundColor="Red"
-            BorderColor="Yellow"
-            BorderWidth="5"
-            Command="{Binding LogoutCommand}"
-            FontSize="30"
-            HeightRequest="90"
-            Text="Log out"
-            TextColor="Yellow"
-            WidthRequest="300" />
+        <Grid Grid.Row="1">
+            <Border
+                HeightRequest="160"
+                StrokeShape="RoundRectangle 5,5,5,5"
+                StrokeThickness="0"
+                WidthRequest="160">
+                <Image
+                    Grid.Row="0"
+                    Grid.Column="0"
+                    HeightRequest="160"
+                    IsAnimationPlaying="True"
+                    Source="rainbowborder.gif"
+                    WidthRequest="160" />
+            </Border>
+            <Button
+                Grid.Row="1"
+                BackgroundColor="Red"
+                CornerRadius="5"
+                Command="{Binding LogoutCommand}"
+                FontSize="30"
+                HeightRequest="148"
+                Text="Log out"
+                TextColor="Yellow"
+                WidthRequest="148" />
+        </Grid>
         <Image
             Grid.RowSpan="3"
             IsAnimationPlaying="True"

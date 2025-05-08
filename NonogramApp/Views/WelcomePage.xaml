@@ -7,25 +7,23 @@
     BackgroundImageSource="homepagepixelbg.png"
     NavigationPage.HasNavigationBar="False">
     <Grid RowDefinitions="12*,3*,3.5*,4*">
-        <Button
+        <ImageButton
             Grid.Row="1"
             Margin="10"
-            BackgroundColor="Transparent"
-            BorderWidth="5"
+            Source="loginbutton.png"
             Command="{Binding LoginCommand}"
             CornerRadius="5"
-            HeightRequest="101"
+            HeightRequest="103"
             VerticalOptions="EndAndExpand"
-            WidthRequest="286" />
-        <Button
+            WidthRequest="260" />
+        <ImageButton
             Grid.Row="2"
             Margin="10"
-            BackgroundColor="Transparent"
-            BorderWidth="5"
+            Source="signupbutton.png"
             Command="{Binding SignupCommand}"
             CornerRadius="0"
-            HeightRequest="101"
+            HeightRequest="103"
             VerticalOptions="EndAndExpand"
-            WidthRequest="286" />
+            WidthRequest="260" />
     </Grid>
 </ContentPage>

@@ -45,13 +45,13 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private ObservableCollection<LevelDTO> filterdLevels;
-        public ObservableCollection<LevelDTO> FilterdLevels
+        private ObservableCollection<LevelDTO> filteredLevels;
+        public ObservableCollection<LevelDTO> FilteredLevels
         {
-            get => filterdLevels;
+            get => filteredLevels;
             set
             {
-                filterdLevels = value;
+                filteredLevels = value;
                 OnPropertyChanged();
             }
         }
@@ -93,11 +93,11 @@ namespace NonogramApp.ViewModels
         }
         public void Filterlevels()
         {
-            FilterdLevels = new ObservableCollection<LevelDTO>();
+            FilteredLevels = new ObservableCollection<LevelDTO>();
             foreach (LevelDTO l in levels)
             {
                 if (int.Parse((selectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Size)
-                    FilterdLevels.Add(l);
+                    FilteredLevels.Add(l);
             }
         }
         public ICommand GoToGameCommand { get; }

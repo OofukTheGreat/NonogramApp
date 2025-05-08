@@ -617,7 +617,7 @@ namespace NonogramApp.ViewModels
         private async Task<bool> SaveProgress(bool haswon)
         {
             string layout = this.service.TileArrayToLayout(this.service.TileListToArray(Level.Size, Tiles));
-            ScoreDTO score = new ScoreDTO(((App)Application.Current).LoggedInUser.Id, Level.LevelId, layout, Time, haswon);
+            ScoreDTO score = new ScoreDTO(((App)Application.Current).LoggedInUser.Id, Level.LevelId, layout, Time+1, haswon);
             score = await this.service.AddScore(score);
             return true;
         }

@@ -24,7 +24,7 @@
             Source="pixelbg.png"
             VerticalOptions="Fill" />
         <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-            <Label Margin="3" HorizontalTextAlignment="Center">
+            <Label Margin="3,7,3,3" HorizontalTextAlignment="Center" FontSize="17">
                 <Label.FormattedText>
                     <FormattedString>
                         <Span
@@ -106,6 +106,7 @@
                     <DataTemplate>
                         <Border
                             Margin="20,2,20,0"
+                            StrokeThickness="1"
                             BackgroundColor="Black"
                             StrokeShape="RoundRectangle 5,5,5,5">
                             <Grid

@@ -68,6 +68,7 @@
 	  <None Remove="Resources\Images\firework2.gif" />
 	  <None Remove="Resources\Images\homepagepixelbg.png" />
 	  <None Remove="Resources\Images\loginbg.png" />
+	  <None Remove="Resources\Images\loginbutton.png" />
 	  <None Remove="Resources\Images\logout.png" />
 	  <None Remove="Resources\Images\mark.png" />
 	  <None Remove="Resources\Images\pfp.png" />
@@ -76,6 +77,7 @@
 	  <None Remove="Resources\Images\pond.png" />
 	  <None Remove="Resources\Images\profile.png" />
 	  <None Remove="Resources\Images\rainbowborder.gif" />
+	  <None Remove="Resources\Images\signupbutton.png" />
 	</ItemGroup>
 
 	<ItemGroup>
