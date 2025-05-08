@@ -189,6 +189,7 @@ namespace NonogramApp.Services
                     if (j == size - 1 && board[i, j].CurrentColor == color)
                     {
                         layout += count+1;
+                        count = 0;
                         layout += ',';
                     }
                     else if (board[i, j].CurrentColor == color) count++;
@@ -200,6 +201,11 @@ namespace NonogramApp.Services
                         layout += ',';
                         count = 1;
                     }
+                }
+                if (count != 0)
+                {
+                    layout += count;
+                    layout += ',';
                 }
                 layout += '.';
             }
@@ -335,10 +341,41 @@ namespace NonogramApp.Services
                 return null;
             }
         }
-        public async Task<List<LevelDTO>> GetLevels()
+        public async Task<List<LevelDTO>> GetApprovedLevels()
         {
             //Set URI to the specific function API
-            string url = $"{this.baseUrl}GetLevels";
+            string url = $"{this.baseUrl}getApprovedLevels";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<LevelDTO?> result = JsonSerializer.Deserialize<List<LevelDTO?>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+        public async Task<List<LevelDTO>> GetPendingLevels()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getPendingLevels";
             try
             {
                 //Call the server API

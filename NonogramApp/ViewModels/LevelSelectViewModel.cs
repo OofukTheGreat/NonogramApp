@@ -27,7 +27,7 @@ namespace NonogramApp.ViewModels
         }
         public async Task SetLevels()
         {
-            List<LevelDTO> templevels = await service.GetLevels();
+            List<LevelDTO> templevels = await service.GetApprovedLevels();
             Levels = new ObservableCollection<LevelDTO>();
             foreach (LevelDTO l in templevels)
             {

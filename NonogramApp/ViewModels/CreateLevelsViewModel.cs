@@ -314,6 +314,12 @@ namespace NonogramApp.ViewModels
             {
                 string layout = this.service.TileArrayToLayout(this.service.TileListToArray(BoardSize, Tiles));
                 this.service.AddLevel(new LevelDTO(0, Title, layout, BoardSize, ((App)Application.Current).LoggedInUser.Id, 1));
+                await Application.Current.MainPage.DisplayAlert("Creation Successful!", "Level created and is pending approval.", "Ok");
+                foreach (Tile T in Tiles)
+                {
+                    T.CurrentColor = "White";
+                }
+                Title = "";
                 return true;
             }
             else

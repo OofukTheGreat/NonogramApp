@@ -520,7 +520,7 @@ namespace NonogramApp.ViewModels
                         {
                             if (T.CurrentColor != T.TrueColor) hasWon = false;
                         }
-                        MarkRowColumn(SelectedX, SelectedY);
+                        MarkRowColumn(t.X, t.Y);
                         if (hasWon)
                         {
                             timer.Stop();
