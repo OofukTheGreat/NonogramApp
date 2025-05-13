@@ -11,5 +11,9 @@ public partial class Leaderboard : Popup
         InitializeComponent();
     }
 
-
+    private void ClosePopup(object sender, EventArgs e)
+    {
+        this.Close();
+        ((GameViewModel)this.BindingContext).ClosePopup();
+    }
 }

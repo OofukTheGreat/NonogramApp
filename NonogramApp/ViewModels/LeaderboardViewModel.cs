@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using CommunityToolkit;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Core.Extensions;
+using System.Windows.Input;
+using NonogramApp.Views;
 
 
 namespace NonogramApp.ViewModels
@@ -68,6 +70,11 @@ namespace NonogramApp.ViewModels
                 scores = value;
                 OnPropertyChanged();
             }
+        }
+        public ICommand ClosePopupCommand { get; set; }
+        public void ClosePopup()
+        {
+            ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<LevelSelectPage>());
         }
     }
 }

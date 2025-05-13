@@ -11,9 +11,14 @@
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
         <Grid>
-            <CheckBox HorizontalOptions="Start" Color="#a9a9a9" IsChecked="{Binding ShowUncompletedLevels}"/>
+            <!--<CheckBox HorizontalOptions="Start" Color="#a9a9a9" IsChecked="{Binding ShowUncompletedLevels}"/>-->
             <HorizontalStackLayout HorizontalOptions="End">
-                <Label Text="Filter by size:" TextColor="White" VerticalOptions="Center" Margin="0,8,8,0" FontSize="20"/>
+                <Label
+                    Margin="0,8,8,0"
+                    FontSize="20"
+                    Text="Filter by size:"
+                    TextColor="White"
+                    VerticalOptions="Center" />
                 <Border
                     Margin="0,8,8,0"
                     BackgroundColor="#a9a9a9"
@@ -88,17 +93,17 @@
                                 <VisualStateGroup>
                                     <VisualState Name="Selected">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
                                         </VisualState.Setters>
                                     </VisualState>
                                     <VisualState Name="Normal">
                                         <VisualState.Setters>
-                                            <Setter Property="BackgroundColor" Value="Transparent"/>
+                                            <Setter Property="BackgroundColor" Value="Transparent" />
                                         </VisualState.Setters>
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>
-                         </Border>
+                        </Border>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>

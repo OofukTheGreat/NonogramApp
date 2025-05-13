@@ -32,7 +32,8 @@ namespace NonogramApp.ViewModels
             ExitCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             MarkCommand = new Command(MarkTile);
-            AlterCommand = new Command((Object o) => AlterTile(o));            
+            AlterCommand = new Command((Object o) => AlterTile(o));         
+            ClosePopupCommand = new Command(ClosePopup);
             SelectedX = 0;
             SelectedY = 0;
             IsColoring = true;

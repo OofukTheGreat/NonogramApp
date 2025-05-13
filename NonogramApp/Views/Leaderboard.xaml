@@ -6,7 +6,7 @@
     xmlns:Models="clr-namespace:NonogramApp.Models"
     xmlns:ViewModel="clr-namespace:NonogramApp.ViewModels"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
-    CanBeDismissedByTappingOutsideOfPopup="True"
+    CanBeDismissedByTappingOutsideOfPopup="False"
     HorizontalOptions="Center"
     Size="270,580"
     VerticalOptions="Center"
@@ -24,44 +24,24 @@
             Source="pixelbg.png"
             VerticalOptions="Fill" />
         <VerticalStackLayout Grid.Row="0" Grid.Column="0">
-            <Label Margin="3,7,3,3" HorizontalTextAlignment="Center" FontSize="17">
-                <Label.FormattedText>
-                    <FormattedString>
-                        <Span
-                            FontFamily="Font"
-                            Text="Congratulations! You beat level &quot;"
-                            TextColor="White" />
-                        <Span
-                            FontFamily="Font"
-                            Text="{Binding Level.Title}"
-                            TextColor="White" />
-                        <Span
-                            FontFamily="Font"
-                            Text="&quot; in "
-                            TextColor="White" />
-                        <Span
-                            FontFamily="Font"
-                            Text="{Binding Hours}"
-                            TextColor="White" />
-                        <Span
-                            FontFamily="Font"
-                            Text=":"
-                            TextColor="White" />
-                        <Span
-                            FontFamily="Font"
-                            Text="{Binding Minutes, StringFormat='{0:D2}'}"
-                            TextColor="White" />
-                        <Span
-                            FontFamily="Font"
-                            Text=":"
-                            TextColor="White" />
-                        <Span
-                            FontFamily="Font"
-                            Text="{Binding Seconds, StringFormat='{0:D2}'}"
-                            TextColor="White" />
-                    </FormattedString>
-                </Label.FormattedText>
-            </Label>
+            <Border
+                Grid.Column="0"
+                Margin="3,7,3,3"
+                BackgroundColor="Black"
+                MaximumWidthRequest="200"
+                Stroke="Gray"
+                StrokeShape="RoundRectangle 5,5,5,5"
+                StrokeThickness="3"
+                WidthRequest="100">
+                <Label
+                    Margin="2,3,2,0"
+                    FontSize="20"
+                    HorizontalOptions="CenterAndExpand"
+                    HorizontalTextAlignment="End"
+                    Text="{Binding Level.Title}"
+                    TextColor="White"
+                    VerticalTextAlignment="Center" />
+            </Border>
             <Grid ColumnDefinitions="*" RowDefinitions="*">
                 <Border
                     HeightRequest="160"
@@ -97,6 +77,44 @@
                     </BindableLayout.ItemTemplate>
                 </Grid>
             </Grid>
+            <Label
+                Margin="3,7,3,-10"
+                BackgroundColor="Black"
+                FontSize="20"
+                HorizontalTextAlignment="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span
+                            FontFamily="Font"
+                            Text="Congratulations! You beat the level in "
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
+                            Text="{Binding Hours}"
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
+                            Text=":"
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
+                            Text="{Binding Minutes, StringFormat='{0:D2}'}"
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
+                            Text=":"
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
+                            Text="{Binding Seconds, StringFormat='{0:D2}'}"
+                            TextColor="White" />
+                        <Span
+                            FontFamily="Font"
+                            Text="!"
+                            TextColor="White" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
             <CollectionView
                 Grid.Row="1"
                 Margin="0,10,0,0"
@@ -106,32 +124,39 @@
                     <DataTemplate>
                         <Border
                             Margin="20,2,20,0"
-                            StrokeThickness="1"
                             BackgroundColor="Black"
-                            StrokeShape="RoundRectangle 5,5,5,5">
+                            StrokeShape="RoundRectangle 5,5,5,5"
+                            StrokeThickness="1">
                             <Grid
                                 Padding="0"
-                                ColumnDefinitions="*,*,*"
+                                ColumnDefinitions="*,*,*,*"
                                 RowDefinitions="*"
                                 VerticalOptions="Start">
+                                <Label
+                                    Margin="0,7,0,0"
+                                    FontSize="30"
+                                    HorizontalOptions="Center"
+                                    Text="{Binding Score.PlayerId}"
+                                    TextColor="White"
+                                    VerticalOptions="Center" />
                                 <Border
-                                    HeightRequest="50"
+                                    Grid.Column="1"
+                                    Margin="0,2,0,2"
+                                    HeightRequest="46"
                                     StrokeShape="Ellipse"
-                                    WidthRequest="50">
-                                    <Image
-                                        Grid.Column="0"
-                                        HeightRequest="50"
-                                        Source="{Binding URL}" />
+                                    StrokeThickness="1"
+                                    WidthRequest="46">
+                                    <Image HeightRequest="50" Source="{Binding URL}" />
                                 </Border>
                                 <Label
                                     Grid.Row="0"
-                                    Grid.Column="1"
+                                    Grid.Column="2"
                                     HorizontalOptions="Center"
                                     Text="{Binding Name}"
                                     TextColor="White"
                                     VerticalOptions="Center" />
                                 <Label
-                                    Grid.Column="2"
+                                    Grid.Column="3"
                                     HorizontalOptions="Center"
                                     VerticalOptions="Center">
                                     <Label.FormattedText>
@@ -165,5 +190,18 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </VerticalStackLayout>
+        <Button
+            Margin="0,0,0,10"
+            Padding="-5"
+            BackgroundColor="Black"
+            BorderColor="Gray"
+            BorderWidth="2"
+            Clicked="ClosePopup"
+            FontSize="15"
+            HeightRequest="35"
+            Text="Return to Level Select"
+            TextColor="White"
+            VerticalOptions="End"
+            WidthRequest="180" />
     </Grid>
 </toolkit:Popup>
