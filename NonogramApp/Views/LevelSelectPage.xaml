@@ -11,7 +11,10 @@
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
         <Grid>
-            <!--<CheckBox HorizontalOptions="Start" Color="#a9a9a9" IsChecked="{Binding ShowUncompletedLevels}"/>-->
+            <CheckBox
+                HorizontalOptions="Start"
+                IsChecked="{Binding FilterUnplayed}"
+                Color="#a9a9a9" />
             <HorizontalStackLayout HorizontalOptions="End">
                 <Label
                     Margin="0,8,8,0"

@@ -23,9 +23,10 @@ namespace NonogramApp.ViewModels
             this.service = service;
             GoToGameCommand = new Command(GoToGame);
             SetSizeFilters();
-            SetLevels();           
+            SetLevels();
+            SetScores();
         }
-        public async Task SetLevels()
+        public async void SetLevels()
         {
             List<LevelDTO> templevels = await service.GetApprovedLevels();
             Levels = new ObservableCollection<LevelDTO>();
@@ -42,6 +43,19 @@ namespace NonogramApp.ViewModels
             set
             {
                 levels = value;
+                OnPropertyChanged();
+            }
+        }
+        private List<ScoreDTO> scores;
+        public List<ScoreDTO> Scores
+        {
+            get
+            {
+                return scores;
+            }
+            set
+            {
+                scores = value;
                 OnPropertyChanged();
             }
         }
@@ -79,6 +93,20 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged();
             }
         }
+        private bool filterUnplayed;
+        public bool FilterUnplayed
+        {
+            get
+            {
+                return filterUnplayed;
+            }
+            set
+            {
+                filterUnplayed = value;
+                OnPropertyChanged();
+                Filterlevels();
+            }
+        }
         public void SetSizeFilters()
         {
             SizeFilters = new ObservableCollection<string>()
@@ -89,15 +117,34 @@ namespace NonogramApp.ViewModels
                 "20x20",
                 "25x25"
             };
-
+        }
+        public async void SetScores()
+        {
+            List<ScoreDTO> tempscores = await service.GetScoresByPlayer(((App)Application.Current).LoggedInUser.Id);
+            Scores = new();
+            foreach (ScoreDTO s in tempscores)
+            {
+                Scores.Add(s);
+            }
         }
         public void Filterlevels()
         {
             FilteredLevels = new ObservableCollection<LevelDTO>();
-            foreach (LevelDTO l in levels)
+            if (!FilterUnplayed)
             {
-                if (int.Parse((selectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Size)
-                    FilteredLevels.Add(l);
+                foreach (LevelDTO l in levels)
+                {
+                    if (int.Parse((selectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Size)
+                        FilteredLevels.Add(l);
+                }
+            }
+            else
+            {
+                foreach (LevelDTO l in levels)
+                {
+                    if (int.Parse((selectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Size && !Scores.Any(s=>s.LevelId==l.LevelId))
+                        FilteredLevels.Add(l);
+                }
             }
         }
         public ICommand GoToGameCommand { get; }

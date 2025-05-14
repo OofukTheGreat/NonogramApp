@@ -403,5 +403,38 @@ namespace NonogramApp.Services
                 return null;
             }
         }
+        public async Task<List<ScoreDTO>> GetScoresByPlayer(int playerid)
+        {
+            //Set URI to the specific function API
+            string parameterKey = "playerid";
+            string parameterValue = playerid.ToString();
+            string url = $"{this.baseUrl}getScoresByList?{parameterKey}={parameterValue}";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<ScoreDTO?> result = JsonSerializer.Deserialize<List<ScoreDTO?>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
