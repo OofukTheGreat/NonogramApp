@@ -408,7 +408,7 @@ namespace NonogramApp.Services
             //Set URI to the specific function API
             string parameterKey = "playerid";
             string parameterValue = playerid.ToString();
-            string url = $"{this.baseUrl}getScoresByList?{parameterKey}={parameterValue}";
+            string url = $"{this.baseUrl}getScoresByPlayer?{parameterKey}={parameterValue}";
             try
             {
                 //Call the server API

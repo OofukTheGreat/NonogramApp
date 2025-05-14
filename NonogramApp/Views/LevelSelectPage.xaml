@@ -10,11 +10,22 @@
     BackgroundImageSource="pixelbg.png"
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
-        <Grid>
-            <CheckBox
-                HorizontalOptions="Start"
-                IsChecked="{Binding FilterUnplayed}"
-                Color="#a9a9a9" />
+        <Grid BackgroundColor="Black">
+            <HorizontalStackLayout>
+                <CheckBox
+                    HeightRequest="50"
+                    HorizontalOptions="Start"
+                    IsChecked="{Binding FilterUnplayed}"
+                    WidthRequest="50"
+                    Color="#a9a9a9" />
+                <Label
+                    Margin="0,10,10,10"
+                    FontSize="15"
+                    Text="Show only unplayed levels"
+                    TextColor="White"
+                    VerticalOptions="Center"
+                    WidthRequest="100" />
+            </HorizontalStackLayout>
             <HorizontalStackLayout HorizontalOptions="End">
                 <Label
                     Margin="0,8,8,0"

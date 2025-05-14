@@ -119,7 +119,7 @@ namespace NonogramApp.Models
         }
         public void Blacken()
         {
-            if (this.IsMarked) Mark();
+            if (this.IsMarked) this.IsMarked = false;
             else if (this.CurrentColor == "Black") this.CurrentColor = "White";
             else this.CurrentColor = "Black";
         }
