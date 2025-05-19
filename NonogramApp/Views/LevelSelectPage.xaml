@@ -41,7 +41,7 @@
                     StrokeShape="RoundRectangle 5,5,5,5"
                     VerticalOptions="Center">
                     <Picker
-                        Title="Joe Biden"
+                        Title="Size"
                         Margin="0,7,0,0"
                         FontSize="20"
                         HeightRequest="50"
@@ -59,7 +59,6 @@
         <ScrollView>
 
             <CollectionView
-                x:Name="monster_collection"
                 Grid.Row="1"
                 Grid.Column="0"
                 Grid.ColumnSpan="3"
@@ -69,36 +68,98 @@
                 SelectionMode="Single">
 
                 <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="Models:LevelDTO">
+                    <DataTemplate x:DataType="Models:LevelWithScores">
                         <Border
-                            Margin="4,5"
+                            Background="Black"
+                            Margin="4,1"
                             Padding="4"
-                            HeightRequest="80">
-                            <Grid ColumnDefinitions="*,*,*,*">
+                            StrokeShape="RoundRectangle 5,5,5,5"
+                            HeightRequest="112">
+                            <Grid ColumnDefinitions="100,*,*,*">
+                                <Border Stroke="Gray" StrokeThickness="1" Grid.Column="0" HeightRequest="102" WidthRequest="102" Margin="4,2,2,2">
+                                    <Grid
+                                        Padding="-1"
+                                        BindableLayout.ItemsSource="{Binding Tiles}"
+                                        ColumnDefinitions="{Binding Columns}"
+                                        HeightRequest="100"
+                                        RowDefinitions="{Binding Rows}"
+                                        WidthRequest="100">
+                                        <BindableLayout.ItemTemplate>
+                                            <DataTemplate x:DataType="Models:Tile">
+                                                <Border
+                                                Grid.Row="{Binding Y}"
+                                                Grid.Column="{Binding X}"
+                                                Margin="-1"
+                                                BackgroundColor="{Binding TrueColor}"
+                                                StrokeThickness="0" />
+                                            </DataTemplate>
+                                        </BindableLayout.ItemTemplate>
+                                    </Grid>
+                                </Border>
+                                <BoxView 
+                                    Grid.Column="1"
+                                    WidthRequest="1"
+                                    HeightRequest="114"
+                                    Color="White"
+                                    Margin="5,0,0,0"
+                                    HorizontalOptions="Start"/>
                                 <Label
-                                    Grid.Column="0"
+                                    Grid.Column="1"
                                     Margin="3"
+                                    HorizontalOptions="Center"
                                     VerticalTextAlignment="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span
                                                 FontAttributes="Bold"
-                                                Text="{Binding LevelId}"
-                                                TextColor="Blue" />
+                                                Text="&quot;"
+                                                TextColor="White" />
+                                            <Span
+                                                FontAttributes="Bold"
+                                                Text="{Binding Level.Title}"
+                                                TextColor="White" />
+                                            <Span
+                                                FontAttributes="Bold"
+                                                Text="&quot;"
+                                                TextColor="White" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
+                                <BoxView 
+                                    Grid.Column="1"
+                                    WidthRequest="1"
+                                    HeightRequest="114"
+                                    Color="White"
+                                    HorizontalOptions="End"/>
+                                <Grid RowDefinitions="*,*" Grid.Column="2">
+                                    <Label Grid.Row="0" Text="{Binding HighScore}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    <Label Grid.Row="1" Text="{Binding CurrentScore}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                </Grid>
+                                <BoxView 
+                                    Grid.Column="2"
+                                    WidthRequest="1"
+                                    HeightRequest="114"
+                                    Color="White"
+                                    HorizontalOptions="End"/>
                                 <Label
                                     Grid.Column="3"
                                     Margin="3"
+                                    HorizontalOptions="Center"
                                     VerticalTextAlignment="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span
                                                 FontAttributes="Bold"
-                                                Text="{Binding Size}"
+                                                Text="{Binding Level.Size}"
                                                 TextColor="AliceBlue" />
-
+                                            <Span
+                                                FontAttributes="Bold"
+                                                Text="x"
+                                                TextColor="AliceBlue" />
+                                            <Span
+                                                FontAttributes="Bold"
+                                                Text="{Binding Level.Size}"
+                                                TextColor="AliceBlue" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>

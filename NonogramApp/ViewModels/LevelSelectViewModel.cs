@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using NonogramApp.Services;
 using System.Threading;
+using CommunityToolkit.Maui.Core.Extensions;
 
 namespace NonogramApp.ViewModels
 {
@@ -22,19 +23,17 @@ namespace NonogramApp.ViewModels
             this.serviceProvider = serviceProvider;
             this.service = service;
             GoToGameCommand = new Command(GoToGame);
+            VisLevels = new ObservableCollection<LevelWithScores>();
+            FilteredLevels = new ObservableCollection<LevelWithScores>();
             SetSizeFilters();
-            SetLevels();
-            SetScores();
+            InitData();
         }
-        public async void SetLevels()
+        public async void InitData()
         {
-            List<LevelDTO> templevels = await service.GetApprovedLevels();
-            Levels = new ObservableCollection<LevelDTO>();
-            foreach (LevelDTO l in templevels)
-            {
-                Levels.Add(l);
-            }
-            SelectedSize = "5x5";
+            await SetLevels();
+            await SetScores();
+            await SetLevelsWithScores();
+            FilterLevels();
         }
         private ObservableCollection<LevelDTO> levels;
         public ObservableCollection<LevelDTO> Levels
@@ -43,6 +42,16 @@ namespace NonogramApp.ViewModels
             set
             {
                 levels = value;
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<LevelWithScores> visLevels;
+        public ObservableCollection<LevelWithScores> VisLevels
+        {
+            get => visLevels;
+            set
+            {
+                visLevels = value;
                 OnPropertyChanged();
             }
         }
@@ -59,8 +68,8 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged();
             }
         }
-        private ObservableCollection<LevelDTO> filteredLevels;
-        public ObservableCollection<LevelDTO> FilteredLevels
+        private ObservableCollection<LevelWithScores> filteredLevels;
+        public ObservableCollection<LevelWithScores> FilteredLevels
         {
             get => filteredLevels;
             set
@@ -80,7 +89,7 @@ namespace NonogramApp.ViewModels
             {
                 selectedSize = value;
                 OnPropertyChanged();
-                Filterlevels();
+                FilterLevels();
             }
         }
         private ObservableCollection<string> sizeFilters;
@@ -104,13 +113,26 @@ namespace NonogramApp.ViewModels
             {
                 filterUnplayed = value;
                 OnPropertyChanged();
-                Filterlevels();
+                FilterLevels();
             }
+        }
+        public async Task SetLevels()
+        {
+            List<LevelDTO> templevels = await service.GetApprovedLevels();
+            Levels = new ObservableCollection<LevelDTO>();
+            foreach (LevelDTO l in templevels)
+            {
+                Levels.Add(l);
+            }
+            ObservableCollection<LevelDTO> orderlvels = Levels.OrderBy(l => l.Size).ToObservableCollection();
+            Levels = orderlvels.ToObservableCollection();
+            SelectedSize = "Any";
         }
         public void SetSizeFilters()
         {
             SizeFilters = new ObservableCollection<string>()
             {
+                "Any",
                 "5x5",
                 "10x10",
                 "15x15",
@@ -118,7 +140,7 @@ namespace NonogramApp.ViewModels
                 "25x25"
             };
         }
-        public async void SetScores()
+        public async Task SetScores()
         {
             List<ScoreDTO> tempscores = await service.GetScoresByPlayer(((App)Application.Current).LoggedInUser.Id);
             Scores = new();
@@ -127,25 +149,93 @@ namespace NonogramApp.ViewModels
                 Scores.Add(s);
             }
         }
-        public void Filterlevels()
+        public async Task SetLevelsWithScores()
         {
-            FilteredLevels = new ObservableCollection<LevelDTO>();
+            VisLevels = new();
+            foreach (LevelDTO l in Levels)
+            {
+                string highscorestring = "";
+                string currentscorestring = "";
+                string highhours = "";
+                string highminutes = "";
+                string highseconds = "";
+                string currenthours = "";
+                string currentminutes = "";
+                string currentseconds = "";
+                ScoreDTO highscore = Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == true);
+                if (highscore != null)
+                {
+                    if (highscore.Time / 3600 < 10) highhours = "0";
+                    else highhours = "";
+                    highhours += $"{highscore.Time / 3600}";
+                    if ((highscore.Time / 60) % 60 < 10) highminutes = "0";
+                    else highminutes = "";
+                    highminutes += $"{(highscore.Time / 60) % 60}";
+                    if (highscore.Time % 60 < 10) highseconds = "0";
+                    else highseconds = "";
+                    highseconds += $"{highscore.Time % 60}";
+                    highscorestring = $"{highhours}:{highminutes}:{highseconds}";
+                }
+                else highscorestring = null;
+                ScoreDTO currentscore = Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == false);
+                if (currentscore != null)
+                {
+                    if (currentscore.Time / 3600 < 10) currenthours = "0";
+                    else currenthours = "";
+                    currenthours += $"{currentscore.Time / 3600}";
+                    if ((currentscore.Time / 60) % 60 < 10) currentminutes = "0";
+                    else currentminutes = "";
+                    currentminutes += $"{(currentscore.Time / 60) % 60}";
+                    if (currentscore.Time % 60 < 10) currentseconds = "0";
+                    else currentseconds = "";
+                    currentseconds += $"{currentscore.Time % 60}";
+                    currentscorestring = $"{currenthours}:{currentminutes}:{currentseconds}";
+                }
+                else currentscorestring = null;
+                    VisLevels.Add(new LevelWithScores(l, highscorestring, currentscorestring));
+            }
+        }
+        public void FilterLevels()
+        {
+            FilteredLevels = new ObservableCollection<LevelWithScores>();
             if (!FilterUnplayed)
             {
-                foreach (LevelDTO l in levels)
+                if (SelectedSize == "Any")
                 {
-                    if (int.Parse((selectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Size)
+                    foreach (LevelWithScores l in VisLevels)
+                    {
                         FilteredLevels.Add(l);
+                    }
+                }
+                else
+                {
+                    foreach (LevelWithScores l in VisLevels)
+                    {
+                        if (int.Parse((SelectedSize.Substring(0, ((SelectedSize.Length - 1) / 2)))) == l.Level.Size)
+                            FilteredLevels.Add(l);
+                    }
                 }
             }
             else
             {
-                foreach (LevelDTO l in levels)
+                if (SelectedSize == "Any")
                 {
-                    if (int.Parse((selectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Size && !Scores.Any(s=>s.LevelId==l.LevelId))
-                        FilteredLevels.Add(l);
+                    foreach (LevelWithScores l in VisLevels)
+                    {
+                        if (!Scores.Any(s => s.LevelId == l.Level.LevelId))
+                            FilteredLevels.Add(l);
+                    }
+                }
+                else
+                {
+                    foreach (LevelWithScores l in VisLevels)
+                    {
+                        if (int.Parse((SelectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Level.Size && !Scores.Any(s => s.LevelId == l.Level.LevelId))
+                            FilteredLevels.Add(l);
+                    }
                 }
             }
+            FilteredLevels.OrderBy(l => l.Level.Size);
         }
         public ICommand GoToGameCommand { get; }
         public void GoToGame()
@@ -154,10 +244,9 @@ namespace NonogramApp.ViewModels
             ((App)Application.Current).MainPage.Navigation.PushAsync(serviceProvider.GetService<GamePage>());
             InServerCall = false;
         }
-
         #region Single Selection
-        private LevelDTO selectedLevel;
-        public LevelDTO SelectedLevel
+        private LevelWithScores selectedLevel;
+        public LevelWithScores SelectedLevel
         {
             get => selectedLevel;
             set
@@ -174,7 +263,7 @@ namespace NonogramApp.ViewModels
         {
             var navParam = new Dictionary<string, object>()
                 {
-                    { "Level",SelectedLevel }
+                    { "Level",SelectedLevel.Level }
                 };
             InServerCall = true;
             await Shell.Current.GoToAsync("Game", navParam);
