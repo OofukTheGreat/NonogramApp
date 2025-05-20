@@ -10,18 +10,40 @@ namespace NonogramApp.Models
     public class LevelWithScores
     {
         public LevelDTO Level { get; set; }
-        public string? HighScore { get; set; }
-        public string? CurrentScore { get; set; }
+        public ScoreDTO? HighScore { get; set; }
+        public bool HasHighScore { get; set; }
+        public bool NoHighScore { get; set; }
+        public ScoreDTO? CurrentScore { get; set; }
+        public bool HasCurrentScore { get; set; }
+        public bool NoCurrentScore { get; set; }
         public RowDefinitionCollection Rows { get; set; }
         public ColumnDefinitionCollection Columns { get; set; }
         public ObservableCollection<Tile> Tiles { get; set; }
-        public LevelWithScores(LevelDTO level, string highScore, string currentScore)
+        public LevelWithScores(LevelDTO level, ScoreDTO highScore, ScoreDTO currentScore)
         {
             Level = level;
-            if (highScore != null) HighScore = highScore;
-            else HighScore = "-";
-            if (currentScore != null) CurrentScore = currentScore;
-            else CurrentScore = "-";
+            HighScore = highScore;
+            if (highScore != null)
+            {
+                HasHighScore = true;
+                NoHighScore = false;
+            }
+            else
+            {
+                HasHighScore = false;
+                NoHighScore = true;
+            }
+            CurrentScore = currentScore;
+            if (currentScore != null)
+            {
+                HasCurrentScore = true;
+                NoCurrentScore = false;
+            }
+            else
+            {
+                HasCurrentScore = false;
+                NoCurrentScore = true;
+            }
             Rows = new();
             Columns = new();
             for (int i = 0; i < level.Size; i++)

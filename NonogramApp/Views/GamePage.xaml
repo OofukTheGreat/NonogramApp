@@ -30,11 +30,11 @@
                 Margin="10"
                 Padding="5"
                 BackgroundColor="Black"
-                HorizontalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
                 Stroke="Gray"
                 StrokeShape="RoundRectangle 5,5,5,5"
                 StrokeThickness="4"
-                VerticalOptions="CenterAndExpand">
+                VerticalOptions="Center">
                 <Label HorizontalOptions="Center" VerticalOptions="Center">
                     <Label.FormattedText>
                         <FormattedString>
@@ -62,6 +62,18 @@
                     </Label.FormattedText>
                 </Label>
             </Border>
+            <ImageButton
+                Margin="10"
+                Padding="5"
+                BorderColor="Gray"
+                BorderWidth="3"
+                Command="{Binding RestartCommand}"
+                CornerRadius="5"
+                HeightRequest="50"
+                HorizontalOptions="End"
+                Source="restart.png"
+                VerticalOptions="Start"
+                WidthRequest="50" />
         </Grid>
         <Grid
             x:Name="basegrid"
@@ -142,7 +154,7 @@
                 Grid.Column="0"
                 Grid.ColumnSpan="2"
                 BackgroundColor="#a9a9a9"
-                HorizontalOptions="StartAndExpand"
+                HorizontalOptions="Start"
                 Stroke="{Binding MoveBorder}"
                 StrokeShape="RoundRectangle 0,100,0,100"
                 StrokeThickness="2"
@@ -154,7 +166,7 @@
                 Grid.Column="1"
                 Grid.ColumnSpan="2"
                 BackgroundColor="#a9a9a9"
-                HorizontalOptions="EndAndExpand"
+                HorizontalOptions="End"
                 Stroke="{Binding MoveBorder}"
                 StrokeShape="RoundRectangle 100,0,100,0"
                 StrokeThickness="2"
@@ -170,7 +182,7 @@
                 Stroke="{Binding MoveBorder}"
                 StrokeShape="RoundRectangle 0,0,100,100"
                 StrokeThickness="2"
-                VerticalOptions="StartAndExpand">
+                VerticalOptions="Start">
                 <Button BackgroundColor="#a9a9a9" Command="{Binding UpCommand}" />
             </Border>
             <Border
@@ -182,7 +194,7 @@
                 Stroke="{Binding MoveBorder}"
                 StrokeShape="RoundRectangle 100,100,0,0"
                 StrokeThickness="2"
-                VerticalOptions="EndAndExpand">
+                VerticalOptions="End">
                 <Button BackgroundColor="#a9a9a9" Command="{Binding DownCommand}" />
             </Border>
             <Label Grid.Row="1" Grid.Column="1" />
@@ -199,9 +211,9 @@
                 Command="{Binding ColorCommand}"
                 CornerRadius="10"
                 HeightRequest="80"
-                HorizontalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
                 Source="color.png"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 WidthRequest="80" />
             <ImageButton
                 Grid.Row="1"
@@ -216,9 +228,9 @@
                 Command="{Binding MarkCommand}"
                 CornerRadius="10"
                 HeightRequest="80"
-                HorizontalOptions="CenterAndExpand"
+                HorizontalOptions="Center"
                 Source="mark.png"
-                VerticalOptions="CenterAndExpand"
+                VerticalOptions="Center"
                 WidthRequest="80" />
         </Grid>
     </VerticalStackLayout>

@@ -154,45 +154,7 @@ namespace NonogramApp.ViewModels
             VisLevels = new();
             foreach (LevelDTO l in Levels)
             {
-                string highscorestring = "";
-                string currentscorestring = "";
-                string highhours = "";
-                string highminutes = "";
-                string highseconds = "";
-                string currenthours = "";
-                string currentminutes = "";
-                string currentseconds = "";
-                ScoreDTO highscore = Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == true);
-                if (highscore != null)
-                {
-                    if (highscore.Time / 3600 < 10) highhours = "0";
-                    else highhours = "";
-                    highhours += $"{highscore.Time / 3600}";
-                    if ((highscore.Time / 60) % 60 < 10) highminutes = "0";
-                    else highminutes = "";
-                    highminutes += $"{(highscore.Time / 60) % 60}";
-                    if (highscore.Time % 60 < 10) highseconds = "0";
-                    else highseconds = "";
-                    highseconds += $"{highscore.Time % 60}";
-                    highscorestring = $"{highhours}:{highminutes}:{highseconds}";
-                }
-                else highscorestring = null;
-                ScoreDTO currentscore = Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == false);
-                if (currentscore != null)
-                {
-                    if (currentscore.Time / 3600 < 10) currenthours = "0";
-                    else currenthours = "";
-                    currenthours += $"{currentscore.Time / 3600}";
-                    if ((currentscore.Time / 60) % 60 < 10) currentminutes = "0";
-                    else currentminutes = "";
-                    currentminutes += $"{(currentscore.Time / 60) % 60}";
-                    if (currentscore.Time % 60 < 10) currentseconds = "0";
-                    else currentseconds = "";
-                    currentseconds += $"{currentscore.Time % 60}";
-                    currentscorestring = $"{currenthours}:{currentminutes}:{currentseconds}";
-                }
-                else currentscorestring = null;
-                    VisLevels.Add(new LevelWithScores(l, highscorestring, currentscorestring));
+                VisLevels.Add(new LevelWithScores(l, Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == true), Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == false)));
             }
         }
         public void FilterLevels()
@@ -222,7 +184,7 @@ namespace NonogramApp.ViewModels
                 {
                     foreach (LevelWithScores l in VisLevels)
                     {
-                        if (!Scores.Any(s => s.LevelId == l.Level.LevelId))
+                        if (!Scores.Any(s => s.LevelId == l.Level.LevelId && s.HasWon == true))
                             FilteredLevels.Add(l);
                     }
                 }
@@ -230,7 +192,7 @@ namespace NonogramApp.ViewModels
                 {
                     foreach (LevelWithScores l in VisLevels)
                     {
-                        if (int.Parse((SelectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Level.Size && !Scores.Any(s => s.LevelId == l.Level.LevelId))
+                        if (int.Parse((SelectedSize.Substring(0, ((selectedSize.Length - 1) / 2)))) == l.Level.Size && !Scores.Any(s => s.LevelId == l.Level.LevelId && s.HasWon == true))
                             FilteredLevels.Add(l);
                     }
                 }
@@ -263,7 +225,8 @@ namespace NonogramApp.ViewModels
         {
             var navParam = new Dictionary<string, object>()
                 {
-                    { "Level",SelectedLevel.Level }
+                    { "Level",SelectedLevel.Level },
+                    { "Score",SelectedLevel.CurrentScore }
                 };
             InServerCall = true;
             await Shell.Current.GoToAsync("Game", navParam);

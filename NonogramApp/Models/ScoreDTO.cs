@@ -8,7 +8,21 @@
 
         public string? CurrentProgress { get; set; }
 
-        public int Time { get; set; }
+        private int time;
+        public int Time
+        {
+            get
+            {
+                return time;
+            }
+            set
+            {
+                time = value;
+                Seconds = time % 60;
+                Minutes = (time / 60) % 60;
+                Hours = time / 3600;
+            }       
+        }   
         public int Seconds { get; set; }
         public int Minutes { get; set; }
         public int Hours { get; set; }

@@ -21,7 +21,7 @@
                 <Label
                     Margin="0,10,10,10"
                     FontSize="15"
-                    Text="Show only unplayed levels"
+                    Text="Show only uncompleted levels"
                     TextColor="White"
                     VerticalOptions="Center"
                     WidthRequest="100" />
@@ -56,6 +56,59 @@
                 </Border>
             </HorizontalStackLayout>
         </Grid>
+        <Border
+            Margin="4,1"
+            Padding="4"
+            Background="Black"
+            HeightRequest="60"
+            StrokeShape="RoundRectangle 5,5,5,5">
+            <Grid ColumnDefinitions="100,*,*,*">
+                <Label
+                    Grid.Column="0"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Preview"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Title"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="2"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Start"
+                    Text="Personal Best"
+                    TextColor="White"
+                    VerticalOptions="Start" />
+                <Label
+                    Grid.Column="2"
+                    Margin="0,0,25,0"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="/"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="2"
+                    FontAttributes="Bold"
+                    HorizontalOptions="End"
+                    HorizontalTextAlignment="End"
+                    Text="Current Attempt"
+                    TextColor="White"
+                    VerticalOptions="End" />
+                <Label
+                    Grid.Column="3"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Size"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+            </Grid>
+        </Border>
         <ScrollView>
 
             <CollectionView
@@ -70,13 +123,25 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Models:LevelWithScores">
                         <Border
-                            Background="Black"
                             Margin="4,1"
                             Padding="4"
-                            StrokeShape="RoundRectangle 5,5,5,5"
-                            HeightRequest="112">
+                            Background="Black"
+                            HeightRequest="112"
+                            StrokeShape="RoundRectangle 5,5,5,5">
                             <Grid ColumnDefinitions="100,*,*,*">
-                                <Border Stroke="Gray" StrokeThickness="1" Grid.Column="0" HeightRequest="102" WidthRequest="102" Margin="4,2,2,2">
+                                <Image
+                                    Grid.Column="0"
+                                    Margin="4,2,2,2"
+                                    HeightRequest="102"
+                                    Source="qmark.png" />
+                                <Border
+                                    Grid.Column="0"
+                                    Margin="4,2,2,2"
+                                    HeightRequest="102"
+                                    IsVisible="{Binding HasHighScore}"
+                                    Stroke="Gray"
+                                    StrokeThickness="1"
+                                    WidthRequest="102">
                                     <Grid
                                         Padding="-1"
                                         BindableLayout.ItemsSource="{Binding Tiles}"
@@ -87,22 +152,22 @@
                                         <BindableLayout.ItemTemplate>
                                             <DataTemplate x:DataType="Models:Tile">
                                                 <Border
-                                                Grid.Row="{Binding Y}"
-                                                Grid.Column="{Binding X}"
-                                                Margin="-1"
-                                                BackgroundColor="{Binding TrueColor}"
-                                                StrokeThickness="0" />
+                                                    Grid.Row="{Binding Y}"
+                                                    Grid.Column="{Binding X}"
+                                                    Margin="-1"
+                                                    BackgroundColor="{Binding TrueColor}"
+                                                    StrokeThickness="0" />
                                             </DataTemplate>
                                         </BindableLayout.ItemTemplate>
                                     </Grid>
                                 </Border>
-                                <BoxView 
+                                <!--<BoxView
                                     Grid.Column="1"
-                                    WidthRequest="1"
-                                    HeightRequest="114"
-                                    Color="White"
                                     Margin="5,0,0,0"
-                                    HorizontalOptions="Start"/>
+                                    HeightRequest="114"
+                                    HorizontalOptions="Start"
+                                    WidthRequest="1"
+                                    Color="White" />-->
                                 <Label
                                     Grid.Column="1"
                                     Margin="3"
@@ -111,53 +176,130 @@
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span
-                                                FontAttributes="Bold"
+                                                FontFamily="Font"
                                                 Text="&quot;"
                                                 TextColor="White" />
                                             <Span
-                                                FontAttributes="Bold"
+                                                FontFamily="Font"
                                                 Text="{Binding Level.Title}"
                                                 TextColor="White" />
                                             <Span
-                                                FontAttributes="Bold"
+                                                FontFamily="Font"
                                                 Text="&quot;"
                                                 TextColor="White" />
                                         </FormattedString>
                                     </Label.FormattedText>
                                 </Label>
-                                <BoxView 
+                                <!--<BoxView
                                     Grid.Column="1"
-                                    WidthRequest="1"
                                     HeightRequest="114"
-                                    Color="White"
-                                    HorizontalOptions="End"/>
-                                <Grid RowDefinitions="*,*" Grid.Column="2">
-                                    <Label Grid.Row="0" Text="{Binding HighScore}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
-                                    <Label Grid.Row="1" Text="{Binding CurrentScore}" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center"/>
+                                    HorizontalOptions="End"
+                                    WidthRequest="1"
+                                    Color="White" />-->
+                                <Grid Grid.Column="2" RowDefinitions="*,*">
+                                    <Label
+                                        Grid.Row="0"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        IsVisible="{Binding HasHighScore}"
+                                        TextColor="White"
+                                        VerticalOptions="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding HighScore.Hours, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text=":"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding HighScore.Minutes, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text=":"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding HighScore.Seconds, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label
+                                        Grid.Row="0"
+                                        HorizontalOptions="Center"
+                                        IsVisible="{Binding NoHighScore}"
+                                        Text="-"
+                                        TextColor="White"
+                                        VerticalOptions="Center" />
+                                    <Label
+                                        Grid.Row="1"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        IsVisible="{Binding HasCurrentScore}"
+                                        TextColor="White"
+                                        VerticalOptions="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding CurrentScore.Hours, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text=":"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding CurrentScore.Minutes, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text=":"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding CurrentScore.Seconds, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <Label
+                                        Grid.Row="1"
+                                        HorizontalOptions="Center"
+                                        IsVisible="{Binding NoCurrentScore}"
+                                        Text="-"
+                                        TextColor="White"
+                                        VerticalOptions="Center" />
                                 </Grid>
-                                <BoxView 
+                                <!--<BoxView
                                     Grid.Column="2"
-                                    WidthRequest="1"
                                     HeightRequest="114"
-                                    Color="White"
-                                    HorizontalOptions="End"/>
+                                    HorizontalOptions="End"
+                                    WidthRequest="1"
+                                    Color="White" />-->
                                 <Label
                                     Grid.Column="3"
                                     Margin="3"
+                                    FontSize="20"
                                     HorizontalOptions="Center"
                                     VerticalTextAlignment="Center">
                                     <Label.FormattedText>
                                         <FormattedString>
                                             <Span
-                                                FontAttributes="Bold"
+                                                FontFamily="Font"
                                                 Text="{Binding Level.Size}"
                                                 TextColor="AliceBlue" />
                                             <Span
-                                                FontAttributes="Bold"
+                                                FontFamily="Font"
                                                 Text="x"
                                                 TextColor="AliceBlue" />
                                             <Span
-                                                FontAttributes="Bold"
+                                                FontFamily="Font"
                                                 Text="{Binding Level.Size}"
                                                 TextColor="AliceBlue" />
                                         </FormattedString>

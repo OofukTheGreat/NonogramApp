@@ -27,6 +27,7 @@ namespace NonogramApp.ViewModels
             ColorCommand = new Command(ColorTile);
             UploadCommand = new Command(OnUpload);
             AltColorTileCommand = new Command((Object o) => AltColorTile(o));
+            RestartCommand = new Command(Restart);
             BoardSize = 5;
             Sizes = new List<string>()
             {
@@ -53,6 +54,7 @@ namespace NonogramApp.ViewModels
         public ICommand ExitCommand { get; set; }
         public ICommand SaveCommand { get; set; }
         public ICommand UploadCommand { get; set; }
+        public ICommand RestartCommand { get; set; }
         private Game game;
         public Game Game
         {
@@ -277,6 +279,10 @@ namespace NonogramApp.ViewModels
         private void ColorTile()
         {
             Tiles.Where(T => T.X == SelectedX && T.Y == SelectedY).FirstOrDefault().Blacken();
+        }
+        private void Restart()
+        {
+            Game.ClearBoard();
         }
         private async void AltColorTile(Object o)
         {

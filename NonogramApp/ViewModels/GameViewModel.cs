@@ -12,8 +12,8 @@ using System.Windows.Input;
 
 namespace NonogramApp.ViewModels
 {
+    [QueryProperty(nameof(Score), "Score")]
     [QueryProperty(nameof(Level), "Level")]
-    //[QueryProperty(nameof(Score), "Score")]
     public partial class GameViewModel : ViewModelBase
     {
         public event Action<List<string>> OpenPopup;
@@ -32,8 +32,9 @@ namespace NonogramApp.ViewModels
             ExitCommand = new Command(OnExit);
             ColorCommand = new Command(ColorTile);
             MarkCommand = new Command(MarkTile);
-            AlterCommand = new Command((Object o) => AlterTile(o));         
+            AlterCommand = new Command((Object o) => AlterTile(o));      
             ClosePopupCommand = new Command(ClosePopup);
+            RestartCommand = new Command(Restart);
             SelectedX = 0;
             SelectedY = 0;
             IsColoring = true;
@@ -51,6 +52,7 @@ namespace NonogramApp.ViewModels
         public ICommand LeftCommand {get; set;}
         public ICommand RightCommand { get; set;}
         public ICommand ExitCommand { get; set;}
+        public ICommand RestartCommand { get; set; }
         private int time;
         public int Time
         {
@@ -187,6 +189,20 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(Labels));
             }
         }
+        private ScoreDTO score;
+        public ScoreDTO Score
+        {
+            get
+            {
+                return score;
+            }
+            set
+            {
+                score = value;
+                OnPropertyChanged();
+                Time = Score.Time;
+            }
+        }
         private LevelDTO level;
         public LevelDTO Level
         {
@@ -201,7 +217,7 @@ namespace NonogramApp.ViewModels
                 ExpandGrid(Level.Size);
                 SizePlusOne = Level.Size + 1;
                 CreateGame();
-                Time = 0;
+                if (Score == null) Time = 0;
                 Timer();
             }
         }
@@ -358,6 +374,7 @@ namespace NonogramApp.ViewModels
             Game = new Game(Level);
             TileArrayToList(Level.Size);
             LabelsToList(Level.Size);
+            if (Score != null) Game.RemakeBoardFromScore(Score.CurrentProgress);
             MarkEmptyRowColumn();
         }
         private async Task TileArrayToList(int size)
@@ -592,6 +609,11 @@ namespace NonogramApp.ViewModels
                     }
                 }
             }
+        }
+        private void Restart()
+        {
+            Game.ClearBoard();
+            Time = 0;
         }
         #endregion
         #region PostGame

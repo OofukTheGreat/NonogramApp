@@ -180,6 +180,48 @@ namespace NonogramApp.Models
             else if (Board.GetLength(0) == 10 || Board.GetLength(0) == 15) Board[newY, newX].BorderWidth = 3;
             else if (Board.GetLength(0) == 20 || Board.GetLength(0) == 25) Board[newY, newX].BorderWidth = 2;
         }
+        public void RemakeBoardFromScore(string layout)
+        {
+            int size = Board.GetLength(0);
+            int j = 0;
+            int index = 0;
+            string selectedColor = "White";
+            for (int i = 0; i < size; i++)
+            {
+                string number = "";
+                while (index < layout.Length && layout[index] != '.')
+                {
+                    if (layout[index] == ',')
+                    {
+                        int realnumber = int.Parse(number);
+                        for (int h = 0; h < realnumber; h++)
+                        {
+                            Board[i, j].CurrentColor = selectedColor;
+                            j++;
+                        }
 
+                        if (selectedColor == "White") selectedColor = "Black";
+                        else selectedColor = "White";
+                        number = "";
+                    }
+                    else number += layout[index];
+                    index++;
+                }
+                index += 1;
+                j = 0;
+                selectedColor = "White";
+            }
+        }
+        public void ClearBoard()
+        {
+            for (int i = 0; i < Board.GetLength(0); i++)
+            {
+                for (int j = 0; j < Board.GetLength(0); j++)
+                {
+                    Board[i, j].CurrentColor = "White";
+                    Board[i, j].IsMarked = false;
+                }
+            }
+        }
     }
 }
