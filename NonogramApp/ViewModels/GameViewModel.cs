@@ -200,7 +200,10 @@ namespace NonogramApp.ViewModels
             {
                 score = value;
                 OnPropertyChanged();
-                Time = Score.Time;
+                if (Score != null)
+                {
+                    Time = Score.Time;
+                }
             }
         }
         private LevelDTO level;
