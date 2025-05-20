@@ -110,7 +110,6 @@
             </Grid>
         </Border>
         <ScrollView>
-
             <CollectionView
                 Grid.Row="1"
                 Grid.Column="0"
@@ -119,7 +118,6 @@
                 ItemsSource="{Binding FilteredLevels}"
                 SelectedItem="{Binding SelectedLevel}"
                 SelectionMode="Single">
-
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="Models:LevelWithScores">
                         <Border
