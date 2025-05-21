@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Java.Util.Logging;
 using NonogramApp.Models;
 
 namespace NonogramApp.Services
@@ -403,6 +404,37 @@ namespace NonogramApp.Services
                 return null;
             }
         }
+        public async Task<List<PlayerDTO>> GetPendingLevelMakers()
+        {
+            //Set URI to the specific function API
+            string url = $"{this.baseUrl}getPendingLevelMakers";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                    List<PlayerDTO?> result = JsonSerializer.Deserialize<List<PlayerDTO?>>(resContent, options);
+                    return result;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
         public async Task<List<ScoreDTO>> GetScoresByPlayer(int playerid)
         {
             //Set URI to the specific function API
@@ -467,6 +499,33 @@ namespace NonogramApp.Services
             catch (Exception ex)
             {
                 return null;
+            }
+        }
+        public async Task Approve(int levelid)
+        {
+            //Set URI to the specific function API
+            string parameterKey = "levelid";
+            string parameterValue = levelid.ToString();
+            string url = $"{this.baseUrl}approve?{parameterKey}={parameterValue}";
+            try
+            {
+                //Call the server API
+                HttpResponseMessage response = await client.GetAsync(url);
+                //Check status
+                if (response.IsSuccessStatusCode)
+                {
+                    //Extract the content as string
+                    string resContent = await response.Content.ReadAsStringAsync();
+                    //Desrialize result
+                    JsonSerializerOptions options = new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+
             }
         }
     }

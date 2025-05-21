@@ -9,4 +9,13 @@ public partial class ProfilePage : ContentPage
 		InitializeComponent();
 		this.BindingContext = vm;
 	}
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (this.BindingContext is ProfileViewModel)
+        {
+            ((ProfileViewModel)this.BindingContext).InitData();
+        }
+    }
 }

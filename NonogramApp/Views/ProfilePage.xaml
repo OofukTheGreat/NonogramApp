@@ -72,6 +72,47 @@
                 Margin="10"
                 Text="Levels where you are currently ranked #1:"
                 TextColor="White" />
+            <Border
+                Margin="4,1"
+                Padding="4"
+                Background="Black"
+                HeightRequest="40"
+                StrokeShape="RoundRectangle 5,5,5,5">
+                <Grid ColumnDefinitions="100,*,*,*">
+                    <Label
+                        Grid.Column="0"
+                        Margin="0,5,0,0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="Preview"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Column="1"
+                        Margin="0,5,0,0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="Title"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Column="2"
+                        Margin="0,5,0,0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="Time"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                    <Label
+                        Grid.Column="3"
+                        Margin="0,5,0,0"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center"
+                        Text="Size"
+                        TextColor="White"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Border>
             <ScrollView>
                 <CollectionView
                     Grid.Row="1"
@@ -85,9 +126,9 @@
                                 Margin="4,1"
                                 Padding="4"
                                 Background="Black"
-                                HeightRequest="112"
+                                HeightRequest="97"
                                 StrokeShape="RoundRectangle 5,5,5,5">
-                                <Grid ColumnDefinitions="100,*,*,*">
+                                <Grid ColumnDefinitions="*,*,*,*">
                                     <Image
                                         Grid.Column="0"
                                         Margin="4,2,2,2"
@@ -105,9 +146,9 @@
                                             Padding="-1"
                                             BindableLayout.ItemsSource="{Binding Tiles}"
                                             ColumnDefinitions="{Binding Columns}"
-                                            HeightRequest="100"
+                                            HeightRequest="90"
                                             RowDefinitions="{Binding Rows}"
-                                            WidthRequest="100">
+                                            WidthRequest="90">
                                             <BindableLayout.ItemTemplate>
                                                 <DataTemplate x:DataType="Models:Tile">
                                                     <Border
@@ -120,16 +161,16 @@
                                             </BindableLayout.ItemTemplate>
                                         </Grid>
                                     </Border>
-                                    <!--<BoxView
-                            Grid.Column="1"
-                            Margin="5,0,0,0"
-                            HeightRequest="114"
-                            HorizontalOptions="Start"
-                            WidthRequest="1"
-                            Color="White" />-->
+                                    <BoxView
+                                        Grid.Column="1"
+                                        Margin="5,0,0,0"
+                                        HeightRequest="114"
+                                        HorizontalOptions="Start"
+                                        WidthRequest="1"
+                                        Color="White" />
                                     <Label
                                         Grid.Column="1"
-                                        Margin="3"
+                                        Margin="10,3,3,3"
                                         HorizontalOptions="Center"
                                         VerticalTextAlignment="Center">
                                         <Label.FormattedText>
@@ -149,101 +190,52 @@
                                             </FormattedString>
                                         </Label.FormattedText>
                                     </Label>
-                                    <!--<BoxView
-                            Grid.Column="1"
-                            HeightRequest="114"
-                            HorizontalOptions="End"
-                            WidthRequest="1"
-                            Color="White" />-->
-                                    <Grid Grid.Column="2" RowDefinitions="*,*">
-                                        <Label
-                                            Grid.Row="0"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Center"
-                                            IsVisible="{Binding HasHighScore}"
-                                            TextColor="White"
-                                            VerticalOptions="Center">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text="{Binding HighScore.Hours, StringFormat='{0:D2}'}"
-                                                        TextColor="White" />
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text=":"
-                                                        TextColor="White" />
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text="{Binding HighScore.Minutes, StringFormat='{0:D2}'}"
-                                                        TextColor="White" />
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text=":"
-                                                        TextColor="White" />
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text="{Binding HighScore.Seconds, StringFormat='{0:D2}'}"
-                                                        TextColor="White" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label
-                                            Grid.Row="0"
-                                            HorizontalOptions="Center"
-                                            IsVisible="{Binding NoHighScore}"
-                                            Text="-"
-                                            TextColor="White"
-                                            VerticalOptions="Center" />
-                                        <Label
-                                            Grid.Row="1"
-                                            HorizontalOptions="Center"
-                                            HorizontalTextAlignment="Center"
-                                            IsVisible="{Binding HasCurrentScore}"
-                                            TextColor="White"
-                                            VerticalOptions="Center">
-                                            <Label.FormattedText>
-                                                <FormattedString>
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text="{Binding CurrentScore.Hours, StringFormat='{0:D2}'}"
-                                                        TextColor="White" />
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text=":"
-                                                        TextColor="White" />
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text="{Binding CurrentScore.Minutes, StringFormat='{0:D2}'}"
-                                                        TextColor="White" />
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text=":"
-                                                        TextColor="White" />
-                                                    <Span
-                                                        FontFamily="Font"
-                                                        Text="{Binding CurrentScore.Seconds, StringFormat='{0:D2}'}"
-                                                        TextColor="White" />
-                                                </FormattedString>
-                                            </Label.FormattedText>
-                                        </Label>
-                                        <Label
-                                            Grid.Row="1"
-                                            HorizontalOptions="Center"
-                                            IsVisible="{Binding NoCurrentScore}"
-                                            Text="-"
-                                            TextColor="White"
-                                            VerticalOptions="Center" />
-                                    </Grid>
-                                    <!--<BoxView
-                            Grid.Column="2"
-                            HeightRequest="114"
-                            HorizontalOptions="End"
-                            WidthRequest="1"
-                            Color="White" />-->
+                                    <BoxView
+                                        Grid.Column="1"
+                                        HeightRequest="114"
+                                        HorizontalOptions="End"
+                                        WidthRequest="1"
+                                        Color="White" />
+                                    <Label
+                                        Grid.Column="2"
+                                        HorizontalOptions="Center"
+                                        HorizontalTextAlignment="Center"
+                                        TextColor="White"
+                                        VerticalOptions="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding HighScore.Hours, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text=":"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding HighScore.Minutes, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text=":"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding HighScore.Seconds, StringFormat='{0:D2}'}"
+                                                    TextColor="White" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <BoxView
+                                        Grid.Column="2"
+                                        HeightRequest="114"
+                                        HorizontalOptions="End"
+                                        WidthRequest="1"
+                                        Color="White" />
                                     <Label
                                         Grid.Column="3"
-                                        Margin="3"
+                                        Margin="10,3,3,3"
                                         FontSize="20"
                                         HorizontalOptions="Center"
                                         VerticalTextAlignment="Center">

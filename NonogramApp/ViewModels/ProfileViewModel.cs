@@ -96,14 +96,16 @@ namespace NonogramApp.ViewModels
                     Scores.Add(s);
                 }
             }
-            
         }
         public async Task SetLevelsWithScores()
         {
             VisLevels = new();
             foreach (LevelDTO l in Levels)
             {
-                VisLevels.Add(new LevelWithScores(l, Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == true), Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == false)));
+                if (Scores.Where(s => s.LevelId == l.LevelId).FirstOrDefault() != null)
+                {
+                    VisLevels.Add(new LevelWithScores(l, Scores.FirstOrDefault(s => s.LevelId == l.LevelId && s.HasWon == true), null));
+                }
             }
         }
     }

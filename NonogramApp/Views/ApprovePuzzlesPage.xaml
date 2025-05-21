@@ -3,13 +3,198 @@
     x:Class="NonogramApp.Views.ApprovePuzzlesPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Models="clr-namespace:NonogramApp.Models"
     Title="ApprovePuzzlesPage"
     BackgroundImageSource="pixelbg.png"
     Shell.NavBarIsVisible="False">
     <VerticalStackLayout>
-        <Label
-            HorizontalOptions="Center"
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" />
+        <Border
+            Margin="5,5,5,0"
+            Padding="4"
+            Background="Black"
+            HeightRequest="40"
+            StrokeShape="RoundRectangle 5,5,5,5">
+            <Grid ColumnDefinitions="100,*,*,*">
+                <Label
+                    Grid.Column="0"
+                    Margin="0,5,0,0"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Preview"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="1"
+                    Margin="0,5,0,0"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Title"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="2"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    HorizontalTextAlignment="Center"
+                    Text="Creator Name"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+                <Label
+                    Grid.Column="3"
+                    Margin="0,5,0,0"
+                    FontAttributes="Bold"
+                    HorizontalOptions="Center"
+                    Text="Size"
+                    TextColor="White"
+                    VerticalOptions="Center" />
+            </Grid>
+        </Border>
+        <ScrollView>
+            <CollectionView
+                Grid.Row="1"
+                Grid.Column="0"
+                Grid.ColumnSpan="3"
+                Margin="3"
+                ItemsSource="{Binding VisLevels}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="Models:LevelWithMakerName">
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItem
+                                    BackgroundColor="Black"
+
+                                    CommandParameter="{Binding Level.LevelId}"
+                                    IconImageSource="approve.png" />
+                                <SwipeItem BackgroundColor="Black"/>
+                            </SwipeView.RightItems>
+                            <Border
+                                Margin="4,1"
+                                Padding="4"
+                                Background="Black"
+                                HeightRequest="97"
+                                StrokeShape="RoundRectangle 5,5,5,5">
+                                <Grid ColumnDefinitions="*,*,*,*">
+                                    <Image
+                                        Grid.Column="0"
+                                        Margin="4,2,2,2"
+                                        HeightRequest="102"
+                                        Source="qmark.png" />
+                                    <Border
+                                        Grid.Column="0"
+                                        Margin="4,2,2,2"
+                                        HeightRequest="102"
+                                        Stroke="Gray"
+                                        StrokeThickness="1"
+                                        WidthRequest="102">
+                                        <Grid
+                                            Padding="-1"
+                                            BindableLayout.ItemsSource="{Binding Tiles}"
+                                            ColumnDefinitions="{Binding Columns}"
+                                            HeightRequest="90"
+                                            RowDefinitions="{Binding Rows}"
+                                            WidthRequest="90">
+                                            <BindableLayout.ItemTemplate>
+                                                <DataTemplate x:DataType="Models:Tile">
+                                                    <Border
+                                                        Grid.Row="{Binding Y}"
+                                                        Grid.Column="{Binding X}"
+                                                        Margin="-1"
+                                                        BackgroundColor="{Binding TrueColor}"
+                                                        StrokeThickness="0" />
+                                                </DataTemplate>
+                                            </BindableLayout.ItemTemplate>
+                                        </Grid>
+                                    </Border>
+                                    <BoxView
+                                        Grid.Column="1"
+                                        Margin="5,0,0,0"
+                                        HeightRequest="114"
+                                        HorizontalOptions="Start"
+                                        WidthRequest="1"
+                                        Color="White" />
+                                    <Label
+                                        Grid.Column="1"
+                                        Margin="10,3,3,3"
+                                        HorizontalOptions="Center"
+                                        VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="&quot;"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding Level.Title}"
+                                                    TextColor="White" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="&quot;"
+                                                    TextColor="White" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                    <BoxView
+                                        Grid.Column="1"
+                                        HeightRequest="114"
+                                        HorizontalOptions="End"
+                                        WidthRequest="1"
+                                        Color="White" />
+                                    <Label
+                                        Grid.Column="2"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding Maker.DisplayName}"
+                                        TextColor="White"
+                                        VerticalTextAlignment="Center" />
+                                    <BoxView
+                                        Grid.Column="2"
+                                        HeightRequest="114"
+                                        HorizontalOptions="End"
+                                        WidthRequest="1"
+                                        Color="White" />
+                                    <Label
+                                        Grid.Column="3"
+                                        Margin="10,3,3,3"
+                                        FontSize="20"
+                                        HorizontalOptions="Center"
+                                        VerticalTextAlignment="Center">
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding Level.Size}"
+                                                    TextColor="AliceBlue" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="x"
+                                                    TextColor="AliceBlue" />
+                                                <Span
+                                                    FontFamily="Font"
+                                                    Text="{Binding Level.Size}"
+                                                    TextColor="AliceBlue" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+                                </Grid>
+                                <VisualStateManager.VisualStateGroups>
+                                    <VisualStateGroup>
+                                        <VisualState Name="Selected">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                        <VisualState Name="Normal">
+                                            <VisualState.Setters>
+                                                <Setter Property="BackgroundColor" Value="Transparent" />
+                                            </VisualState.Setters>
+                                        </VisualState>
+                                    </VisualStateGroup>
+                                </VisualStateManager.VisualStateGroups>
+                            </Border>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
     </VerticalStackLayout>
 </ContentPage>

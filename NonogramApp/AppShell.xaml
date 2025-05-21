@@ -50,6 +50,7 @@
             Route="Profile" />
         <ShellContent
             Title="Approve"
+            IsVisible="{Binding IsAdmin}"
             ContentTemplate="{DataTemplate Views:ApprovePuzzlesPage}"
             Icon="approve.png"
             Route="Approve" />
