@@ -8,10 +8,10 @@ namespace NonogramApp.Models
 {
     public class LeaderboardScore
     {
-        ScoreDTO Score { get; set; }
-        int Index { get; set; }
-        string TextColor { get; set; }
-        public LeaderboardScore(ScoreDTO score, int index)
+        public ScoreWithPlayerData Score { get; set; }
+        public int Index { get; set; }
+        public string TextColor { get; set; }
+        public LeaderboardScore(ScoreWithPlayerData score, int index)
         {
             Score = score;
             Index = index;
@@ -24,10 +24,10 @@ namespace NonogramApp.Models
                     TextColor = "Silver";
                     break;
                 case 3:
-                    TextColor = "Bronze";
+                    TextColor = "Brown";
                     break;
                 default:
-                    TextColor = "Black";
+                    TextColor = "White";
                     break;
             }
         }

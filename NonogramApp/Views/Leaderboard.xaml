@@ -36,7 +36,7 @@
                 <Label
                     Margin="2,3,2,0"
                     FontSize="20"
-                    HorizontalOptions="CenterAndExpand"
+                    HorizontalOptions="Center"
                     HorizontalTextAlignment="End"
                     Text="{Binding Level.Title}"
                     TextColor="White"
@@ -119,7 +119,7 @@
                 Grid.Row="1"
                 Margin="0,10,0,0"
                 ItemsLayout="VerticalList"
-                ItemsSource="{Binding Scores}">
+                ItemsSource="{Binding VisScores}">
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <Border
@@ -136,8 +136,8 @@
                                     Margin="0,7,0,0"
                                     FontSize="30"
                                     HorizontalOptions="Center"
-                                    Text="{Binding Score.PlayerId}"
-                                    TextColor="White"
+                                    Text="{Binding Index}"
+                                    TextColor="{Binding TextColor}"
                                     VerticalOptions="Center" />
                                 <Border
                                     Grid.Column="1"
@@ -146,13 +146,13 @@
                                     StrokeShape="Ellipse"
                                     StrokeThickness="1"
                                     WidthRequest="46">
-                                    <Image HeightRequest="50" Source="{Binding URL}" />
+                                    <Image HeightRequest="50" Source="{Binding Score.URL}" />
                                 </Border>
                                 <Label
                                     Grid.Row="0"
                                     Grid.Column="2"
                                     HorizontalOptions="Center"
-                                    Text="{Binding Name}"
+                                    Text="{Binding Score.Name}"
                                     TextColor="White"
                                     VerticalOptions="Center" />
                                 <Label
@@ -163,7 +163,7 @@
                                         <FormattedString>
                                             <Span
                                                 FontFamily="Font"
-                                                Text="{Binding Score.Hours}"
+                                                Text="{Binding Score.Score.Hours}"
                                                 TextColor="White" />
                                             <Span
                                                 FontFamily="Font"
@@ -171,7 +171,7 @@
                                                 TextColor="White" />
                                             <Span
                                                 FontFamily="Font"
-                                                Text="{Binding Score.Minutes, StringFormat='{0:D2}'}"
+                                                Text="{Binding Score.Score.Minutes, StringFormat='{0:D2}'}"
                                                 TextColor="White" />
                                             <Span
                                                 FontFamily="Font"
@@ -179,7 +179,7 @@
                                                 TextColor="White" />
                                             <Span
                                                 FontFamily="Font"
-                                                Text="{Binding Score.Seconds, StringFormat='{0:D2}'}"
+                                                Text="{Binding Score.Score.Seconds, StringFormat='{0:D2}'}"
                                                 TextColor="White" />
                                         </FormattedString>
                                     </Label.FormattedText>

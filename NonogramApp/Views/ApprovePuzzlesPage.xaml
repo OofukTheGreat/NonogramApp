@@ -62,10 +62,9 @@
                             <SwipeView.RightItems>
                                 <SwipeItem
                                     BackgroundColor="Black"
-
                                     CommandParameter="{Binding Level.LevelId}"
                                     IconImageSource="approve.png" />
-                                <SwipeItem BackgroundColor="Black"/>
+                                <SwipeItem BackgroundColor="Black" />
                             </SwipeView.RightItems>
                             <Border
                                 Margin="4,1"
@@ -194,6 +193,12 @@
                         </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <Label
+                        FontSize="100"
+                        Text="hello"
+                        TextColor="Purple" />
+                </CollectionView.EmptyView>
             </CollectionView>
         </ScrollView>
     </VerticalStackLayout>

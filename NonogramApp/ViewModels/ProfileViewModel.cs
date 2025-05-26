@@ -26,7 +26,7 @@ namespace NonogramApp.ViewModels
         {
             await SetLevels();
             await SetScores();
-            await SetLevelsWithScores();
+            await SetLevelsWithMakerNames();
         }
         private PlayerDTO loggedUser;
         public PlayerDTO LoggedUser
@@ -97,7 +97,7 @@ namespace NonogramApp.ViewModels
                 }
             }
         }
-        public async Task SetLevelsWithScores()
+        public async Task SetLevelsWithMakerNames()
         {
             VisLevels = new();
             foreach (LevelDTO l in Levels)

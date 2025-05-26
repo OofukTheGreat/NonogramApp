@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Timers;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Core.Extensions;
 
 namespace NonogramApp.ViewModels
 {

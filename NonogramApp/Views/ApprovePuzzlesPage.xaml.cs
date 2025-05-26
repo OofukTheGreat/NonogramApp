@@ -9,4 +9,13 @@ public partial class ApprovePuzzlesPage : ContentPage
 		InitializeComponent();
         this.BindingContext = vm;
     }
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        if (this.BindingContext is ApprovePuzzlesViewModel)
+        {
+            ((ApprovePuzzlesViewModel)this.BindingContext).InitData();
+        }
+    }
 }

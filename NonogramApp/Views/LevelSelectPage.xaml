@@ -136,6 +136,7 @@
                                     Grid.Column="0"
                                     Margin="4,2,2,2"
                                     HeightRequest="102"
+                                    IsVisible="{Binding HasHighScore}"
                                     Stroke="Gray"
                                     StrokeThickness="1"
                                     WidthRequest="102">
