@@ -47,11 +47,6 @@ namespace NonogramApp.Services
         {
             return NonogramService.ImageBaseAddress;
         }
-
-        public string GetDefaultProfilePhotoUrl()
-        {
-            return $"{NonogramService.ImageBaseAddress}/profileImages/default.png";
-        }
         public async Task<PlayerDTO?> LoginAsync(LoginInfo userInfo)
         {
             //Set URI to the specific function API

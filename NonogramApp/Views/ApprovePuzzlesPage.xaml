@@ -7,7 +7,7 @@
     Title="ApprovePuzzlesPage"
     BackgroundImageSource="pixelbg.png"
     Shell.NavBarIsVisible="False">
-    <VerticalStackLayout>
+    <VerticalStackLayout x:Name="layout">
         <Border
             Margin="5,5,5,0"
             Padding="4"
@@ -62,8 +62,15 @@
                             <SwipeView.RightItems>
                                 <SwipeItem
                                     BackgroundColor="Black"
-                                    CommandParameter="{Binding Level.LevelId}"
-                                    IconImageSource="approve.png" />
+                                    Command="{Binding Source={x:Reference layout}, Path=BindingContext.ApproveCommand}"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource="approve2.png" />
+                                <SwipeItem BackgroundColor="Black" />
+                                <SwipeItem
+                                    BackgroundColor="Black"
+                                    Command="{Binding Source={x:Reference layout}, Path=BindingContext.DeclineCommand}"
+                                    CommandParameter="{Binding .}"
+                                    IconImageSource="decline.png" />
                                 <SwipeItem BackgroundColor="Black" />
                             </SwipeView.RightItems>
                             <Border

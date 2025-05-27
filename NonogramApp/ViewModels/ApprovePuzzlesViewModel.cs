@@ -22,8 +22,8 @@ namespace NonogramApp.ViewModels
             this.service = service;
             this.serviceProvider = serviceProvider;
             VisLevels = new ObservableCollection<LevelWithMakerName>();
-            ApproveCommand = new Command(Approve);
-            DeclineCommand = new Command(Decline);
+            ApproveCommand = new Command((Object o) => Approve(o));
+            DeclineCommand = new Command((Object o) => Decline(o));
             InitData();
         }
         public async void InitData()
@@ -95,13 +95,17 @@ namespace NonogramApp.ViewModels
                 VisLevels.Add(new LevelWithMakerName(l, Players.Where(p => p.Id == l.CreatorId).FirstOrDefault()));
             }
         }
-        public async void Approve()
+        public async void Approve(Object o)
         {
-
+            LevelWithMakerName level = ((LevelWithMakerName)o);
+            service.Approve(level.Level.LevelId);
+            VisLevels.Remove(level);
         }
-        public async void Decline()
+        public async void Decline(Object o)
         {
-
+            LevelWithMakerName level = ((LevelWithMakerName)o);
+            service.Decline(level.Level.LevelId);
+            VisLevels.Remove(level);
         }
     }
 }

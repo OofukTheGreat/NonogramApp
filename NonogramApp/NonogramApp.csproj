@@ -59,10 +59,12 @@
 	<ItemGroup>
 	  <None Remove="Resources\Fonts\Minecraft.ttf" />
 	  <None Remove="Resources\Images\approve.png" />
+	  <None Remove="Resources\Images\approve2.png" />
 	  <None Remove="Resources\Images\backarrow.png" />
 	  <None Remove="Resources\Images\color.png" />
 	  <None Remove="Resources\Images\congrats.gif" />
 	  <None Remove="Resources\Images\create.png" />
+	  <None Remove="Resources\Images\decline.png" />
 	  <None Remove="Resources\Images\edit.png" />
 	  <None Remove="Resources\Images\firework.gif" />
 	  <None Remove="Resources\Images\firework2.gif" />

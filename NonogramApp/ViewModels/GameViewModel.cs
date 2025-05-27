@@ -41,7 +41,6 @@ namespace NonogramApp.ViewModels
             ColorBorder = Color.FromArgb("#808080");
             MarkBorder = Color.FromArgb("#808080");
             MoveBorder = Color.FromArgb("#ffbb00");
-            MoveBorder2 = "Red";            
         }
         #region (Instance)Variables
         public ICommand AlterCommand { get; set; }
@@ -341,19 +340,7 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged(nameof(MoveBorder));
             }
         }
-        private string moveBorder2;
-        public string MoveBorder2
-        {
-            get
-            {
-                return moveBorder2;
-            }
-            set
-            {
-                moveBorder2 = value;
-                OnPropertyChanged(nameof(MoveBorder2));
-            }
-        }
+        private System.Timers.Timer timer;
         #endregion
         #region GameCreation
         public async void ExpandGrid(int size)
@@ -389,8 +376,6 @@ namespace NonogramApp.ViewModels
         {
             Labels = new ObservableCollection<Hint>(Game.GetLayoutList(size));
         }
-
-        private System.Timers.Timer timer;
         private async void Timer()
         {
 
@@ -400,7 +385,6 @@ namespace NonogramApp.ViewModels
             aTimer.Interval = 1000; //how often it triggers (in milliseconds)
             aTimer.Start();
         }
-
         private void UpdateTime(object source, ElapsedEventArgs e)
         {
             this.Time += 1; //how much gets added every trigger (in seconds)
@@ -498,12 +482,12 @@ namespace NonogramApp.ViewModels
                 {
                     if (T.CurrentColor != T.TrueColor) hasWon = false;
                 }
-                MarkRowColumn(SelectedX, SelectedY);
                 if (hasWon)
                 {
                     timer.Stop();
                     GameWon();
                 }
+                MarkRowColumn(SelectedX, SelectedY);
             }
             else
             {
@@ -541,12 +525,12 @@ namespace NonogramApp.ViewModels
                         {
                             if (T.CurrentColor != T.TrueColor) hasWon = false;
                         }
-                        MarkRowColumn(t.X, t.Y);
                         if (hasWon)
                         {
                             timer.Stop();
                             GameWon();
                         }
+                        MarkRowColumn(t.X, t.Y);
                         if (!(t.X == SelectedX && t.Y == SelectedY))
                         {
                             Game.SelectTile(SelectedX, SelectedY, t.X, t.Y);

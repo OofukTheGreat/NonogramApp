@@ -28,13 +28,7 @@ namespace NonogramApp.ViewModels
             SetSizeFilters();
             InitData();
         }
-        public async void InitData()
-        {
-            await SetLevels();
-            await SetScores();
-            await SetLevelsWithScores();
-            FilterLevels();
-        }
+        public ICommand GoToGameCommand { get; }
         private ObservableCollection<LevelDTO> levels;
         public ObservableCollection<LevelDTO> Levels
         {
@@ -115,6 +109,13 @@ namespace NonogramApp.ViewModels
                 OnPropertyChanged();
                 FilterLevels();
             }
+        }
+        public async void InitData()
+        {
+            await SetLevels();
+            await SetScores();
+            await SetLevelsWithScores();
+            FilterLevels();
         }
         public async Task SetLevels()
         {
@@ -199,7 +200,6 @@ namespace NonogramApp.ViewModels
             }
             FilteredLevels.OrderBy(l => l.Level.Size);
         }
-        public ICommand GoToGameCommand { get; }
         public void GoToGame()
         {
             InServerCall = true;
