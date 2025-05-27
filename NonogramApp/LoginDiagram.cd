@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NonogramApp.ViewModels.ViewModelBase" Collapsed="true">
+    <Position X="7.25" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAABAAAAgQAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NonogramApp.ViewModels.WelcomeViewModel" Collapsed="true">
+    <Position X="2.75" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAgAAAAABAAAAAEAAAACAAEA=</HashCode>
+      <FileName>ViewModels\WelcomeViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.ViewModels.SignupPageViewModel" Collapsed="true">
+    <Position X="5.75" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>xIAAUKgAADgIAAAgCIARIAAhAQABIgACQEIAAsAAAEI=</HashCode>
+      <FileName>ViewModels\SignupPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.ViewModels.LoginPageViewModel" Collapsed="true">
+    <Position X="8.75" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>QAAAECAAADAAAAAgAAAAAgAAAAABAACGQEAAAkCAAAA=</HashCode>
+      <FileName>ViewModels\LoginPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.ViewModels.LogoutPageViewModel" Collapsed="true">
+    <Position X="11.75" Y="2" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAABAAAAAAAAAAAAAAAAAAABAAAAAEAAAAAAAIA=</HashCode>
+      <FileName>ViewModels\LogoutPageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.LogoutPage" Collapsed="true">
+    <Position X="11.75" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LogoutPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.SignupPage" Collapsed="true">
+    <Position X="5.75" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\SignupPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.WelcomePage" Collapsed="true">
+    <Position X="2.75" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\WelcomePage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.LoginPage" Collapsed="true">
+    <Position X="8.75" Y="3" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LoginPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

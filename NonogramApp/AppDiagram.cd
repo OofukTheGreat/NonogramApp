@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NonogramApp.ViewModels.ApprovePuzzlesViewModel" Collapsed="true">
+    <Position X="9.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAgAAAAACAAAAAAAAEAQAAAAAANhAAABJUAIAAAIAAA=</HashCode>
+      <FileName>ViewModels\ApprovePuzzlesViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.ViewModels.CreateLevelsViewModel" Collapsed="true">
+    <Position X="12.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAAgAAIAZAIAIFQQAADGEAAAUxiRAAMJCUGAAggFgAI=</HashCode>
+      <FileName>ViewModels\CreateLevelsViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.ViewModels.LevelSelectViewModel" Collapsed="true">
+    <Position X="0.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AEAQIAAACCAAAAgAYEAYAAAAAUFBAAEBAkgoAQBAMAA=</HashCode>
+      <FileName>ViewModels\LevelSelectViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.ViewModels.ProfileViewModel" Collapsed="true">
+    <Position X="3.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAACgAAEAYAAAAAAEBACABBEgIAAAAAAA=</HashCode>
+      <FileName>ViewModels\ProfileViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.ViewModels.GameViewModel" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>EAQhEDIAsAxQAdgoQEBOIMICEhmbJAMZKOGBCggEIQI=</HashCode>
+      <FileName>ViewModels\GameViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.ViewModels.ViewModelBase" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAIAABAAAAgQAACAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\ViewModelBase.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NonogramApp.Views.ProfilePage" Collapsed="true">
+    <Position X="3.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ProfilePage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.LevelSelectPage" Collapsed="true">
+    <Position X="0.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\LevelSelectPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.Leaderboard" Collapsed="true">
+    <Position X="6.5" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
+      <FileName>Views\Leaderboard.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.GamePage" Collapsed="true">
+    <Position X="6.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAIAAAAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\GamePage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.ApprovePuzzlesPage" Collapsed="true">
+    <Position X="9.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\ApprovePuzzlesPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Views.CreateLevelsPage" Collapsed="true">
+    <Position X="12.5" Y="2.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Views\CreateLevelsPage.xaml.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

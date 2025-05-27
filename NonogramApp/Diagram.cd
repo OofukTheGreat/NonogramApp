@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="NonogramApp.Models.Game" Collapsed="true">
+    <Position X="2.75" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABAAAAAAAgAECAAAAAAAAAAARAAAAAQAAAACACAAAAA=</HashCode>
+      <FileName>Models\Game.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Field Name="Board" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="NonogramApp.Models.Hint" Collapsed="true">
+    <Position X="5" Y="5.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIIDAACAAQgQAAAAEIACBgCAAAYAA=</HashCode>
+      <FileName>Models\Hint.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NonogramApp.Models.LeaderboardScore" Collapsed="true">
+    <Position X="8" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgIAAAAAAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Models\LeaderboardScore.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Score" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NonogramApp.Models.SS" Collapsed="true">
+    <Position X="14" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAIAAAAgEACAAAAAAAAABAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Models\LevelDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Models.LevelWithMakerName" Collapsed="true">
+    <Position X="14" Y="6" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAEAAAAAAAAAAAAAAAAIBAAAACAgAAAA=</HashCode>
+      <FileName>Models\LevelWithMakerName.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Level" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NonogramApp.Models.LevelWithScores" Collapsed="true">
+    <Position X="14" Y="2" Width="1.75" />
+    <AssociationLine Name="CurrentScore" Type="NonogramApp.Models.ScoreDTO" ManuallyRouted="true" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="14" Y="2.457" />
+        <Point X="12.75" Y="2.457" />
+      </Path>
+    </AssociationLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAQAAAAEgAAAAgAAAAAAAAAAIFAAABAAwAAAA=</HashCode>
+      <FileName>Models\LevelWithScores.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="CurrentScore" />
+      <Property Name="HighScore" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NonogramApp.Models.LoginInfo" Collapsed="true">
+    <Position X="2.75" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Models\LoginInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Models.PlayerDTO" Collapsed="true">
+    <Position X="11" Y="4" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAACAAAAAAAAAAAAAACAAAAAACBAAAEAAAAAA=</HashCode>
+      <FileName>Models\PlayerDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Models.ScoreDTO" Collapsed="true">
+    <Position X="11" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAQAAAAQAAAAAAAABAAAAAAAAALgAAAAQA=</HashCode>
+      <FileName>Models\ScoreDTO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NonogramApp.Models.ScoreWithPlayerData" Collapsed="true">
+    <Position X="8" Y="2" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAAQAACAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\ScoreWithPlayerData.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Score" />
+    </ShowAsAssociation>
+  </Class>
+  <Class Name="NonogramApp.Models.Tile" Collapsed="true">
+    <Position X="2.75" Y="7" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAIEAAAABIBIAAEACgABAAIAAAADgAAAAYAA=</HashCode>
+      <FileName>Models\Tile.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
