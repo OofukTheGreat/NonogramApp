@@ -498,13 +498,13 @@ namespace NonogramApp.Services
         public async Task Approve(int levelid)
         {
             //Set URI to the specific function API
-            string parameterKey = "levelid";
-            string parameterValue = levelid.ToString();
-            string url = $"{this.baseUrl}approve?{parameterKey}={parameterValue}";
+            string url = $"{this.baseUrl}approve";
             try
             {
                 //Call the server API
-                HttpResponseMessage response = await client.GetAsync(url);
+                string json = JsonSerializer.Serialize(levelid);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url,content);
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {
@@ -525,13 +525,13 @@ namespace NonogramApp.Services
         public async Task Decline(int levelid)
         {
             //Set URI to the specific function API
-            string parameterKey = "levelid";
-            string parameterValue = levelid.ToString();
-            string url = $"{this.baseUrl}decline?{parameterKey}={parameterValue}";
+            string url = $"{this.baseUrl}decline";
             try
             {
                 //Call the server API
-                HttpResponseMessage response = await client.GetAsync(url);
+                string json = JsonSerializer.Serialize(levelid);
+                StringContent content = new StringContent(json, Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await client.PostAsync(url, content);
                 //Check status
                 if (response.IsSuccessStatusCode)
                 {

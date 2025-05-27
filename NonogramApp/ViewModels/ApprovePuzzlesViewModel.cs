@@ -98,13 +98,13 @@ namespace NonogramApp.ViewModels
         public async void Approve(Object o)
         {
             LevelWithMakerName level = ((LevelWithMakerName)o);
-            service.Approve(level.Level.LevelId);
+            await service.Approve(level.Level.LevelId);
             VisLevels.Remove(level);
         }
         public async void Decline(Object o)
         {
             LevelWithMakerName level = ((LevelWithMakerName)o);
-            service.Decline(level.Level.LevelId);
+            await service.Decline(level.Level.LevelId);
             VisLevels.Remove(level);
         }
     }
